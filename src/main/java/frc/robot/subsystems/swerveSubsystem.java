@@ -5,23 +5,51 @@
 package frc.robot.subsystems;
 
 import java.io.File;
+import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
+import swervelib.math.SwerveMath;
 import swervelib.parser.SwerveParser;
+import swervelib.telemetry.SwerveDriveTelemetry;
+import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class swerveSubsystem extends SubsystemBase {
 
+
+  /**
+   * Swerve drive object.
+   */
+  private final SwerveDrive swerveDrive;
+  /**
+   * Maximum speed of the robot in meters per second, used to limit acceleration.
+   */
+  public        double      maximumSpeed = 5.2;
+  /**
+   * Roboy configuration gathered from pathplanner
+   */
+  public RobotConfig robotConfig;
   
   
-  /** Creates a new swerveDrive. */
+  /**
+   * Innitialive {@link SwerveDrive} with the directory provided
+   * 
+   * @param directory Directory of the swerve drive json file
+   */
   public swerveSubsystem(File directory) {
+    // Configure how much telemetry  data is sent
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.INFO;
     try{
-      SwerveDrive swerveDrive = new SwerveParser(directory).createSwerveDrive(4);
+      swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
     }catch (Exception e)
     {
       throw new RuntimeException(e);
@@ -33,9 +61,8 @@ public class swerveSubsystem extends SubsystemBase {
    
     // Load the RobotConfig from the GUI settings. You should probably
     // store this in your Constants file
-    RobotConfig config;
     try{
-      config = RobotConfig.fromGUISettings();
+      robotConfig = RobotConfig.fromGUISettings();
     } catch (Exception e) {
       // Handle exception as needed
       e.printStackTrace();
@@ -44,14 +71,14 @@ public class swerveSubsystem extends SubsystemBase {
     // Configure AutoBuilder last
     AutoBuilder.configure(
             this::getPose, // Robot pose supplier
-            this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-            this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-            (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+            this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+            this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+            this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
                     new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
                     new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
             ),
-            config, // The robot configuration
+            robotConfig, // The robot configuration
             () -> {
               // Boolean supplier that controls when the path will be mirrored for the red alliance
               // This will flip the path being followed to the red side of the field.
@@ -67,8 +94,44 @@ public class swerveSubsystem extends SubsystemBase {
     );
   }
 
-  public void getPose(){
-    swerveDrive
+  //Function to return the pose of the robot
+  public Pose2d getPose(){
+    return swerveDrive.getPose();
+  }
+
+    //Function to reset the odometry pose
+  public void resetOdometry(Pose2d initialHolonomicPose){
+    swerveDrive.resetOdometry(initialHolonomicPose);
+  }
+
+  //Function to get robot velocity
+  public ChassisSpeeds getRobotVelocity(){
+    return swerveDrive.getRobotVelocity();
+  }
+
+  //Function set robot chassisSpeeds
+  public void setChassisSpeeds(ChassisSpeeds speeds){
+    swerveDrive.setChassisSpeeds(speeds);
+  }
+  
+  /**
+   * Command to drive the robot using translative values and heading as a setpoint
+   * 
+   * @param translationX translation in x direction
+   * @param translationY translation in y direction
+   * @param headingX Heading as X to calculate angle of the joysticks
+   * @param headingY Heading as y to calculate angle of the joysticks
+   */
+  public void drive(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX, DoubleSupplier headingY){
+    
+    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX.getAsDouble(),
+                                                                               translationY.getAsDouble()), 0.8);
+
+    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
+                                                 headingX.getAsDouble(), headingY.getAsDouble(),
+                                                 swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
+
+    setChassisSpeeds(chassisSpeeds);
   }
   @Override
   public void periodic() {
