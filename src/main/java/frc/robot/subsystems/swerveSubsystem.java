@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import java.io.File;
-import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
@@ -122,13 +121,13 @@ public class swerveSubsystem extends SubsystemBase {
    * @param headingX Heading as X to calculate angle of the joysticks
    * @param headingY Heading as y to calculate angle of the joysticks
    */
-  public void drive(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX, DoubleSupplier headingY){
+  public void drive(Double translationX, Double translationY, Double headingX, Double headingY){
     
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX.getAsDouble(),
-                                                                               translationY.getAsDouble()), 0.8);
+    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX,
+                                                                               translationY), 0.8);
 
     ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-                                                 headingX.getAsDouble(), headingY.getAsDouble(),
+                                                 headingX, headingY,
                                                  swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
 
     setChassisSpeeds(chassisSpeeds);
