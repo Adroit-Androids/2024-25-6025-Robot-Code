@@ -2,14 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.SwerveDrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.swerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Poselock extends Command {
+
+  public swerveSubsystem m_SwerveSubsystem;
+  
   /** Creates a new Poselock. */
-  public Poselock() {
+  public Poselock(swerveSubsystem m_SwerveSubsystem) {
+    addRequirements(m_SwerveSubsystem);
+    this.m_SwerveSubsystem = m_SwerveSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -19,8 +25,9 @@ public class Poselock extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
-
+  public void execute() {
+    m_SwerveSubsystem.swerveDrive.lockPose();
+  }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

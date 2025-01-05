@@ -5,7 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.absoluteDrive;
+import frc.robot.commands.SwerveDrive.Poselock;
+import frc.robot.commands.SwerveDrive.absoluteDrive;
 import frc.robot.subsystems.swerveSubsystem;
 
 import java.io.File;
@@ -56,6 +57,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    m_driverController.a().whileTrue(new Poselock(m_swerveDrive));
   }
 
   /**
@@ -75,4 +77,5 @@ public class RobotContainer {
         return Commands.none();
     // An example command will be run in autonomous
   }
+}
 }
