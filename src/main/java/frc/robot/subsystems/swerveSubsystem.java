@@ -16,7 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import swervelib.SwerveDrive;
+import swervelib.SwerveDrive
 import swervelib.math.SwerveMath;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -27,7 +27,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Swerve drive object.
    */
-  public final SwerveDrive swerveDrive;
+  public final swerveDrive swerveDrive;
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
