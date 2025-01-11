@@ -1,0 +1,61 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.202663934426229,
+        "y": 2.850204918032787
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.860663934426229,
+        "y": 1.7047049180327858
+      },
+      "isLocked": false,
+      "linkedName": "Coral place 1"
+    },
+    {
+      "anchor": {
+        "x": 1.4917500000000001,
+        "y": 0.8659999999999991
+      },
+      "prevControl": {
+        "x": 3.1492500000000003,
+        "y": 1.5289999999999997
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Coral intake"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Coral intake",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -126.0
+  },
+  "reversed": false,
+  "folder": "Scenario 1",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "useDefaultConstraints": true
+}
