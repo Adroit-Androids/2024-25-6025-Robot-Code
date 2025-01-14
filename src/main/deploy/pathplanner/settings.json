@@ -3,8 +3,11 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
+    "Scenario 5",
+    "Scenario 1",
     "Scenario 2",
-    "Scenario 1"
+    "Scenario 3",
+    "Scenario 4"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,

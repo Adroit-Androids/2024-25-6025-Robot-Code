@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.184040178571427,
-        "y": 2.810602678571429
+        "x": 5.202663934426229,
+        "y": 2.850204918032787
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.07673213145057,
-        "y": 3.036401223790631
+        "x": 3.860663934426229,
+        "y": 1.7047049180327858
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Scenario1End1_PlaceCoral"
     },
     {
       "anchor": {
-        "x": 1.2013392857142857,
-        "y": 1.0869419642857145
+        "x": 1.4917500000000001,
+        "y": 0.8659999999999991
       },
       "prevControl": {
-        "x": 0.8181175402614298,
-        "y": 0.8554889233509528
+        "x": 3.1492500000000003,
+        "y": 1.5289999999999997
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Scenario1End2_RetreiveCoral"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Retrieve_Coral",
+      "name": "Retreive_Coral",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
@@ -49,10 +49,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -127.00000000000001
+    "rotation": -126.0
   },
   "reversed": false,
-  "folder": "Scenario 2",
+  "folder": "Scenario 1",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 119.99999999999999

@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2Coral_Place1"
+            "pathName": "5Coral_Place"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2Coral_Retrieve"
+            "pathName": "5Algae_Retreive1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2Coral_Place2"
+            "pathName": "5Algae_Place"
           }
         }
       ]

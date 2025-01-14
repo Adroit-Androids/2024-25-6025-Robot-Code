@@ -1,0 +1,61 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.24396404109589,
+        "y": 5.2871575342465755
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.7451519691780826,
+        "y": 6.625159001956948
+      },
+      "isLocked": false,
+      "linkedName": "Scenario4End1_PlaceCoral"
+    },
+    {
+      "anchor": {
+        "x": 1.4124143835616438,
+        "y": 6.894905821917808
+      },
+      "prevControl": {
+        "x": 2.554366438356164,
+        "y": 6.684546232876712
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Scenario4End2_RetreiveCoral"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Retreive_Coral",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 125.00000000000001
+  },
+  "reversed": false,
+  "folder": "Scenario 4",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -119.99999999999999
+  },
+  "useDefaultConstraints": true
+}

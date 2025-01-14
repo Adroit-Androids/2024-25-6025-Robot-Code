@@ -7,19 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2Coral_Place1"
+            "pathName": "4Coral_Placement1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2Coral_Retrieve"
+            "pathName": "4Coral_Retreive1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2Coral_Place2"
+            "pathName": "4Coral_Placement2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4Coral_Retreive2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4Coral_Placement2"
           }
         }
       ]
