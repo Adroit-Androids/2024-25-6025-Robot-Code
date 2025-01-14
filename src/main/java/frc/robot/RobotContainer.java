@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.Poselock;
 import frc.robot.commands.SwerveDrive.absoluteDrive;
 import frc.robot.subsystems.swerveSubsystem;
+import frc.robot.subsystems.telescopicArm;
 
 import java.io.File;
 
@@ -32,6 +33,8 @@ public class RobotContainer {
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),
   "swerve"));
   public static final absoluteDrive m_absoluteDriveCommand = new absoluteDrive(m_swerveDrive);
+
+  public static final telescopicArm m_telescopicArm = new telescopicArm();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final CommandXboxController m_driverController =

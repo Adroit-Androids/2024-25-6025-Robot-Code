@@ -43,6 +43,9 @@ public class telescopicArm extends SubsystemBase {
     telescopicArm.setSelectedSensorPosition(0);
   }
 
+  public void setSpeed(double speed){
+  }
+
 
 
   @Override
