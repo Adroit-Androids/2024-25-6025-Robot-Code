@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.831549657534247,
-        "y": 5.903210616438356
+        "x": 3.200470890410959,
+        "y": 6.053467465753425
       },
       "isLocked": false,
       "linkedName": "Scenario4End3_PlaceCoral"
@@ -20,8 +20,8 @@
         "y": 6.894905821917808
       },
       "prevControl": {
-        "x": 2.4191352739726026,
-        "y": 7.000085616438356
+        "x": 2.4491866438356165,
+        "y": 6.9700342465753415
       },
       "nextControl": null,
       "isLocked": false,
