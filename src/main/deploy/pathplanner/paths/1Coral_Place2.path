@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6910000000000007,
-        "y": 2.9915000000000003
+        "x": 2.070289214360989,
+        "y": 1.7799708559591778
       },
       "isLocked": false,
       "linkedName": "Scenario1End2_RetreiveCoral"
@@ -20,8 +20,8 @@
         "y": 2.80625
       },
       "prevControl": {
-        "x": 2.979985267731272,
-        "y": 1.8510576621662245
+        "x": 3.1075733326736428,
+        "y": 2.349597998051929
       },
       "nextControl": null,
       "isLocked": false,
