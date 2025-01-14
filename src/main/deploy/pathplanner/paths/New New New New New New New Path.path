@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.681292808219178,
-        "y": 5.422388698630137
+        "x": 6.333147321428571,
+        "y": 0.6690848214285711
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.200470890410959,
-        "y": 6.053467465753425
+        "x": 5.323146420112341,
+        "y": 0.909356510610966
       },
       "isLocked": false,
-      "linkedName": "Scenario4End3_PlaceCoral"
+      "linkedName": "Scenario8End2"
     },
     {
       "anchor": {
-        "x": 1.4124143835616438,
-        "y": 6.894905821917808
+        "x": 2.0109375,
+        "y": 2.1838169642857146
       },
       "prevControl": {
-        "x": 2.4491866438356165,
-        "y": 6.9700342465753415
+        "x": 3.0454924749178356,
+        "y": 1.8167243123088013
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Scenario4End2_RetreiveCoral"
+      "linkedName": "Scenario8End3"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Retreive_Coral",
-      "waypointRelativePos": 1.0,
+      "name": "Retreive_Algae",
+      "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -49,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 125.00000000000001
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Scenario 4",
+  "folder": "Scenario 8",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }
