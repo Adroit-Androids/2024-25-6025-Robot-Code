@@ -3,42 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.572945205479453,
-        "y": 1.9364297945205475
+        "x": 1.4625,
+        "y": 7.028348214285713
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.600665535757824,
-        "y": 2.1314044034920014
+        "x": 2.2459821428571427,
+        "y": 5.996763392857142
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Scenario7End2_RetreiveCoral"
     },
     {
       "anchor": {
-        "x": 5.202663934426229,
-        "y": 2.850204918032787
+        "x": 3.7868303571428568,
+        "y": 5.265513392857142
       },
       "prevControl": {
-        "x": 5.469580887151629,
-        "y": 2.7704254146483933
+        "x": 3.517375618948647,
+        "y": 5.616685715368244
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Scenario1End1_PlaceCoral"
+      "linkedName": "Scenario7End3_PlaceCoral"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Placement_Coral",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -49,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": -59.99999999999999
   },
   "reversed": false,
-  "folder": "Scenario 1",
+  "folder": "Scenario 7",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 125.00000000000001
   },
   "useDefaultConstraints": true
 }
