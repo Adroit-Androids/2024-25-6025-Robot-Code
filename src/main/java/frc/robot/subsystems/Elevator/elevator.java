@@ -3,15 +3,58 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems.Elevator;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+
 public class elevator extends SubsystemBase {
-  /** Creates a new elevator. */
-  public elevator() {}
+
+  private final elevatorIO io;
+  //private final elevatorIOInputsLogging inputs = new elevatorIOInputsLogging();
+
+  // Constructor
+  public elevator (elevatorIO io) {
+    this.io = io;
+  }
+
+
+  // Method to adjust/set power for the elevator
+  public void setVoltage(double voltage){
+    System.out.println("Elevator position: " + getPosition());
+    io.set(voltage);
+  }
+
+  
+  // Method to stop the elevator
+  public void stop(){
+    io.stop();
+  }
+
+
+  //Method to set the elevator to a specific desired position
+  public void setPosition(double position){
+    io.setPosition(position);
+  }
+
+
+
+// ----------------------
+  public double getPosition(){
+    return io.getPosition();
+  }
+
+  public double getVelocity(){
+    return io.getVelocity();
+  }
+
+  public double resetPosition(){
+    return io.resetPosition();
+  }
+// -----------------------
+
+
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    //io.updateInputs(inputs);
   }
 }
