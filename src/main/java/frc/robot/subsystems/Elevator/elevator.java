@@ -3,10 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems.Elevator;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class elevator extends SubsystemBase {
+  private DigitalInput magneticSwitchUpper = new DigitalInput(0);
+  private DigitalInput magneticSwitchLower = new DigitalInput(1);
 
   private final elevatorIO io;
   //private final elevatorIOInputsLogging inputs = new elevatorIOInputsLogging();
@@ -55,6 +58,12 @@ public class elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (magneticSwitchUpper.get() == true){
+      io.stop();
+    }
+    if (magneticSwitchLower.get() == true){
+      io.stop();
+    }
     //io.updateInputs(inputs);
   }
 }
