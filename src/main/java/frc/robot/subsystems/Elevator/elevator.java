@@ -63,6 +63,7 @@ public class elevator extends SubsystemBase {
     }
     if (magneticSwitchLower.get() == true){
       io.stop();
+      io.resetPosition();
     }
     //io.updateInputs(inputs);
   }
