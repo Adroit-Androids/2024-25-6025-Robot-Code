@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class elevator extends SubsystemBase {
 
-  private final elevatorIO io;
+  public elevatorIO io;
   //private final elevatorIOInputsLogging inputs = new elevatorIOInputsLogging();
 
   // Constructor
@@ -46,8 +46,8 @@ public class elevator extends SubsystemBase {
     return io.getVelocity();
   }
 
-  public double resetPosition(){
-    return io.resetPosition();
+  public void resetPosition(){
+    io.resetPosition();
   }
 // -----------------------
 
