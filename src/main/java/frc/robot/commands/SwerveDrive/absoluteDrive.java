@@ -9,10 +9,10 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.swerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class absoluteDrive extends Command {
+public class AbsoluteDrive extends Command {
   public swerveSubsystem m_swerveSubsystem;
   /** Creates a new absoluteDrive. */
-  public absoluteDrive(swerveSubsystem m_swerveSubsystem) {
+  public AbsoluteDrive(swerveSubsystem m_swerveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_swerveSubsystem);
     this.m_swerveSubsystem = m_swerveSubsystem;
