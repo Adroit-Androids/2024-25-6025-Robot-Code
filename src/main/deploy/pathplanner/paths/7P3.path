@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.258989726027397,
-        "y": 2.582534246575342
+        "x": 2.0109375,
+        "y": 2.131584821428571
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.465848214285714,
-        "y": 2.131584821428571
+        "x": 2.9205000423325105,
+        "y": 1.7812515236508337
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "TestEnd3"
     },
     {
       "anchor": {
-        "x": 1.4886160714285714,
-        "y": 0.8518973214285711
+        "x": 6.150334821428571,
+        "y": 0.64296875
       },
       "prevControl": {
-        "x": 2.9978114788595276,
-        "y": 1.6414332826364895
+        "x": 5.196341694312723,
+        "y": 0.968448740064646
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "TestEnd2"
+      "linkedName": "TestEnd22"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -125.00000000000001
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Scenario Jahhrein",
+  "folder": "Scenario 8",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

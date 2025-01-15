@@ -10,6 +10,7 @@
     "Scenario 4",
     "Scenario 5",
     "Scenario 6",
+    "Scenario 8",
     "Scenario Jahhrein"
   ],
   "autoFolders": [],
@@ -24,7 +25,7 @@
   "driveWheelRadius": 0.048,
   "driveGearing": 5.143,
   "maxDriveSpeed": 99999.0,
-  "driveMotorType": "krakenX60",
+  "driveMotorType": "NEO",
   "driveCurrentLimit": 60.0,
   "wheelCOF": 1.2,
   "flModuleX": 0.273,

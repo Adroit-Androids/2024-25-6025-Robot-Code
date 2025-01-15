@@ -7,31 +7,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "8Coral_Placement1"
+            "pathName": "7P1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "8Coral_Retreive1"
+            "pathName": "7P2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "8Coral_Placement2"
+            "pathName": "7R1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "8Coral_Retreive2"
+            "pathName": "7P3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "8Coral_Placement2"
+            "pathName": "7R2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "7P4"
           }
         }
       ]
