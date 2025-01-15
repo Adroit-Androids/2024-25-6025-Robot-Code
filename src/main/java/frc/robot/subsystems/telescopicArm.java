@@ -23,7 +23,7 @@ public class telescopicArm extends SubsystemBase {
 
   private final TrapezoidProfile.Constraints armConstraints = new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration);
 
-  public ProfiledPIDController armController = new ProfiledPIDController(Kp,ki, Kd, armConstraints);
+  public ProfiledPIDController armController = new ProfiledPIDController(Kp, ki, Kd, armConstraints);
 
 
   WPI_TalonSRX telescopicArm = new WPI_TalonSRX(0);
@@ -44,6 +44,7 @@ public class telescopicArm extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
+    telescopicArm.set(speed);
   }
 
 
