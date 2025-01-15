@@ -8,17 +8,20 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.Poselock;
 import frc.robot.commands.SwerveDrive.absoluteDrive;
 import frc.robot.subsystems.swerveSubsystem;
-import frc.robot.subsystems.telescopicArm;
+import frc.robot.subsystems.Elevator.elevator;
+import frc.robot.subsystems.Elevator.elevatorIO;
 
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -29,12 +32,30 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),
-  "swerve"));
-  public static final absoluteDrive m_absoluteDriveCommand = new absoluteDrive(m_swerveDrive);
 
-  public static final telescopicArm m_telescopicArm = new telescopicArm();
+  private final double PROCESSOR_HEIGHT = 0;
+  private final double SOURCE_HEIGHT = 8.75;
+  private final double L1_HEIGHT = 3;
+  private final double L2_HEIGHT = 5.5;
+  private final double L3_HEIGHT = 21.5;
+  private final double L4_HEIGHT = 52.5;
+  private final double TOP_ALGAE_HEIGHT = 40;
+
+  private final double PROCESSOR_ANGLE = 0;
+  private final double SOURCE_ANGLE = 0.15;
+  private final double L1_ANGLE = 0.3;
+  private final double L2_ANGLE = 0.225;
+  private final double L3_ANGLE = 0.225;
+  private final double L4_ANGLE = 0.26;
+  private final double TOP_ALGAE_ANGLE = 0;
+
+  // The robot's subsystems and commands are defined here...
+
+  public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
+  public static final absoluteDrive m_absoluteDriveCommand = new absoluteDrive(m_swerveDrive);
+  public static final elevator m_elevator = new elevator(new elevatorIO());
+
+  //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final CommandXboxController m_driverController =
@@ -43,6 +64,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+
+    new EventTrigger("Coral_Placement").onTrue(Commands.print("1"));
+
     configureBindings();
   }
 
@@ -60,7 +84,23 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.a().whileTrue(new Poselock(m_swerveDrive));
+    //m_driverController.a().whileTrue(new Poselock(m_swerveDrive));
+
+        // L1 state
+    Command liftToL1Command = new RunCommand(() -> m_elevator.setPosition(L1_HEIGHT), m_elevator);
+    m_driverController.a().onTrue(liftToL1Command);
+
+        // L2 state
+    Command liftToL2Command = new RunCommand(() -> m_elevator.setPosition(L2_HEIGHT), m_elevator);
+    m_driverController.b().onTrue(liftToL2Command);
+
+        // L3 state
+    Command liftToL3Command = new RunCommand(() -> m_elevator.setPosition(L3_HEIGHT), m_elevator);
+    m_driverController.x().onTrue(liftToL3Command);
+
+
+    
+
   }
 
   /**
