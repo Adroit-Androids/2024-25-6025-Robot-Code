@@ -4,14 +4,31 @@
 
 package frc.robot.subsystems.Limelight;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 
 public class limelight extends SubsystemBase {
+  private String ll_table = "limelight";
+  public double tx;
+  public double ty;
+  public double ta;
+  public double currentApriltagID;
   /** Creates a new limelight. */
   public limelight() {}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    tx = LimelightHelpers.getTX(ll_table);
+    ty = LimelightHelpers.getTY(ll_table);
+    ta = LimelightHelpers.getTA(ll_table);
+    currentApriltagID = LimelightHelpers.getFiducialID(ll_table);
+    
+
+    SmartDashboard.putNumber("LimelightX", tx);
+    SmartDashboard.putNumber("LimelightY", ty);
+    SmartDashboard.putNumber("LimelightArea", ta);
+    SmartDashboard.putNumber("Apriltag ID", currentApriltagID);
   }
 }
