@@ -7,9 +7,9 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.Poselock;
 import frc.robot.commands.SwerveDrive.absoluteDrive;
+import frc.robot.subsystems.swerveSubsystem;
 import frc.robot.subsystems.Elevator.elevator;
 import frc.robot.subsystems.Elevator.elevatorIO;
-import frc.robot.subsystems.Swerve.swerveSubsystem;
 
 import java.io.File;
 
@@ -51,7 +51,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
 
-  public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
+  public static final frc.robot.subsystems.Swerve.swerveSubsystem m_swerveDrive = new frc.robot.subsystems.Swerve.swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final absoluteDrive m_absoluteDriveCommand = new absoluteDrive(m_swerveDrive);
   public static final elevator m_elevator = new elevator(new elevatorIO());
 
@@ -98,8 +98,12 @@ public class RobotContainer {
     Command liftToL3Command = new RunCommand(() -> m_elevator.setPosition(L3_HEIGHT), m_elevator);
     m_driverController.x().onTrue(liftToL3Command);
 
+        // L4 state
+    Command liftToL4Command = new RunCommand(() -> m_elevator.setPosition(L4_HEIGHT), m_elevator);
+    m_driverController.y().onTrue(liftToL4Command);
 
 
+    
 
   }
 

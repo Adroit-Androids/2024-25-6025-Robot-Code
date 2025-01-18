@@ -12,7 +12,6 @@ public class elevator extends SubsystemBase {
   private DigitalInput magneticSwitchLower = new DigitalInput(1);
 
   private final elevatorIO io;
-  private final elevatorIOInputsLogging inputs = new elevatorIOInputsLogging();
 
   // Constructor
   public elevator (elevatorIO io) {
