@@ -10,6 +10,7 @@
     "Scenario 4",
     "Scenario 5",
     "Scenario 6",
+    "Scenario 8",
     "Scenario Jahhrein"
   ],
   "autoFolders": [],
@@ -23,7 +24,11 @@
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.048,
   "driveGearing": 5.143,
+<<<<<<< HEAD
   "maxDriveSpeed": 5.0,
+=======
+  "maxDriveSpeed": 99999.0,
+>>>>>>> f31594292953adc55e04175b6959a25864058c60
   "driveMotorType": "NEO",
   "driveCurrentLimit": 60.0,
   "wheelCOF": 1.2,
