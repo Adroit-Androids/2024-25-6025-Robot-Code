@@ -5,7 +5,7 @@
 package frc.robot.commands.SwerveDrive;
 
 
-
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight.limelight;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
@@ -17,6 +17,7 @@ public class apriltagAllignment extends Command {
   double[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
   double targetAngle;
+  Rotation2d targeRotation2d;
 
   /** Creates a new apriltagAllignment. */
   public apriltagAllignment(swerveSubsystem swerveDrive, limelight limelight) {
@@ -58,7 +59,8 @@ public class apriltagAllignment extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveDrive.swerveDrive.drive(null, targetAngle, true, false);
+    targeRotation2d = targeRotation2d.fromDegrees(targetAngle);
+    m_swerveDrive.arcadeDrive(0.0, 0.0, targeRotation2d.getCos(), targeRotation2d.getSin());
   }
   
   // Called once the command ends or is interrupted.
@@ -72,7 +74,7 @@ public class apriltagAllignment extends Command {
     if (isValidID){
       return false;
     }
-    if (targetAngle == m_swerveDrive.robotRotation){
+    if (targetAngle == m_swerveDrive.robotRotationDegrees){
       return true;
      }
     else{
