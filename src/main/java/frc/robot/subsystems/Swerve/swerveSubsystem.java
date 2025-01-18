@@ -36,6 +36,8 @@ public class swerveSubsystem extends SubsystemBase {
    * Roboy configuration gathered from pathplanner
    */
   public RobotConfig robotConfig;
+
+  public double robotRotationDegrees;
   
   
   /**
@@ -120,7 +122,7 @@ public class swerveSubsystem extends SubsystemBase {
    * @param headingX Heading as X to calculate angle of the joysticks
    * @param headingY Heading as y to calculate angle of the joysticks
    */
-  public void drive(Double translationX, Double translationY, Double headingX, Double headingY){
+  public void arcadeDrive(Double translationX, Double translationY, Double headingX, Double headingY){
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX,
                                                                                translationY), 0.8);
@@ -134,5 +136,6 @@ public class swerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    robotRotationDegrees = swerveDrive.getOdometryHeading().getDegrees();
   }
 }
