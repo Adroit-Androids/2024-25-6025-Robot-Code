@@ -49,17 +49,18 @@ public class RobotContainer {
   private final double L4_ANGLE = 0.26;
   private final double TOP_ALGAE_ANGLE = 0;
 
+  // Replace with CommandPS4Controller or CommandJoystick if needed
+  public static final CommandXboxController m_driverController =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
   // The robot's subsystems and commands are defined here...
 
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  public static final absoluteDrive m_absoluteDriveCommand = new absoluteDrive(m_swerveDrive);
+  public static final absoluteDrive m_absoluteDriveCommand = new absoluteDrive(m_swerveDrive, m_driverController);
   public static final elevator m_elevator = new elevator(new elevatorIO());
 
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
