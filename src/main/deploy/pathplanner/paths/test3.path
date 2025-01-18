@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 2.1415178571428575,
-        "y": 2.001004464285714
+        "y": 2.0010044642857143
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 59.99999999999999
   },
   "reversed": false,
-  "folder": "Scenario Jahhrein",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": -125.00000000000001
