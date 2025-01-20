@@ -6,7 +6,6 @@ package frc.robot.commands.SwerveDrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -29,10 +28,10 @@ public class absoluteDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubsystem.arcadeDrive(RobotContainer.m_driverController.getRightX(),
-                                       robotController.getRightY(),
-                                       robotController.getLeftX(),
-                                       robotController.getLeftY());
+    m_swerveSubsystem.arcadeDrive(robotController.getLeftX(),
+                                       robotController.getLeftY(),
+                                       robotController.getRightX(),
+                                       robotController.getRightY());
   }
 
   // Called once the command ends or is interrupted.
