@@ -34,7 +34,7 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   private final ArmFeedforward feedforward = new ArmFeedforward(0.0, 0.0, 0.0);
 
   public void setWristPositionByDegrees(double position) {
-    double targetPosition = Math.toRadians(position);
+    targetPosition = Math.toRadians(position);
   }
 
   public double getTargetWristPosition() {
@@ -50,7 +50,7 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   }
   
   public double getCoralWristIntakeCurrent() {
-    return inputs.coralWristPosition;
+    return inputs.coralWristCurrent;
   }
   
   public double getWristPosition(){ 
@@ -62,7 +62,6 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   }
 
   public void setWristVoltage(double voltage) {
-    System.out.println(getWristPosition());
     io.setWristVoltage(voltage);
   }
   
