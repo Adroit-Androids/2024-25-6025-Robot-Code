@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -77,17 +76,12 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.m_absoluteDriveCommand.schedule();
-
   }
-  
+
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    
-    SmartDashboard.putNumber("Left joystick x", m_robotContainer.m_driverController.getLeftX());
-    SmartDashboard.putNumber("Left joystick y", m_robotContainer.m_driverController.getLeftY());
-    SmartDashboard.putNumber("Right joystick x", m_robotContainer.m_driverController.getRightX());
-    SmartDashboard.putNumber("Right joystick y", m_robotContainer.m_driverController.getRightY());
+
   }
 
   @Override

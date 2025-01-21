@@ -17,7 +17,6 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.MotorIds;
 
 public class IntakeIO extends SubsystemBase {
   TalonSRX coralIntake;
@@ -25,9 +24,9 @@ public class IntakeIO extends SubsystemBase {
 
   SparkBaseConfig coralWristConfig;
 
-  TalonSRX algeaIntake;
+  TalonSRX algeaIntake = new TalonSRX(0);
 
-@AutoLog
+    @AutoLog
   public static class IntakeIOInputs {
     public double coralWristCurrent = 0.0;
     public double coralWristVelocity = 0.0;
@@ -41,7 +40,7 @@ public class IntakeIO extends SubsystemBase {
     coralIntake = new TalonSRX(0);
     coralWrist = new SparkMax(0, MotorType.kBrushless);
 
-    algeaIntake = new TalonSRX(MotorIds.kAlgeaIntakeMotor);
+    algeaIntake = new TalonSRX(0);
 
     algeaIntake.configFactoryDefault();
     algeaIntake.setNeutralMode(NeutralMode.Brake);
