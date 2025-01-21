@@ -3,15 +3,13 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Scenario 7",
+    " Scenario 7",
     "Scenario 1",
     "Scenario 2",
     "Scenario 3",
     "Scenario 4",
     "Scenario 5",
-    "Scenario 6",
-    "Scenario 8",
-    "Scenario Jahhrein"
+    "Scenario 6"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
@@ -19,17 +17,13 @@
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 1.0,
-  "robotMOI": 1.0,
+  "robotMass": 74.088,
+  "robotMOI": 6.883,
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.048,
   "driveGearing": 5.143,
-<<<<<<< HEAD
-  "maxDriveSpeed": 5.0,
-=======
-  "maxDriveSpeed": 99999.0,
->>>>>>> f31594292953adc55e04175b6959a25864058c60
-  "driveMotorType": "NEO",
+  "maxDriveSpeed": 5.45,
+  "driveMotorType": "krakenX60",
   "driveCurrentLimit": 60.0,
   "wheelCOF": 1.2,
   "flModuleX": 0.273,

@@ -52,7 +52,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Scenario 6",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -90.0
