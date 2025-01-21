@@ -18,6 +18,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
 import swervelib.math.SwerveMath;
+import swervelib.parser.PIDFConfig;
+import swervelib.parser.SwerveControllerConfiguration;
+import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -33,7 +36,7 @@ public class swerveSubsystem extends SubsystemBase {
    */
   public        double      maximumSpeed = 5.2;
   /**
-   * Roboy configuration gathered from pathplanner
+   * Robot configuration gathered from pathplanner
    */
   public RobotConfig robotConfig;
 
@@ -126,7 +129,7 @@ public class swerveSubsystem extends SubsystemBase {
   public void arcadeDrive(Double translationX, Double translationY, Double headingX, Double headingY){
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX,
-                                                                               translationY), 0.8);
+                                                                               translationY), maximumSpeed);
 
     ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
                                                  headingX, headingY,
