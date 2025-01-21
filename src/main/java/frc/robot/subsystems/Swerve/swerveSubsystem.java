@@ -148,6 +148,8 @@ public class swerveSubsystem extends SubsystemBase {
                                                                              swerveDrive.getOdometryHeading().getRadians(),
                                                                              swerveDrive.getOdometryHeading().getRadians(),
                                                                               maximumSpeed);
+
+    setChassisSpeeds(chassisSpeeds);
   }
 
   @Override
