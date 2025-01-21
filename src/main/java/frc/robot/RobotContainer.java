@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -50,8 +51,8 @@ public class RobotContainer {
   private final double TOP_ALGAE_ANGLE = 0;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  public static final CommandPS4Controller m_driverController =
+      new CommandPS4Controller(OperatorConstants.kDriverControllerPort);
 
   // The robot's subsystems and commands are defined here...
 
@@ -89,19 +90,19 @@ public class RobotContainer {
 
         // L1 state
     Command liftToL1Command = new RunCommand(() -> m_elevator.setPosition(L1_HEIGHT), m_elevator);
-    m_driverController.a().onTrue(liftToL1Command);
+    m_driverController.cross().onTrue(liftToL1Command);
 
         // L2 state
     Command liftToL2Command = new RunCommand(() -> m_elevator.setPosition(L2_HEIGHT), m_elevator);
-    m_driverController.b().onTrue(liftToL2Command);
+    m_driverController.square().onTrue(liftToL2Command);
 
         // L3 state
     Command liftToL3Command = new RunCommand(() -> m_elevator.setPosition(L3_HEIGHT), m_elevator);
-    m_driverController.x().onTrue(liftToL3Command);
+    m_driverController.triangle().onTrue(liftToL3Command);
 
         // L4 state
     Command liftToL4Command = new RunCommand(() -> m_elevator.setPosition(L4_HEIGHT), m_elevator);
-    m_driverController.y().onTrue(liftToL4Command);
+    m_driverController.circle().onTrue(liftToL4Command);
 
 
     
