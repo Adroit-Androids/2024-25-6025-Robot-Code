@@ -5,13 +5,12 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.SwerveDrive.Poselock;
 import frc.robot.commands.SwerveDrive.absoluteDrive;
+import frc.robot.commands.SwerveDrive.robotRelativeDrive;
+import frc.robot.subsystems.Swerve.swerveSubsystem;
 import frc.robot.subsystems.Elevator.elevator;
 import frc.robot.subsystems.Elevator.elevatorIO;
-import frc.robot.subsystems.Intake.IntakeIO;
-import frc.robot.subsystems.Intake.intake;
-import frc.robot.subsystems.Limelight.limelight;
-import frc.robot.subsystems.Swerve.swerveSubsystem;
 
 import java.io.File;
 
@@ -24,6 +23,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -50,20 +50,20 @@ public class RobotContainer {
   private final double L3_ANGLE = 0.225;
   private final double L4_ANGLE = 0.26;
   private final double TOP_ALGAE_ANGLE = 0;
-  
-    // Replace with CommandPS4Controller or CommandJoystick if needed
-    public static final CommandXboxController m_driverController =
-        new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+  // Replace with CommandPS4Controller or CommandJoystick if needed
+  public static final CommandPS4Controller m_driverController =
+      new CommandPS4Controller(OperatorConstants.kDriverControllerPort);
 
   // The robot's subsystems and commands are defined here...
 
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  public static final absoluteDrive m_absoluteDriveCommand = new absoluteDrive(m_swerveDrive, m_driverController);
   public static final elevator m_elevator = new elevator(new elevatorIO());
-  public static final limelight m_limelight = new limelight();
-  public static final intake m_intake = new intake(new IntakeIO());
-
+  
+  public static final absoluteDrive absoluteDriveCommand = new absoluteDrive(m_swerveDrive, m_driverController);
+  public static final robotRelativeDrive robotRelativeDriveCommand = new robotRelativeDrive(m_swerveDrive, m_driverController);
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -89,22 +89,29 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     //m_driverController.a().whileTrue(new Poselock(m_swerveDrive));
+    m_driverController.L3().onTrue(absoluteDriveCommand);
+
+    m_driverController.L3().onTrue(robotRelativeDriveCommand);
 
         // L1 state
     Command liftToL1Command = new RunCommand(() -> m_elevator.setPosition(L1_HEIGHT), m_elevator);
-    m_driverController.a().onTrue(liftToL1Command);
+    m_driverController.cross().onTrue(liftToL1Command);
 
         // L2 state
     Command liftToL2Command = new RunCommand(() -> m_elevator.setPosition(L2_HEIGHT), m_elevator);
-    m_driverController.b().onTrue(liftToL2Command);
+    m_driverController.square().onTrue(liftToL2Command);
 
         // L3 state
     Command liftToL3Command = new RunCommand(() -> m_elevator.setPosition(L3_HEIGHT), m_elevator);
-    m_driverController.x().onTrue(liftToL3Command);
+    m_driverController.triangle().onTrue(liftToL3Command);
 
         // L4 state
     Command liftToL4Command = new RunCommand(() -> m_elevator.setPosition(L4_HEIGHT), m_elevator);
-    m_driverController.y().onTrue(liftToL4Command);
+    m_driverController.circle().onTrue(liftToL4Command);
+
+
+    
+
   }
 
   /**

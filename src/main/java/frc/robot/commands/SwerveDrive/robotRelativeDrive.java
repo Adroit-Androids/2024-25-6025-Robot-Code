@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class absoluteDrive extends Command {
+public class robotRelativeDrive extends Command {
   public swerveSubsystem m_swerveSubsystem;
   CommandPS4Controller robotController;
 
-  /** Creates a new absoluteDrive. */
-  public absoluteDrive(swerveSubsystem m_swerveSubsystem, CommandPS4Controller m_robotController) {
+
+  /** Creates a new robotRelativeDrive. */
+  public robotRelativeDrive(swerveSubsystem m_swerveSubsystem, CommandPS4Controller m_robotController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_swerveSubsystem);
     this.m_swerveSubsystem = m_swerveSubsystem;
@@ -28,10 +29,7 @@ public class absoluteDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_swerveSubsystem.arcadeDrive(robotController.getLeftX(),
-                                       robotController.getLeftY(),
-                                       robotController.getRightX(),
-                                       robotController.getRightY());
+    m_swerveSubsystem.robotRelativeDrive(robotController.getLeftY(), robotController.getRightX(), robotController.getRightY());
   }
 
   // Called once the command ends or is interrupted.

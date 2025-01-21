@@ -20,7 +20,7 @@
         "y": 2.444977678571429
       },
       "prevControl": {
-        "x": 1.4775053332549346,
+        "x": 1.477505333254935,
         "y": 2.0403613641819387
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
     "rotation": 59.99999999999999
   },
   "reversed": false,
-  "folder": "Scenario 8",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": -125.00000000000001
