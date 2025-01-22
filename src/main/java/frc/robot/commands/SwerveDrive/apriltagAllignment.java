@@ -59,7 +59,7 @@ public class apriltagAllignment extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    targeRotation2d = targeRotation2d.fromDegrees(targetAngle);
+    targeRotation2d = Rotation2d.fromDegrees(targetAngle);
     m_swerveDrive.arcadeDrive(0.0, 0.0, targeRotation2d.getCos(), targeRotation2d.getSin());
   }
   
