@@ -86,10 +86,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    SmartDashboard.putNumber("Left joystick x", m_robotContainer.m_driverController.getLeftX());
-    SmartDashboard.putNumber("Left joystick y", m_robotContainer.m_driverController.getLeftY());
-    SmartDashboard.putNumber("Right joystick x", m_robotContainer.m_driverController.getRightX());
-    SmartDashboard.putNumber("Right joystick y", m_robotContainer.m_driverController.getRightY());
+
+    SmartDashboard.putNumber("Left joystick x", RobotContainer.m_driverController.getLeftX());
+    SmartDashboard.putNumber("Left joystick y", RobotContainer.m_driverController.getLeftY());
+    SmartDashboard.putNumber("Right joystick x", RobotContainer.m_driverController.getRightX());
+    SmartDashboard.putNumber("Right joystick y", RobotContainer.m_driverController.getRightY());
   }
 
   @Override
