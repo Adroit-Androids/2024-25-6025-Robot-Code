@@ -65,9 +65,12 @@ public class RobotContainer {
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
 
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    m_swerveDrive.setDefaultCommand(fieldRelativeDriveCommand);
 
     new EventTrigger("Coral_Placement").onTrue(Commands.print("1"));
 

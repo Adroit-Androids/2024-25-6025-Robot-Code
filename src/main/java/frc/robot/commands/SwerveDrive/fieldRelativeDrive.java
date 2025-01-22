@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class absoluteDrive extends Command {
+public class fieldRelativeDrive extends Command {
   public swerveSubsystem m_swerveSubsystem;
   CommandPS4Controller robotController;
 
   /** Creates a new absoluteDrive. */
-  public absoluteDrive(swerveSubsystem m_swerveSubsystem, CommandPS4Controller m_robotController) {
+  public fieldRelativeDrive(swerveSubsystem m_swerveSubsystem, CommandPS4Controller m_robotController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_swerveSubsystem);
     this.m_swerveSubsystem = m_swerveSubsystem;
