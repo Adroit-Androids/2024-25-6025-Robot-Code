@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.Poselock;
-import frc.robot.commands.SwerveDrive.absoluteDrive;
+import frc.robot.commands.SwerveDrive.fieldRelativeDrive;
 import frc.robot.commands.SwerveDrive.robotRelativeDrive;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 import frc.robot.subsystems.Elevator.elevator;
@@ -60,7 +60,7 @@ public class RobotContainer {
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final elevator m_elevator = new elevator(new elevatorIO());
   
-  public static final absoluteDrive absoluteDriveCommand = new absoluteDrive(m_swerveDrive, m_driverController);
+  public static final fieldRelativeDrive fieldRelativeDriveCommand = new fieldRelativeDrive(m_swerveDrive, m_driverController);
   public static final robotRelativeDrive robotRelativeDriveCommand = new robotRelativeDrive(m_swerveDrive, m_driverController);
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
@@ -89,7 +89,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     //m_driverController.a().whileTrue(new Poselock(m_swerveDrive));
-    m_driverController.L3().onTrue(absoluteDriveCommand);
+    m_driverController.L3().onTrue(fieldRelativeDriveCommand);
 
     m_driverController.L3().onTrue(robotRelativeDriveCommand);
 

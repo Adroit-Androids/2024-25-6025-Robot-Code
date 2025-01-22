@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    RobotContainer.absoluteDriveCommand.schedule();
+    RobotContainer.fieldRelativeDriveCommand.schedule();
     // robotRelativeDrive robotRelativeDrive = new robotRelativeDrive(RobotContainer.m_swerveDrive, RobotContainer.m_driverController);
     // robotRelativeDrive.schedule();
 
