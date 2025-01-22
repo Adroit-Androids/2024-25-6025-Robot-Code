@@ -4,48 +4,49 @@
 
 package frc.robot.subsystems.Elevator;
 
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorIds;
 
 public class elevatorIO extends SubsystemBase {
-  public SparkMax leadMotor;
-  public SparkMax followerMotor;
-  public RelativeEncoder encoder;
-
-  SparkBaseConfig followerConfig = new SparkMaxConfig();
-  SparkMaxConfig leadConfig = new SparkMaxConfig();
+  public TalonFX leadMotor;
+  public TalonFX followerMotor;
+  Follower follower;
+  
+  TalonFXConfiguration followerConfig = new TalonFXConfiguration();
+  TalonFXConfiguration leadConfig = new TalonFXConfiguration();
+  
+  Slot0Configs closedLoopConfigs;
+  PositionVoltage m_request;
 
   /** Creates a new elevatorIO. */
   public elevatorIO() {
-    // Initialize the CANSparkMax motors for main and follower
-    leadMotor = new SparkMax(MotorIds.kElevatorLeadMotor, MotorType.kBrushless);
-    followerMotor = new SparkMax(MotorIds.kElevatorFollowMotor, MotorType.kBrushless);
+    leadMotor = new TalonFX(MotorIds.kElevatorLeadMotor);
+    followerMotor = new TalonFX(MotorIds.kElevatorFollowMotor);
 
+    closedLoopConfigs = new Slot0Configs();
+    m_request = new PositionVoltage(0).withSlot(0);
       
-      
-    followerConfig.inverted(true);
-    followerConfig.follow(leadMotor, true);
-    followerConfig.idleMode(IdleMode.kBrake);
+    leadConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    leadConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    closedLoopConfigs.kG = 0.5;
+    closedLoopConfigs.kP = 0.00001;
 
-    followerMotor.configure(followerConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    
-    leadConfig.idleMode(IdleMode.kBrake);
-    leadConfig.closedLoop.pid(0, 0, 0);
+    leadMotor.getConfigurator().apply(followerConfig);
+    leadMotor.getConfigurator().apply(closedLoopConfigs);
 
-    leadMotor.configure(leadConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
+    followerMotor.setControl(new Follower(leadMotor.getDeviceID(), true));
     
 
-    encoder = leadMotor.getEncoder();
+
+
 
 
 
@@ -59,24 +60,24 @@ public class elevatorIO extends SubsystemBase {
 
   public double getPosition() {
     // Get the position from the encoder
-    return encoder.getPosition();
+    return leadMotor.getPosition().getValueAsDouble();
   }
 
 
   public double getVelocity() {
     // Get the velocity from the encoder
-    return encoder.getVelocity();
+    return leadMotor.getVelocity().getValueAsDouble();
   }
 
 
   public void resetPosition() {
     // Reset the encoder to the specified position
-    encoder.setPosition(0);
+    leadMotor.setPosition(0);
   }
 
   
   public void setPosition(double position) {
-    leadMotor.getClosedLoopController().setReference(position, ControlType.kPosition);
+    leadMotor.setControl(m_request.withPosition(position));
   }
 
 
