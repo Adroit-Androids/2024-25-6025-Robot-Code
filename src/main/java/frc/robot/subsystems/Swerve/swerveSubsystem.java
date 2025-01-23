@@ -34,7 +34,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 5.2;
+  public        double      maximumSpeed = 12;
   /**
    * Robot configuration gathered from pathplanner
    */
@@ -126,7 +126,7 @@ public class swerveSubsystem extends SubsystemBase {
    * @param headingX Heading as X to calculate angle of the joysticks
    * @param headingY Heading as y to calculate angle of the joysticks
    */
-  public void arcadeDrive(Double translationX, Double translationY, Double headingX, Double headingY){
+  public void arcadeDrive(double translationY, Double translationX, Double headingX, Double headingY){
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX,
                                                                                translationY), maximumSpeed);

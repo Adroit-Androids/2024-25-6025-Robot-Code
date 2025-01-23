@@ -60,7 +60,7 @@ public class RobotContainer {
 
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final elevator m_elevator = new elevator(new elevatorIO());
-  public static final intake m_intake = new intake(new IntakeIO());
+  // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final fieldRelativeDrive fieldRelativeDriveCommand = new fieldRelativeDrive(m_swerveDrive, m_driverController);
   public static final robotRelativeDrive robotRelativeDriveCommand = new robotRelativeDrive(m_swerveDrive, m_driverController);
@@ -72,7 +72,6 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    m_swerveDrive.setDefaultCommand(fieldRelativeDriveCommand);
 
     new EventTrigger("Coral_Placement").onTrue(Commands.print("1"));
 
@@ -116,24 +115,24 @@ public class RobotContainer {
 
 //--------------------------------------------------------------------------------------------------------------
 
-       // Intake L1 State
-    Command intakeFromL1Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L1_ANGLE), m_intake);
-    m_driverController.cross().onTrue(intakeFromL1Command);
+    //    // Intake L1 State
+    // Command intakeFromL1Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L1_ANGLE), m_intake);
+    // m_driverController.cross().onTrue(intakeFromL1Command);
 
 
-       // Intake L2 State
-    Command intakeFromL2Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L2_ANGLE), m_intake);
-    m_driverController.cross().onTrue(intakeFromL2Command);
+    //    // Intake L2 State
+    // Command intakeFromL2Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L2_ANGLE), m_intake);
+    // m_driverController.cross().onTrue(intakeFromL2Command);
 
 
-      // Intake L3 State
-    Command intakeFromL3Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L3_ANGLE), m_intake);
-    m_driverController.cross().onTrue(intakeFromL3Command);
+    //   // Intake L3 State
+    // Command intakeFromL3Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L3_ANGLE), m_intake);
+    // m_driverController.cross().onTrue(intakeFromL3Command);
 
 
-      // Intake L4 State
-    Command intakeFromL4Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L4_ANGLE), m_intake);
-    m_driverController.cross().onTrue(intakeFromL4Command);
+    //   // Intake L4 State
+    // Command intakeFromL4Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L4_ANGLE), m_intake);
+    // m_driverController.cross().onTrue(intakeFromL4Command);
 
 
     
