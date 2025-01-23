@@ -11,11 +11,13 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.OperatorConstants;
 import swervelib.SwerveDrive;
 import swervelib.math.SwerveMath;
 import swervelib.parser.PIDFConfig;
@@ -128,29 +130,23 @@ public class swerveSubsystem extends SubsystemBase {
    */
   public void arcadeDrive(double translationY, Double translationX, Double headingX, Double headingY){
     
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX,
-                                                                               translationY), maximumSpeed);
-
-    ChassisSpeeds 
-    chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
+    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband),
+                                                                                MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband)),
+                                                                                maximumSpeed);
+    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
                                                  headingX, headingY,
                                                  swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
 
     swerveDrive.driveFieldOriented(chassisSpeeds);
   }
 
-  public void robotRelativeDrive(double speed, double headingX, double headingY){
+  public void robotRelativeDrive(double translationY, double translationX, double angularVelocity){
     
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(headingX,
-                                                                               headingY),
-                                                                                (maximumSpeed * speed));
+    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband),
+                                                                                MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband)),
+                                                                                maximumSpeed);
 
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-                                                                             swerveDrive.getOdometryHeading().getRadians(),
-                                                                             swerveDrive.getOdometryHeading().getRadians(),
-                                                                              maximumSpeed);
-
-    swerveDrive.driveFieldOriented(chassisSpeeds);
+    swerveDrive.drive(scaledInputs, MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -10, true, true);
   }
 
   @Override
