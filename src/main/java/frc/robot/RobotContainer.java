@@ -95,7 +95,7 @@ public class RobotContainer {
     //m_driverController.a().whileTrue(new Poselock(m_swerveDrive));
     m_driverController.L3().onTrue(fieldRelativeDriveCommand);
 
-    m_driverController.L3().onTrue(robotRelativeDriveCommand);
+    m_driverController.R3().onTrue(robotRelativeDriveCommand);
 
         // L1 state
     Command liftToL1Command = new RunCommand(() -> m_elevator.setPosition(L1_HEIGHT), m_elevator);

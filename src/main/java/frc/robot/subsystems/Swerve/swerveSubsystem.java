@@ -114,7 +114,7 @@ public class swerveSubsystem extends SubsystemBase {
 
   //Function set robot chassisSpeeds
   public void setChassisSpeeds(ChassisSpeeds speeds){
-    swerveDrive.setChassisSpeeds(speeds);
+    swerveDrive.driveFieldOriented(speeds);
     
   }
   
@@ -131,11 +131,12 @@ public class swerveSubsystem extends SubsystemBase {
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX,
                                                                                translationY), maximumSpeed);
 
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
+    ChassisSpeeds 
+    chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
                                                  headingX, headingY,
                                                  swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
 
-    setChassisSpeeds(chassisSpeeds);
+    swerveDrive.driveFieldOriented(chassisSpeeds);
   }
 
   public void robotRelativeDrive(double speed, double headingX, double headingY){
@@ -149,7 +150,7 @@ public class swerveSubsystem extends SubsystemBase {
                                                                              swerveDrive.getOdometryHeading().getRadians(),
                                                                               maximumSpeed);
 
-    setChassisSpeeds(chassisSpeeds);
+    swerveDrive.driveFieldOriented(chassisSpeeds);
   }
 
   @Override
