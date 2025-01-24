@@ -16,13 +16,11 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.OperatorConstants;
 import swervelib.SwerveDrive;
 import swervelib.math.SwerveMath;
-import swervelib.parser.PIDFConfig;
-import swervelib.parser.SwerveControllerConfiguration;
-import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -52,13 +50,15 @@ public class swerveSubsystem extends SubsystemBase {
    */
   public swerveSubsystem(File directory) {
     // Configure how much telemetry  data is sent
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.INFO;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try{
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
     }catch (Exception e)
     {
       throw new RuntimeException(e);
     }
+    swerveDrive.setHeadingCorrection(false);
+    swerveDrive.setCosineCompensator(false);
 
   }
 
@@ -128,13 +128,13 @@ public class swerveSubsystem extends SubsystemBase {
    * @param headingX Heading as X to calculate angle of the joysticks
    * @param headingY Heading as y to calculate angle of the joysticks
    */
-  public void arcadeDrive(double translationY, Double translationX, Double headingX, Double headingY){
+  public void arcadeDrive(double translationX, Double translationY, Double headingX, Double headingY){
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband),
                                                                                 MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband)),
                                                                                 maximumSpeed);
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-                                                 headingX, headingY,
+    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY() * -1,
+                                                 headingX, headingY * -1,
                                                  swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
 
     swerveDrive.driveFieldOriented(chassisSpeeds);
@@ -146,8 +146,11 @@ public class swerveSubsystem extends SubsystemBase {
                                                                                 MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband)),
                                                                                 maximumSpeed);
 
-    swerveDrive.drive(scaledInputs, MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -10, true, true);
+    swerveDrive.drive(scaledInputs,
+    MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * swerveDrive.getMaximumChassisAngularVelocity(),
+      true, true);
   }
+
 
   @Override
   public void periodic() {
