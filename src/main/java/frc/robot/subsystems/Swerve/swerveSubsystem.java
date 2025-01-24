@@ -128,26 +128,26 @@ public class swerveSubsystem extends SubsystemBase {
    * @param headingX Heading as X to calculate angle of the joysticks
    * @param headingY Heading as y to calculate angle of the joysticks
    */
-  public void arcadeDrive(double translationX, Double translationY, Double headingX, Double headingY){
+  public void arcadeDrive(double translationX, Double translationY, Double headingY, Double headingX){
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband),
                                                                                 MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband)),
                                                                                 maximumSpeed);
     ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY() * -1,
-                                                 headingX, headingY * -1,
+                                                 headingX * -1, headingY,
                                                  swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
 
     swerveDrive.driveFieldOriented(chassisSpeeds);
   }
 
-  public void robotRelativeDrive(double translationY, double translationX, double angularVelocity){
+  public void robotRelativeDrive(double translationX, double translationY, double angularVelocity){
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband)),
+                                                                                MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband) * -1),
                                                                                 maximumSpeed);
 
     swerveDrive.drive(scaledInputs,
-    MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * swerveDrive.getMaximumChassisAngularVelocity(),
+    MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -swerveDrive.getMaximumChassisAngularVelocity(),
       true, true);
   }
 
