@@ -11,14 +11,15 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.vision;
 import swervelib.SwerveDrive;
 import swervelib.math.SwerveMath;
 import swervelib.parser.SwerveParser;
@@ -26,6 +27,7 @@ import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class swerveSubsystem extends SubsystemBase {
+  
 
   /**
    * Swerve drive object.
@@ -39,8 +41,14 @@ public class swerveSubsystem extends SubsystemBase {
    * Robot configuration gathered from pathplanner
    */
   public RobotConfig robotConfig;
-
-  public double robotRotationDegrees;
+  /**
+   * Enable vision odometry updates while driving.
+   */
+  private final boolean             visionDriveTest     = true;
+  /**
+   * PhotonVision class to keep an accurate odometry.
+   */
+  private vision vision;
   
   
   /**
@@ -59,9 +67,16 @@ public class swerveSubsystem extends SubsystemBase {
     }
     swerveDrive.setHeadingCorrection(false);
     swerveDrive.setCosineCompensator(false);
-    swerveDrive.resetOdometry(new Pose2d());
+
+    if (visionDriveTest){
+      setupPhotonVision();
+      // Stop the odometry thread if we are using vision that way we can synchronize updates better.
+      swerveDrive.stopOdometryThread();
+    }
+    setUpPathplanner();
 
   }
+
 
   public void setUpPathplanner(){
    
@@ -98,6 +113,13 @@ public class swerveSubsystem extends SubsystemBase {
             },
             this // Reference to this subsystem to set requirements
     );
+  }
+
+  /**
+   * Setup the photon vision class.
+   */
+  public void setupPhotonVision(){
+    vision = new vision(swerveDrive::getPose, swerveDrive.field);
   }
 
   //Function to return the pose of the robot
@@ -156,6 +178,11 @@ public class swerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    robotRotationDegrees = swerveDrive.getOdometryHeading().getDegrees();
+    // When vision is enabled we must manually update odometry in SwerveDrive
+    if (visionDriveTest)
+    {
+      swerveDrive.updateOdometry();
+      vision.updatePoseEstimation(swerveDrive);
+    }
   }
 }
