@@ -59,6 +59,7 @@ public class swerveSubsystem extends SubsystemBase {
     }
     swerveDrive.setHeadingCorrection(false);
     swerveDrive.setCosineCompensator(false);
+    swerveDrive.resetOdometry(new Pose2d());
 
   }
 
@@ -130,11 +131,11 @@ public class swerveSubsystem extends SubsystemBase {
    */
   public void arcadeDrive(double translationX, Double translationY, Double headingY, Double headingX){
     
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband)),
+    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband),
+                                                                                MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband)),
                                                                                 maximumSpeed);
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY() * -1,
-                                                 headingX * -1, headingY,
+    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
+                                                 headingY, headingX,
                                                  swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
 
     swerveDrive.driveFieldOriented(chassisSpeeds);
@@ -142,8 +143,8 @@ public class swerveSubsystem extends SubsystemBase {
 
   public void robotRelativeDrive(double translationX, double translationY, double angularVelocity){
     
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband) * -1),
+    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband),
+                                                                                MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband)),
                                                                                 maximumSpeed);
 
     swerveDrive.drive(scaledInputs,
