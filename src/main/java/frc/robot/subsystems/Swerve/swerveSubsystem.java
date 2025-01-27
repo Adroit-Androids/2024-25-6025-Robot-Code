@@ -14,10 +14,12 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.vision;
 import swervelib.SwerveDrive;
@@ -44,7 +46,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     = true;
+  private final boolean             visionDriveTest     =  true;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -65,8 +67,11 @@ public class swerveSubsystem extends SubsystemBase {
     {
       throw new RuntimeException(e);
     }
-    swerveDrive.setHeadingCorrection(false);
-    swerveDrive.setCosineCompensator(false);
+    if (Robot.isSimulation()){
+      resetOdometry(new Pose2d(5, 7.5, new Rotation2d()));
+      swerveDrive.setHeadingCorrection(false);
+      swerveDrive.setCosineCompensator(false);
+    }
 
     if (visionDriveTest){
       setupPhotonVision();
