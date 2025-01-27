@@ -170,13 +170,13 @@ public class swerveSubsystem extends SubsystemBase {
 
   public void robotRelativeDrive(double translationX, double translationY, double angularVelocity){
     
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband)),
+    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(-translationY, OperatorConstants.kLeftJoystickDeadband),
+                                                                                MathUtil.applyDeadband(-translationX, OperatorConstants.kLeftJoystickDeadband)),
                                                                                 maximumSpeed);
 
     swerveDrive.drive(scaledInputs,
     MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -swerveDrive.getMaximumChassisAngularVelocity(),
-      true, true);
+      false, true);
   }
 
 
