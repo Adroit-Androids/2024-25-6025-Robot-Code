@@ -4,12 +4,37 @@
 
 package frc.robot.subsystems.Endgame;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class EndgameIO extends SubsystemBase {
   /** Creates a new EndgameIO. */
-  public EndgameIO() {}
+  TalonSRX EndgameLeft;
+  TalonSRX EndgameRight;
 
+  public EndgameIO() {
+    EndgameLeft = new TalonSRX(20);
+    EndgameRight = new TalonSRX(21);
+
+    EndgameLeft.configFactoryDefault();
+    EndgameRight.configFactoryDefault();
+    EndgameLeft.setNeutralMode(NeutralMode.Brake);
+    EndgameRight.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void setSpeed(double speed){
+    EndgameLeft.set(ControlMode.PercentOutput, speed);
+    EndgameRight.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void setSpeed(){
+    EndgameLeft.set(ControlMode.PercentOutput, 0);
+    EndgameRight.set(ControlMode.PercentOutput, 0);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
