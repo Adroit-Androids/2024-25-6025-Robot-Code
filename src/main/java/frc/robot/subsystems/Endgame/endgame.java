@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.MotorIds;
 
 public class endgame extends SubsystemBase {
   /** Creates a new EndgameIO. */
@@ -17,8 +18,8 @@ public class endgame extends SubsystemBase {
   TalonSRX EndgameRight;
 
   public endgame() {
-    EndgameLeft = new TalonSRX(20);
-    EndgameRight = new TalonSRX(21);
+    EndgameLeft = new TalonSRX(MotorIds.kEndgameLeftMotor);
+    EndgameRight = new TalonSRX(MotorIds.kEndgameRightMotor);
 
     EndgameLeft.configFactoryDefault();
     EndgameRight.configFactoryDefault();
