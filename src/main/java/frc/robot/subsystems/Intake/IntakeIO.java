@@ -9,27 +9,31 @@ import org.littletonrobotics.junction.AutoLog;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.GravityTypeValue;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorIds;
 
 public class IntakeIO extends SubsystemBase {
   TalonSRX coralIntake;
-  SparkMax coralWrist;
+  TalonFX coralWrist;
 
-  SparkBaseConfig coralWristConfig;
+  TalonFXConfiguration coralWristConfig;
 
   TalonSRX algeaIntake;
 
+  PositionVoltage m_request;
+  Slot0Configs closedLoopConfigs;
+
 @AutoLog
   public static class IntakeIOInputs {
-    public double coralWristCurrent = 0.0;
+    public double coralWristVoltage = 0.0;
     public double coralWristVelocity = 0.0;
     public double coralWristPosition = 0.0;
   }
@@ -39,7 +43,12 @@ public class IntakeIO extends SubsystemBase {
   /** Creates a new IntakeIO. */
   public IntakeIO() {
     coralIntake = new TalonSRX(0);
-    coralWrist = new SparkMax(0, MotorType.kBrushless);
+    coralWrist = new TalonFX(1);
+
+    coralWristConfig = new TalonFXConfiguration();
+
+    m_request = new PositionVoltage(0);
+    m_request.Slot = 0;
 
     algeaIntake = new TalonSRX(MotorIds.kAlgeaIntakeMotor);
 
@@ -48,18 +57,24 @@ public class IntakeIO extends SubsystemBase {
     coralIntake.configFactoryDefault();
     coralIntake.setNeutralMode(NeutralMode.Brake);
     
-    coralWristConfig.closedLoop.pid(0, 0, 0);
-    coralWristConfig.idleMode(IdleMode.kBrake);
-    coralWrist.configure(coralWristConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kNoPersistParameters);
+    coralWristConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    coralWristConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    coralWristConfig.Slot0.withGravityType(GravityTypeValue.Arm_Cosine);
+    closedLoopConfigs.withKP(0.1);
+    closedLoopConfigs.withKI(0.0);
+    closedLoopConfigs.withKD(0.0);
+    closedLoopConfigs.withKG(0.0);
 
+    coralWrist.getConfigurator().apply(coralWristConfig);
+    coralWrist.getConfigurator().apply(closedLoopConfigs);
 
   }
 
 
   public void updateInputs(IntakeIOInputs inputs) {
-    inputs.coralWristCurrent = coralWrist.getOutputCurrent();
-    inputs.coralWristVelocity = coralWrist.getEncoder().getVelocity();
-    inputs.coralWristPosition = coralWrist.getEncoder().getPosition();
+    inputs.coralWristVoltage = coralWrist.getMotorVoltage().getValueAsDouble();
+    inputs.coralWristVelocity = coralWrist.getVelocity().getValueAsDouble();
+    inputs.coralWristPosition = coralWrist.getPosition().getValueAsDouble();
   }
 
   public void setAlgaeVoltage(double voltage) {
@@ -71,16 +86,17 @@ public class IntakeIO extends SubsystemBase {
   }
 
   public void adjustAngle(double angleRadians) {
-    coralWrist.getEncoder().setPosition(coralWrist.getEncoder().getPosition() + angleRadians);
+    coralWrist.setPosition(coralWrist.getPosition().getValueAsDouble() + angleRadians);
   }
 
   public void wristAngle(double position) {
     // System.out.println("Wrist position: " + getWristPosition());
-    coralWrist.getClosedLoopController().setReference(position, ControlType.kPosition);
+    coralWrist.setControl(m_request.withPosition(position));
+    
   }
 
   public double getWristPosition() {
-    return coralWrist.getEncoder().getPosition();
+    return coralWrist.getPosition().getValueAsDouble();
   }
 
   public void setWristVoltage(double voltage) {
