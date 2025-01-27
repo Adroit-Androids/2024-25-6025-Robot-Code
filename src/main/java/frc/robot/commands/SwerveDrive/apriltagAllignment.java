@@ -74,7 +74,7 @@ public class apriltagAllignment extends Command {
     if (isValidID){
       return false;
     }
-    if (targetAngle == m_swerveDrive.robotRotationDegrees){
+    if (targetAngle == m_swerveDrive.getPose().getRotation().getDegrees()){
       return true;
      }
     else{
