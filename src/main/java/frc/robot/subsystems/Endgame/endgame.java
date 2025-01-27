@@ -11,12 +11,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class EndgameIO extends SubsystemBase {
+public class endgame extends SubsystemBase {
   /** Creates a new EndgameIO. */
   TalonSRX EndgameLeft;
   TalonSRX EndgameRight;
 
-  public EndgameIO() {
+  public endgame() {
     EndgameLeft = new TalonSRX(20);
     EndgameRight = new TalonSRX(21);
 
@@ -31,7 +31,7 @@ public class EndgameIO extends SubsystemBase {
     EndgameRight.set(ControlMode.PercentOutput, speed);
   }
 
-  public void setSpeed(){
+  public void setSpeedZero(){
     EndgameLeft.set(ControlMode.PercentOutput, 0);
     EndgameRight.set(ControlMode.PercentOutput, 0);
   }
