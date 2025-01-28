@@ -8,7 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 import swervelib.SwerveDrive;
@@ -18,11 +18,11 @@ import swervelib.math.SwerveMath;
 public class turnDrive extends Command {
   swerveSubsystem m_swerveSubsystem;
   SwerveDrive swerveDrive;
-  CommandPS4Controller robotController;
+  CommandXboxController robotController;
 
 
   /** Creates a new turnDrive. */
-  public turnDrive(swerveSubsystem m_swerveSubsystem, CommandPS4Controller m_driverController) {
+  public turnDrive(swerveSubsystem m_swerveSubsystem, CommandXboxController m_driverController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_swerveSubsystem);
     this.m_swerveSubsystem = m_swerveSubsystem;
