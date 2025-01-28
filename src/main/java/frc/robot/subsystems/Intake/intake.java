@@ -48,7 +48,7 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   }
   
   public double getCoralWristIntakeCurrent() {
-    return inputs.coralWristCurrent;
+    return inputs.coralWristVoltage;
   }
   
   public double getWristPosition(){ 
