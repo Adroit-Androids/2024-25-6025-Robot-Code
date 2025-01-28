@@ -15,11 +15,11 @@ public class robotRelativeDrive extends Command {
 
 
   /** Creates a new robotRelativeDrive. */
-  public robotRelativeDrive(swerveSubsystem m_swerveSubsystem, CommandPS4Controller m_robotController) {
+  public robotRelativeDrive(swerveSubsystem m_swerveSubsystem, CommandPS4Controller m_driverController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_swerveSubsystem);
     this.m_swerveSubsystem = m_swerveSubsystem;
-    this.robotController = m_robotController;
+    this.robotController = m_driverController;
   }
 
   // Called when the command is initially scheduled.

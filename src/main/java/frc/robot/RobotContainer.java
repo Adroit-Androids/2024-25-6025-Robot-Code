@@ -10,7 +10,6 @@ import frc.robot.commands.SwerveDrive.robotRelativeDrive;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 import frc.robot.subsystems.Elevator.elevator;
 import frc.robot.subsystems.Elevator.elevatorIO;
-import frc.robot.subsystems.Endgame.endgame;
 import frc.robot.subsystems.Intake.IntakeIO;
 import frc.robot.subsystems.Intake.intake;
 
@@ -56,12 +55,13 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final CommandPS4Controller m_driverController =
       new CommandPS4Controller(OperatorConstants.kDriverControllerPort);
-
+  
+  public static final CommandPS4Controller m_operatorContorller=
+      new CommandPS4Controller(OperatorConstants.kOperatorControllerPort);
   // The robot's subsystems and commands are defined here...
 
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final elevator m_elevator = new elevator(new elevatorIO());
-  public static final endgame m_endgame = new endgame();
   // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final fieldRelativeDrive fieldRelativeDriveCommand = new fieldRelativeDrive(m_swerveDrive, m_driverController);
@@ -94,10 +94,25 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    //m_driverController.a().whileTrue(new Poselock(m_swerveDrive));
-    m_driverController.L3().onTrue(fieldRelativeDriveCommand);
+    //m_driverController.a().whileTrue(new Poselock(m_swerveDrive))
+      
+    //Driver Controls:
 
+      //FieldRelative
+    m_driverController.L3().onTrue(fieldRelativeDriveCommand);
+      //RobotRelative
     m_driverController.R3().onTrue(robotRelativeDriveCommand);
+      //PoseLock
+
+      //Coral Allignment
+
+      //Coral Station Allignment
+
+      //Processor Allignment
+
+      //Endgame
+
+        //Operator Controls:
 
         // L1 state
     Command liftToL1Command = new RunCommand(() -> m_elevator.setPosition(L1_HEIGHT), m_elevator);
@@ -114,7 +129,18 @@ public class RobotContainer {
         // L4 state
     Command liftToL4Command = new RunCommand(() -> m_elevator.setPosition(L4_HEIGHT), m_elevator);
     m_driverController.circle().onTrue(liftToL4Command);
+       
+        //Coral Station State
 
+        //Coral Intake
+
+        //Algae Intake
+
+        //Algae Drop
+
+        //Coral Drop
+
+        
 //--------------------------------------------------------------------------------------------------------------
 
     //    // Intake L1 State
