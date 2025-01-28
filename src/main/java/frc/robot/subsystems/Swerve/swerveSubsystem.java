@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.vision;
@@ -42,7 +43,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     =  false;
+  private final boolean             visionDriveTest     =  true;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -148,6 +149,7 @@ public class swerveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // When vision is enabled we must manually update odometry in SwerveDrive
+    SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
     if (visionDriveTest)
     {
       swerveDrive.updateOdometry();
