@@ -129,7 +129,15 @@ public class RobotContainer {
         // L4 state
     Command liftToL4Command = new RunCommand(() -> m_elevator.setPosition(L4_HEIGHT), m_elevator);
     m_driverController.b().onTrue(liftToL4Command);
-       
+
+
+
+    Command setDriveBy0Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(1.0,0.0,0.0,0.0)));
+    m_driverController.povRight().whileTrue(setDriveBy0Degrees);
+    
+    Command setDriveBy180Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(-1.0,0.0,0.0,0.0)));
+    m_driverController.povLeft().whileTrue(setDriveBy180Degrees);
+    
         //Coral Station State
 
         //Coral Intake
