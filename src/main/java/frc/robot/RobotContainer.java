@@ -16,6 +16,7 @@ import frc.robot.subsystems.Intake.intake;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.events.EventTrigger;
 
@@ -172,16 +173,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    try{
-        // Load the path you want to follow using its name in the GUI
-        PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
-
-        // Create a path following command using AutoBuilder. This will also trigger event markers.
-        return AutoBuilder.followPath(path);
-    } catch (Exception e) {
-        DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
-        return Commands.none();
-    // An example command will be run in autonomous
-  }
+    return new PathPlannerAuto("Auto 1");
 }
 }
