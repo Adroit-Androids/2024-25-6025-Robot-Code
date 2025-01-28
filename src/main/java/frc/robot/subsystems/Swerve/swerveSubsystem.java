@@ -43,7 +43,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     =  true;
+  private final boolean             visionDriveTest     =  false;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -98,7 +98,7 @@ public class swerveSubsystem extends SubsystemBase {
             this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-                    new PIDConstants(0.0005, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
                     new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
             ),
             robotConfig, // The robot configuration
@@ -141,7 +141,7 @@ public class swerveSubsystem extends SubsystemBase {
 
   //Function set robot chassisSpeeds
   public void setChassisSpeeds(ChassisSpeeds speeds){
-    swerveDrive.driveFieldOriented(speeds);
+    swerveDrive.drive(speeds);
     
   }
 
