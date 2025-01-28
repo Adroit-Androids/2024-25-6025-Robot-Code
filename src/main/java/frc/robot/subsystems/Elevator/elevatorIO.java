@@ -30,7 +30,7 @@ public class elevatorIO extends SubsystemBase {
   /** Creates a new elevatorIO. */
   public elevatorIO() {
     leadMotor = new SparkMax(MotorIds.kElevatorLeadMotor, MotorType.kBrushless);
-    followerMotor = new SparkMax(MotorIds.kElevatorFollowMotor, MotorType.kBrushless);
+    followerMotor = new SparkMax(MotorIds.kElevatorLeadMotor, MotorType.kBrushless);
 
     leadConfig.closedLoop.pid(0, 0, 0);
     leadConfig.idleMode(IdleMode.kBrake);

@@ -76,8 +76,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    // turnDrive turnDrive = new turnDrive(RobotContainer.m_swerveDrive, RobotContainer.m_driverController);
-    // turnDrive.schedule();
+    RobotContainer.fieldRelativeDriveCommand.schedule();
+    // robotRelativeDrive robotRelativeDrive = new robotRelativeDrive(RobotContainer.m_swerveDrive, RobotContainer.m_driverController);
+    // robotRelativeDrive.schedule();
 
   }
   

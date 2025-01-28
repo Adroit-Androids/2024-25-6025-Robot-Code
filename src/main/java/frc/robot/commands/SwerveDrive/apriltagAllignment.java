@@ -9,12 +9,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight.limelight;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
-import swervelib.SwerveDrive;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class apriltagAllignment extends Command {
-  swerveSubsystem m_swerveDrive;
-  SwerveDrive swerveDrive;
+  public swerveSubsystem m_swerveDrive;
   limelight m_limelight;
   double[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
@@ -22,11 +20,10 @@ public class apriltagAllignment extends Command {
   Rotation2d targeRotation2d;
 
   /** Creates a new apriltagAllignment. */
-  public apriltagAllignment(swerveSubsystem swerveSubsystem, limelight limelight) {
+  public apriltagAllignment(swerveSubsystem swerveDrive, limelight limelight) {
     // Use addRequirements() here to declare subsystem dependencies.,
-    addRequirements(swerveSubsystem);
-    this.m_swerveDrive = swerveSubsystem;
-    this.swerveDrive = swerveSubsystem.swerveDrive;
+    addRequirements(swerveDrive);
+    this.m_swerveDrive = swerveDrive;
     this.m_limelight = limelight;
   }
 
@@ -63,8 +60,7 @@ public class apriltagAllignment extends Command {
   @Override
   public void execute() {
     targeRotation2d = Rotation2d.fromDegrees(targetAngle);
-    swerveDrive.drive(swerveDrive.swerveController.getTargetSpeeds(0, 0, Math.toRadians(targetAngle),
-                                                          swerveDrive.getOdometryHeading().getRadians(), m_swerveDrive.maximumSpeed));
+    m_swerveDrive.arcadeDrive(0.0, 0.0, targeRotation2d.getCos(), targeRotation2d.getSin());
   }
   
   // Called once the command ends or is interrupted.
@@ -78,7 +74,7 @@ public class apriltagAllignment extends Command {
     if (isValidID){
       return false;
     }
-    if (targetAngle == m_swerveDrive.getPose().getRotation().getDegrees()){
+    if (targetAngle == m_swerveDrive.robotRotationDegrees){
       return true;
      }
     else{

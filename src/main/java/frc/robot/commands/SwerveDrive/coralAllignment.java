@@ -50,7 +50,7 @@ public class coralAllignment extends Command {
   }
 
   public ChassisSpeeds getTargetChassisSpeedsTx(double speed){
-    double angle = m_swerveDrive.swerveDrive.getOdometryHeading().getDegrees() - 90;
+    double angle = m_swerveDrive.robotRotationDegrees - 90;
     Translation2d translativeValues = new Translation2d(speed, new Rotation2d(Math.toRadians(angle)));
 
     ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getRawTargetSpeeds(translativeValues.getX(), 
