@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7864726027397264,
-        "y": 5.242080479452054
+        "x": 6.372321428571428,
+        "y": 0.8127232142857145
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2605736301369865,
-        "y": 5.707876712328767
+        "x": 5.846422455968687,
+        "y": 1.2785194471624282
       },
       "isLocked": false,
       "linkedName": "Scenario5End3_PlaceAlgae"
     },
     {
       "anchor": {
-        "x": 1.9833904109589042,
-        "y": 5.813056506849315
+        "x": 2.0109375,
+        "y": 5.827008928571428
       },
       "prevControl": {
-        "x": 2.389083904109589,
-        "y": 5.813056506849315
+        "x": 2.4302256604696666,
+        "y": 1.1008943860078286
       },
       "nextControl": null,
       "isLocked": false,
@@ -55,7 +55,7 @@
   "folder": "Scenario 5",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }
