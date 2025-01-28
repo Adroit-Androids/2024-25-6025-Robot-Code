@@ -5,8 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.SwerveDrive.fieldRelativeDrive;
-import frc.robot.commands.SwerveDrive.robotRelativeDrive;
+import frc.robot.commands.SwerveDrive.absoluteDrive;
+import frc.robot.commands.SwerveDrive.turnDrive;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 import frc.robot.subsystems.Elevator.elevator;
 import frc.robot.subsystems.Elevator.elevatorIO;
@@ -64,8 +64,8 @@ public class RobotContainer {
   public static final elevator m_elevator = new elevator(new elevatorIO());
   // public static final intake m_intake = new intake(new IntakeIO());
   
-  public static final fieldRelativeDrive fieldRelativeDriveCommand = new fieldRelativeDrive(m_swerveDrive, m_driverController);
-  public static final robotRelativeDrive robotRelativeDriveCommand = new robotRelativeDrive(m_swerveDrive, m_driverController);
+  public static final absoluteDrive absoluteDriveCommand = new absoluteDrive(m_swerveDrive, m_driverController);
+  public static final turnDrive turnDriveCommand = new turnDrive(m_swerveDrive, m_driverController);
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
 
@@ -99,9 +99,9 @@ public class RobotContainer {
     //Driver Controls:
 
       //FieldRelative
-    m_driverController.L3().onTrue(fieldRelativeDriveCommand);
+    m_driverController.L3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
       //RobotRelative
-    m_driverController.R3().onTrue(robotRelativeDriveCommand);
+    m_driverController.R3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
       //Coral Allignment
