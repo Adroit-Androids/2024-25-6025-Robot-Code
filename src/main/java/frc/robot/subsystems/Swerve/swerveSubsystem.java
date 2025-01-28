@@ -12,18 +12,14 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.vision;
 import swervelib.SwerveDrive;
-import swervelib.math.SwerveMath;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -46,7 +42,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     =  true;
+  private final boolean             visionDriveTest     =  false;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -147,38 +143,6 @@ public class swerveSubsystem extends SubsystemBase {
     swerveDrive.driveFieldOriented(speeds);
     
   }
-  
-  /**
-   * Command to drive the robot using translative values and heading as a setpoint
-   * 
-   * @param translationX translation in x direction
-   * @param translationY translation in y direction
-   * @param headingX Heading as X to calculate angle of the joysticks
-   * @param headingY Heading as y to calculate angle of the joysticks
-   */
-  public void arcadeDrive(double translationX, Double translationY, Double headingY, Double headingX){
-    
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband)),
-                                                                                maximumSpeed);
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-                                                 headingY, headingX,
-                                                 swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
-
-    swerveDrive.driveFieldOriented(chassisSpeeds);
-  }
-
-  public void robotRelativeDrive(double translationX, double translationY, double angularVelocity){
-    
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(-translationY, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(-translationX, OperatorConstants.kLeftJoystickDeadband)),
-                                                                                maximumSpeed);
-
-    swerveDrive.drive(scaledInputs,
-    MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -swerveDrive.getMaximumChassisAngularVelocity(),
-      false, true);
-  }
-
 
   @Override
   public void periodic() {

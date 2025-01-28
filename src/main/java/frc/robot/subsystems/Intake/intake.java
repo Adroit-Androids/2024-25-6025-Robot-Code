@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems.Intake;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.Intake.IntakeIO.IntakeIOInputs;
 
@@ -31,7 +30,6 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   //---------------------------------------
 
   private double targetPosition = 0.0;
-  private final ArmFeedforward feedforward = new ArmFeedforward(0.0, 0.0, 0.0);
 
   public void setWristPositionByDegrees(double position) {
     targetPosition = Math.toRadians(position);
