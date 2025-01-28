@@ -99,9 +99,9 @@ public class RobotContainer {
     //Driver Controls:
 
       //FieldRelative
-    m_driverController.L3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
+    m_driverController.leftTrigger().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
       //RobotRelative
-    m_driverController.R3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
+    m_driverController.rightTrigger().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
       //Coral Allignment
@@ -116,19 +116,19 @@ public class RobotContainer {
 
         // L1 state
     Command liftToL1Command = new RunCommand(() -> m_elevator.setPosition(L1_HEIGHT), m_elevator);
-    m_driverController.cross().onTrue(liftToL1Command);
+    m_driverController.a().onTrue(liftToL1Command);
 
         // L2 state
     Command liftToL2Command = new RunCommand(() -> m_elevator.setPosition(L2_HEIGHT), m_elevator);
-    m_driverController.square().onTrue(liftToL2Command);
+    m_driverController.x().onTrue(liftToL2Command);
 
         // L3 state
     Command liftToL3Command = new RunCommand(() -> m_elevator.setPosition(L3_HEIGHT), m_elevator);
-    m_driverController.triangle().onTrue(liftToL3Command);
+    m_driverController.y().onTrue(liftToL3Command);
 
         // L4 state
     Command liftToL4Command = new RunCommand(() -> m_elevator.setPosition(L4_HEIGHT), m_elevator);
-    m_driverController.circle().onTrue(liftToL4Command);
+    m_driverController.b().onTrue(liftToL4Command);
        
         //Coral Station State
 
