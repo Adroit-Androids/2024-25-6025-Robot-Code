@@ -35,7 +35,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 12;
+  public        double      maximumSpeed = 3.6576;
   /**
    * Robot configuration gathered from pathplanner
    */
