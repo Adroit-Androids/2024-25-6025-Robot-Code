@@ -137,6 +137,12 @@ public class RobotContainer {
     
     Command setDriveBy180Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(-1.0,0.0,0.0,0.0)));
     m_driverController.povLeft().whileTrue(setDriveBy180Degrees);
+
+    Command setDriveBy90Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(0.0,1.0,0.0,0.0)));
+    m_driverController.povUp().whileTrue(setDriveBy90Degrees);
+
+    Command setDriveBy270Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(0.0,-1.0,0.0,0.0)));
+    m_driverController.povDown().whileTrue(setDriveBy270Degrees);
     
         //Coral Station State
 
