@@ -56,7 +56,7 @@ public class absoluteDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerveDrive.setChassisSpeeds(getChassisSpeeds(robotController.getLeftX(), robotController.getLeftY(), robotController.getRightY(), robotController.getRightX()));
+    swerveDrive.driveFieldOriented(getChassisSpeeds(robotController.getLeftX(), robotController.getLeftY(), robotController.getRightY(), robotController.getRightX()));;
   }
 
   // Called once the command ends or is interrupted.
