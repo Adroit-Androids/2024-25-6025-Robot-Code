@@ -10,7 +10,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-
+import com.studica.frc.AHRS.NavXComType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.vision;
 import swervelib.SwerveDrive;
+import swervelib.imu.NavXSwerve;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -35,7 +36,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 3.6576;
+  public        double      maximumSpeed = 0.75;
   /**
    * Robot configuration gathered from pathplanner
    */
@@ -54,12 +55,14 @@ public class swerveSubsystem extends SubsystemBase {
    * Innitialive {@link SwerveDrive} with the directory provided
    * 
    * @param directory Directory of the swerve drive json file
+   * 
    */
   public swerveSubsystem(File directory) {
     // Configure how much telemetry  data is sent
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try{
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
+      swerveDrive.swerveDriveConfiguration.imu = new NavXSwerve(NavXComType.kMXP_SPI);
     }catch (Exception e)
     {
       throw new RuntimeException(e);

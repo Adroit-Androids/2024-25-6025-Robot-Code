@@ -6,12 +6,14 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.absoluteDrive;
+import frc.robot.commands.SwerveDrive.apriltagAllignment;
 import frc.robot.commands.SwerveDrive.turnDrive;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 import frc.robot.subsystems.Elevator.elevator;
 import frc.robot.subsystems.Elevator.elevatorIO;
 import frc.robot.subsystems.Intake.IntakeIO;
 import frc.robot.subsystems.Intake.intake;
+import frc.robot.subsystems.Limelight.limelight;
 
 import java.io.File;
 
@@ -20,6 +22,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.events.EventTrigger;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -62,10 +66,12 @@ public class RobotContainer {
 
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final elevator m_elevator = new elevator(new elevatorIO());
+  public static final limelight m_limelight = new limelight();
   // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final absoluteDrive absoluteDriveCommand = new absoluteDrive(m_swerveDrive, m_driverController);
   public static final turnDrive turnDriveCommand = new turnDrive(m_swerveDrive, m_driverController);
+  public static final apriltagAllignment apriltagAllignmentCommand = new apriltagAllignment(m_swerveDrive, m_limelight);
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
 
@@ -105,7 +111,7 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-
+    m_driverController.leftBumper().onTrue(apriltagAllignmentCommand);
       //Coral Station Allignment
 
       //Processor Allignment
@@ -131,6 +137,7 @@ public class RobotContainer {
     m_driverController.b().onTrue(liftToL4Command);
 
 
+    
 
     Command setDriveBy0Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(1.0,0.0,0.0,0.0)));
     m_driverController.povRight().whileTrue(setDriveBy0Degrees);
@@ -154,6 +161,8 @@ public class RobotContainer {
 
         //Coral Drop
 
+        //Debug
+      m_driverController.start().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(5, 1, new Rotation2d(0)))));
         
 //--------------------------------------------------------------------------------------------------------------
 
