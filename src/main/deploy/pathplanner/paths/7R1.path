@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.3211977768341185,
-        "y": 0.8436584465720086
+        "x": 5.261032357622788,
+        "y": 0.9951486944905719
       },
       "isLocked": false,
       "linkedName": "TestEnd22"
@@ -20,8 +20,8 @@
         "y": 2.131584821428571
       },
       "prevControl": {
-        "x": 1.6330090747459032,
-        "y": 2.2778326506938122
+        "x": 3.038537739009572,
+        "y": 1.865492005045158
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 24.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Scenario 7",

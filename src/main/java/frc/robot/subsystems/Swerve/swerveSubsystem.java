@@ -10,20 +10,18 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.studica.frc.AHRS.NavXComType;
 
-
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.vision;
 import swervelib.SwerveDrive;
-import swervelib.math.SwerveMath;
+import swervelib.imu.NavXSwerve;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -38,7 +36,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 12;
+  public        double      maximumSpeed = 1;
   /**
    * Robot configuration gathered from pathplanner
    */
@@ -46,7 +44,7 @@ public class swerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     =  true;
+  private final boolean             visionDriveTest     =  false;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -57,12 +55,14 @@ public class swerveSubsystem extends SubsystemBase {
    * Innitialive {@link SwerveDrive} with the directory provided
    * 
    * @param directory Directory of the swerve drive json file
+   * 
    */
   public swerveSubsystem(File directory) {
     // Configure how much telemetry  data is sent
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try{
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
+      swerveDrive.swerveDriveConfiguration.imu = new NavXSwerve(NavXComType.kMXP_SPI);
     }catch (Exception e)
     {
       throw new RuntimeException(e);
@@ -101,8 +101,8 @@ public class swerveSubsystem extends SubsystemBase {
             this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-                    new PIDConstants(0.0005, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+                    new PIDConstants(1.0, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
             ),
             robotConfig, // The robot configuration
             () -> {
@@ -144,46 +144,22 @@ public class swerveSubsystem extends SubsystemBase {
 
   //Function set robot chassisSpeeds
   public void setChassisSpeeds(ChassisSpeeds speeds){
-    swerveDrive.driveFieldOriented(speeds);
+    swerveDrive.drive(speeds);
     
   }
-  
-  /**
-   * Command to drive the robot using translative values and heading as a setpoint
-   * 
-   * @param translationX translation in x direction
-   * @param translationY translation in y direction
-   * @param headingX Heading as X to calculate angle of the joysticks
-   * @param headingY Heading as y to calculate angle of the joysticks
-   */
-  public void arcadeDrive(double translationX, Double translationY, Double headingY, Double headingX){
-    
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband)),
-                                                                                maximumSpeed);
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-                                                 headingY, headingX,
-                                                 swerveDrive.getOdometryHeading().getRadians(), maximumSpeed);
-
-    swerveDrive.driveFieldOriented(chassisSpeeds);
-  }
-
-  public void robotRelativeDrive(double translationX, double translationY, double angularVelocity){
-    
-    Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(-translationY, OperatorConstants.kLeftJoystickDeadband),
-                                                                                MathUtil.applyDeadband(-translationX, OperatorConstants.kLeftJoystickDeadband)),
-                                                                                maximumSpeed);
-
-    swerveDrive.drive(scaledInputs,
-    MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -swerveDrive.getMaximumChassisAngularVelocity(),
-      false, true);
-  }
-
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     // When vision is enabled we must manually update odometry in SwerveDrive
+    SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
+    if (getCurrentCommand() != null) {
+      SmartDashboard.putString("Current swerve command", getCurrentCommand().getName());
+    }
+
+    if (getDefaultCommand() != null){
+      SmartDashboard.putString("Default swerve command", getDefaultCommand().getName());
+    }
     if (visionDriveTest)
     {
       swerveDrive.updateOdometry();

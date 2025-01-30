@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.123758561643836,
-        "y": 2.2669948630136982
+        "x": 4.41675,
+        "y": 1.8117499999999995
       },
       "isLocked": false,
       "linkedName": "Scenario2End1_PlaceCoral"
     },
     {
       "anchor": {
-        "x": 1.2013392857142857,
-        "y": 1.0869419642857145
+        "x": 1.5307499999999998,
+        "y": 0.8367499999999995
       },
       "prevControl": {
-        "x": 1.4440672760110116,
-        "y": 1.027082773458302
+        "x": 2.1178900706161263,
+        "y": 1.1648124242069708
       },
       "nextControl": null,
       "isLocked": false,
@@ -40,8 +40,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 24.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

@@ -22,7 +22,7 @@ public class coralAllignment extends Command {
   boolean isValidID = false;
   double targetTx;
 
-  PIDController txController = new PIDController(0.5, 0, 0);
+  PIDController txController = new PIDController(0.005, 0, 0);
 
 
   /** Creates a new coralAllignment. 
@@ -50,7 +50,7 @@ public class coralAllignment extends Command {
   }
 
   public ChassisSpeeds getTargetChassisSpeedsTx(double speed){
-    double angle = m_swerveDrive.swerveDrive.getOdometryHeading().getDegrees() - 90;
+    double angle = m_swerveDrive.swerveDrive.getOdometryHeading().getDegrees() + 90;
     Translation2d translativeValues = new Translation2d(speed, new Rotation2d(Math.toRadians(angle)));
 
     ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getRawTargetSpeeds(translativeValues.getX(), 
@@ -75,15 +75,14 @@ public class coralAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (isValidID){
-      return false;
-    }
-    if (targetTx == m_limelight.tx){
+    if (targetTx -0.5 <= m_limelight.tx & m_limelight.tx <= targetTx +0.5){
       return true;
      }
     else{
-      return true;
+      if (!isValidID){
+        return true;
+      }
+      return false;
     }
-
   }
 }

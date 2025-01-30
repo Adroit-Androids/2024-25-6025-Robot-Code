@@ -6,13 +6,16 @@ package frc.robot.commands.SwerveDrive;
 
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight.limelight;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
+import swervelib.SwerveDrive;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class apriltagAllignment extends Command {
-  public swerveSubsystem m_swerveDrive;
+  swerveSubsystem m_swerveDrive;
+  SwerveDrive swerveDrive;
   limelight m_limelight;
   double[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
@@ -20,10 +23,11 @@ public class apriltagAllignment extends Command {
   Rotation2d targeRotation2d;
 
   /** Creates a new apriltagAllignment. */
-  public apriltagAllignment(swerveSubsystem swerveDrive, limelight limelight) {
+  public apriltagAllignment(swerveSubsystem swerveSubsystem, limelight limelight) {
     // Use addRequirements() here to declare subsystem dependencies.,
-    addRequirements(swerveDrive);
-    this.m_swerveDrive = swerveDrive;
+    addRequirements(swerveSubsystem);
+    this.m_swerveDrive = swerveSubsystem;
+    this.swerveDrive = swerveSubsystem.swerveDrive;
     this.m_limelight = limelight;
   }
 
@@ -60,26 +64,32 @@ public class apriltagAllignment extends Command {
   @Override
   public void execute() {
     targeRotation2d = Rotation2d.fromDegrees(targetAngle);
-    m_swerveDrive.arcadeDrive(0.0, 0.0, targeRotation2d.getCos(), targeRotation2d.getSin());
+    swerveDrive.drive(swerveDrive.swerveController.getTargetSpeeds(0, 0, Math.toRadians(targetAngle),
+                                                          swerveDrive.getOdometryHeading().getRadians(), m_swerveDrive.maximumSpeed));
+    SmartDashboard.putBoolean("Command is finished", isFinished());
+    SmartDashboard.putNumber("Target angle", targetAngle);
+    SmartDashboard.putNumber("Current angle", swerveDrive.getOdometryHeading().getDegrees());
   }
   
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
   
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (isValidID){
-      return false;
-    }
-    if (targetAngle == m_swerveDrive.getPose().getRotation().getDegrees()){
+
+    if (targetAngle -10 <= m_swerveDrive.getPose().getRotation().getDegrees() & m_swerveDrive.getPose().getRotation().getDegrees() <= targetAngle +10){
       return true;
      }
     else{
-      return true;
+      if (!isValidID){
+        return true;
+      }
+      return false;
     }
-
+    
   }
 }
