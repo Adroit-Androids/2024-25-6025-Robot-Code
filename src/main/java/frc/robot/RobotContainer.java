@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.fieldRelativeDrive;
 import frc.robot.commands.SwerveDrive.robotRelativeDrive;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
+import frc.robot.subsystems.musicPlayer;
 import frc.robot.subsystems.Elevator.elevator;
 import frc.robot.subsystems.Elevator.elevatorIO;
 import frc.robot.subsystems.Endgame.endgame;
@@ -62,6 +63,7 @@ public class RobotContainer {
   public static final swerveSubsystem m_swerveDrive = new swerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final elevator m_elevator = new elevator(new elevatorIO());
   public static final endgame m_endgame = new endgame();
+  public static final musicPlayer m_musicPlayer = new musicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final fieldRelativeDrive fieldRelativeDriveCommand = new fieldRelativeDrive(m_swerveDrive, m_driverController);
