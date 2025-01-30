@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.absoluteDrive;
 import frc.robot.commands.SwerveDrive.apriltagAllignment;
 import frc.robot.commands.SwerveDrive.turnDrive;
+import frc.robot.commands.SwerveDrive.CommandGroups.reefAllignmentRight;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
 import frc.robot.subsystems.Elevator.elevator;
 import frc.robot.subsystems.Elevator.elevatorIO;
@@ -18,13 +19,10 @@ import frc.robot.subsystems.Limelight.limelight;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -119,7 +117,7 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-    m_driverController.leftBumper().onTrue(apriltagAllignmentCommand);
+    m_driverController.leftBumper().onTrue(new reefAllignmentRight(m_swerveDrive, m_limelight));
       //Coral Station Allignment
 
       //Processor Allignment

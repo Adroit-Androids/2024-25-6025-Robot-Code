@@ -51,7 +51,7 @@ public class turnDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerveDrive.setChassisSpeeds(getChassisSpeeds(robotController.getLeftX(), robotController.getLeftY(), robotController.getRightX()));
+    swerveDrive.driveFieldOriented(getChassisSpeeds(robotController.getLeftX(), robotController.getLeftY(), robotController.getRightX()));
   }
 
   // Called once the command ends or is interrupted.

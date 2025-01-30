@@ -6,6 +6,7 @@ package frc.robot.commands.SwerveDrive;
 
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight.limelight;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
@@ -65,25 +66,30 @@ public class apriltagAllignment extends Command {
     targeRotation2d = Rotation2d.fromDegrees(targetAngle);
     swerveDrive.drive(swerveDrive.swerveController.getTargetSpeeds(0, 0, Math.toRadians(targetAngle),
                                                           swerveDrive.getOdometryHeading().getRadians(), m_swerveDrive.maximumSpeed));
+    SmartDashboard.putBoolean("Command is finished", isFinished());
+    SmartDashboard.putNumber("Target angle", targetAngle);
+    SmartDashboard.putNumber("Current angle", swerveDrive.getOdometryHeading().getDegrees());
   }
   
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
   
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (isValidID){
-      return false;
-    }
-    if (targetAngle == m_swerveDrive.getPose().getRotation().getDegrees()){
+
+    if (targetAngle -10 <= m_swerveDrive.getPose().getRotation().getDegrees() & m_swerveDrive.getPose().getRotation().getDegrees() <= targetAngle +10){
       return true;
      }
     else{
-      return true;
+      if (!isValidID){
+        return true;
+      }
+      return false;
     }
-
+    
   }
 }

@@ -153,6 +153,13 @@ public class swerveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     // When vision is enabled we must manually update odometry in SwerveDrive
     SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
+    if (getCurrentCommand() != null) {
+      SmartDashboard.putString("Current swerve command", getCurrentCommand().getName());
+    }
+
+    if (getDefaultCommand() != null){
+      SmartDashboard.putString("Default swerve command", getDefaultCommand().getName());
+    }
     if (visionDriveTest)
     {
       swerveDrive.updateOdometry();
