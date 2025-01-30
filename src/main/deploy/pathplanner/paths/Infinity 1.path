@@ -3,42 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.236272321428571,
-        "y": 2.7583705357142856
+        "x": 4.471,
+        "y": 5.979
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.41675,
-        "y": 1.8117499999999995
+        "x": 2.4472499999986983,
+        "y": 7.759249999996365
       },
       "isLocked": false,
-      "linkedName": "Scenario2End1_PlaceCoral"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.5307499999999998,
-        "y": 0.8367499999999995
+        "x": 4.471,
+        "y": 5.979
       },
       "prevControl": {
-        "x": 2.1178900706161263,
-        "y": 1.1648124242069708
+        "x": 2.5642499999999995,
+        "y": 4.2005
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Scenario2End2_RetreiveCoral"
+      "linkedName": "Infinity 1 end"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Retreive_Coral",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 24.0,
     "maxAcceleration": 4.0,
@@ -48,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -127.00000000000001
+    "velocity": 1.0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Scenario 2",
+  "folder": "Infinity",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
