@@ -4,13 +4,10 @@
 
 package frc.robot.subsystems;
 
-import java.io.File;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class musicPlayer extends SubsystemBase {
@@ -25,7 +22,7 @@ public class musicPlayer extends SubsystemBase {
     leadMotor = new TalonFX(10);
     bassMotor = new TalonFX(11);
     
-    orchestra.loadMusic("kufi.chrp");
+    orchestra.loadMusic("supriz.chrp");
 
     orchestra.addInstrument(leadMotor, 1);
     orchestra.addInstrument(bassMotor, 2);
