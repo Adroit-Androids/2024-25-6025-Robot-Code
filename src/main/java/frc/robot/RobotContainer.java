@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -149,17 +150,17 @@ public class RobotContainer {
 
     
 
-    Command setDriveBy0Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(1.0,0.0,0.0,0.0)));
-    m_driverController.povRight().whileTrue(setDriveBy0Degrees);
+    Command driveRight = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(1, 0, 0)));
+    m_driverController.povRight().whileTrue(new RepeatCommand(driveRight));
     
-    Command setDriveBy180Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(-1.0,0.0,0.0,0.0)));
-    m_driverController.povLeft().whileTrue(setDriveBy180Degrees);
+    Command driveLeft = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(-1, 0, 0)));
+    m_driverController.povLeft().whileTrue(new RepeatCommand(driveLeft));
 
-    Command setDriveBy90Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(0.0,1.0,0.0,0.0)));
-    m_driverController.povUp().whileTrue(setDriveBy90Degrees);
+    Command driveForward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, 1, 0)));
+    m_driverController.povUp().whileTrue(new RepeatCommand(driveForward));
 
-    Command setDriveBy270Degrees = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(absoluteDriveCommand.getChassisSpeeds(0.0,-1.0,0.0,0.0)));
-    m_driverController.povDown().whileTrue(setDriveBy270Degrees);
+    Command driveBackward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, -1, 0)));
+    m_driverController.povDown().whileTrue(new RepeatCommand(driveBackward));
     
         //Coral Station State
 
