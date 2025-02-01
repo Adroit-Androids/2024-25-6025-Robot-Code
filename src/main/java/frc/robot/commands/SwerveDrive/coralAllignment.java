@@ -5,9 +5,8 @@
 package frc.robot.commands.SwerveDrive;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight.limelight;
 import frc.robot.subsystems.Swerve.swerveSubsystem;
@@ -22,7 +21,11 @@ public class coralAllignment extends Command {
   boolean isValidID = false;
   double targetTx;
 
-  PIDController txController = new PIDController(0.005, 0, 0);
+  //Value wich increases everytime our current tx is in a certain range of our target tx
+  //Made to prevent the command ending when it overshoots
+  int targetTime;
+
+  PIDController txController = new PIDController(0.1, 0.0, 0);
 
 
   /** Creates a new coralAllignment. 
@@ -47,16 +50,12 @@ public class coralAllignment extends Command {
         isValidID = true;
       }
     }
+    targetTime = 0;
   }
 
   public ChassisSpeeds getTargetChassisSpeedsTx(double speed){
-    double angle = m_swerveDrive.swerveDrive.getOdometryHeading().getDegrees() + 90;
-    Translation2d translativeValues = new Translation2d(speed, new Rotation2d(Math.toRadians(angle)));
 
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getRawTargetSpeeds(translativeValues.getX(), 
-                                                                            translativeValues.getY(), 
-                                                                            swerveDrive.getOdometryHeading().getRadians(), 
-                                                                            swerveDrive.getOdometryHeading().getRadians());
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0.0, -speed, 0.0);
 
     return chassisSpeeds;
   }
@@ -65,6 +64,10 @@ public class coralAllignment extends Command {
   @Override
   public void execute() {
     swerveDrive.setChassisSpeeds(getTargetChassisSpeedsTx(txController.calculate(m_limelight.tx, targetTx)));
+    if (targetTx -0.2 <= m_limelight.tx & m_limelight.tx <= targetTx +0.2){
+      targetTime++;
+     }
+     SmartDashboard.putNumber("Target time", targetTime);
   }
 
   // Called once the command ends or is interrupted.
@@ -75,7 +78,7 @@ public class coralAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (targetTx -0.5 <= m_limelight.tx & m_limelight.tx <= targetTx +0.5){
+    if (targetTime >= 25){
       return true;
      }
     else{
