@@ -21,6 +21,8 @@ public class apriltagAllignment extends Command {
   boolean isValidID = false;
   double targetAngle;
   Rotation2d targeRotation2d;
+  int targetTime;
+  double error;
 
   /** Creates a new apriltagAllignment. */
   public apriltagAllignment(swerveSubsystem swerveSubsystem, limelight limelight) {
@@ -34,6 +36,7 @@ public class apriltagAllignment extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    targetTime = 0;
     for (double i :validIDs){
       if (m_limelight.currentApriltagID == i){
         isValidID = true;
@@ -68,7 +71,15 @@ public class apriltagAllignment extends Command {
   public void execute() {
     targeRotation2d = Rotation2d.fromDegrees(targetAngle);
     swerveDrive.drive(swerveDrive.swerveController.getTargetSpeeds(0, 0, Math.toRadians(targetAngle),
-                                                          swerveDrive.getOdometryHeading().getRadians(), m_swerveDrive.maximumSpeed));
+    swerveDrive.getOdometryHeading().getRadians(), m_swerveDrive.maximumSpeed));
+
+
+    error = targetAngle - m_swerveDrive.getPose().getRotation().getDegrees();
+
+    if (Math.abs(error) <= 0.2){
+      ++targetTime;
+     }
+
     SmartDashboard.putBoolean("Command is finished", isFinished());
     SmartDashboard.putNumber("Target angle", targetAngle);
     SmartDashboard.putNumber("Current angle", swerveDrive.getOdometryHeading().getDegrees());
@@ -83,9 +94,8 @@ public class apriltagAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    double error = targetAngle - m_swerveDrive.getPose().getRotation().getDegrees();
 
-    if (Math.abs(error) < 0.5){
+    if (targetTime >= 50){
       return true;
      }
     else{
