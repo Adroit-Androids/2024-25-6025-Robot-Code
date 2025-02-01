@@ -4,6 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [
     "Infinity",
+    "Test 2",
     "Scenario 1",
     "Scenario 2",
     "Scenario 3",
@@ -11,7 +12,7 @@
     "Scenario 5",
     "Scenario 6",
     "Scenario 7",
-    "Test"
+    "Test 1"
   ],
   "autoFolders": [],
   "defaultMaxVel": 24.0,
@@ -26,7 +27,7 @@
   "driveGearing": 5.54,
   "maxDriveSpeed": 3.5,
   "driveMotorType": "falcon500",
-  "driveCurrentLimit": 15.0,
+  "driveCurrentLimit": 20.0,
   "wheelCOF": 1.19,
   "flModuleX": 0.27,
   "flModuleY": 0.27,

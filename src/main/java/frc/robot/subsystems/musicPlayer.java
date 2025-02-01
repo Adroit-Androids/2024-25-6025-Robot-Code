@@ -25,6 +25,8 @@ public class musicPlayer extends SubsystemBase {
     leadMotor = new TalonFX(10);
     bassMotor = new TalonFX(11);
     
+    orchestra = new Orchestra();
+    
     orchestra.loadMusic("kufi.chrp");
 
     orchestra.addInstrument(leadMotor, 1);

@@ -42,8 +42,11 @@ public class apriltagAllignment extends Command {
 
     if (isValidID){
 
+      if (m_limelight.currentApriltagID == 21 || m_limelight.currentApriltagID == 7){
+        targetAngle = 0;
+      }
       if (m_limelight.currentApriltagID == 6 || m_limelight.currentApriltagID == 22){
-        targetAngle = 120;
+        targetAngle = 30;
       }
 
       if (m_limelight.currentApriltagID == 17 || m_limelight.currentApriltagID == 11){
@@ -55,7 +58,7 @@ public class apriltagAllignment extends Command {
       }
 
       if (m_limelight.currentApriltagID == 20 || m_limelight.currentApriltagID == 8){
-        targetAngle = -120;
+        targetAngle = 60;
       }
     }
   }
@@ -80,8 +83,9 @@ public class apriltagAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
+    double error = targetAngle - m_swerveDrive.getPose().getRotation().getDegrees();
 
-    if (targetAngle -10 <= m_swerveDrive.getPose().getRotation().getDegrees() & m_swerveDrive.getPose().getRotation().getDegrees() <= targetAngle +10){
+    if (Math.abs(error) < 0.5){
       return true;
      }
     else{

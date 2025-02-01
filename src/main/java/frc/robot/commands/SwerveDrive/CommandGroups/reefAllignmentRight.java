@@ -15,9 +15,9 @@ import frc.robot.subsystems.Swerve.swerveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class reefAllignmentRight extends SequentialCommandGroup {
   /** Creates a new reefAllignmentRight. */
-  public reefAllignmentRight(swerveSubsystem swerveSubsystem, limelight limelight) {
+  public reefAllignmentRight(swerveSubsystem swerveSubsystem, limelight limelight, double targetTx) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new apriltagAllignment(swerveSubsystem, limelight), new coralAllignment(swerveSubsystem, limelight, 10));
+    addCommands(new apriltagAllignment(swerveSubsystem, limelight), new coralAllignment(swerveSubsystem, limelight, targetTx));
   }
 }

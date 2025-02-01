@@ -42,6 +42,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
+  private final double LEFT_TX = -6;
+  private final double RIGHT_TX = 6;
+  private final double MIDDLE_TX = 0; 
+
   private final double PROCESSOR_HEIGHT = 0;
   private final double SOURCE_HEIGHT = 8.75;
   private final double L1_HEIGHT = 3;
@@ -121,7 +125,7 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-    m_driverController.leftBumper().onTrue(new reefAllignmentRight(m_swerveDrive, m_limelight));
+    m_driverController.leftBumper().onTrue(new apriltagAllignment(m_swerveDrive, m_limelight));
       //Coral Station Allignment
 
       //Processor Allignment
