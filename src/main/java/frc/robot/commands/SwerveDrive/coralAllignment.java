@@ -20,12 +20,15 @@ public class coralAllignment extends Command {
   double[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
   double targetTx;
+  double error;
+
+  double minSpeed = 0.1;
 
   //Value wich increases everytime our current tx is in a certain range of our target tx
   //Made to prevent the command ending when it overshoots
-  int targetTime;
+  int targetTimer;
 
-  PIDController txController = new PIDController(0.1, 0.0, 0);
+  PIDController txController = new PIDController(0.02, 0.0, 0);
 
 
   /** Creates a new coralAllignment. 
@@ -45,12 +48,7 @@ public class coralAllignment extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    for (double i :validIDs){
-      if (m_limelight.currentApriltagID == i){
-        isValidID = true;
-      }
-    }
-    targetTime = 0;
+    targetTimer = 0;
   }
 
   public ChassisSpeeds getTargetChassisSpeedsTx(double speed){
@@ -63,11 +61,26 @@ public class coralAllignment extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerveDrive.setChassisSpeeds(getTargetChassisSpeedsTx(txController.calculate(m_limelight.tx, targetTx)));
-    if (targetTx -0.2 <= m_limelight.tx & m_limelight.tx <= targetTx +0.2){
-      targetTime++;
+    error = targetTx - m_limelight.tx;
+
+    isValidID = false;
+    for (double i :validIDs){
+      if (m_limelight.currentApriltagID == i){
+        isValidID = true;
+      }
+    }
+
+    if (Math.abs(error) < 0.5){
+      targetTimer++;
      }
-     SmartDashboard.putNumber("Target time", targetTime);
+    else{
+      targetTimer = 0;
+    }
+
+    swerveDrive.drive(new ChassisSpeeds(0, 
+                                        -1 * (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(minSpeed))),
+                                        0));
+     SmartDashboard.putNumber("Target time", targetTimer);
   }
 
   // Called once the command ends or is interrupted.
@@ -78,7 +91,7 @@ public class coralAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (targetTime >= 25){
+    if (targetTimer >= 25 || !isValidID){
       return true;
      }
     else{

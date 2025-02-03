@@ -17,11 +17,15 @@ public class apriltagDistance extends Command {
   swerveSubsystem m_swerveDrive;
   SwerveDrive swerveDrive;
   limelight m_limelight;
-  double[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
+  int[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
   double targetTa;
+  double error;
+  int targetTimer = 0;
 
-  PIDController taController = new PIDController(0.5, 0, 0);
+  double minSpeed = 0.1;
+
+  PIDController taController;
 
   /** Creates a new coralApriltagDistance. 
    * @param swerveDrive Swerve drive subsystem for the command to run on 
@@ -29,24 +33,13 @@ public class apriltagDistance extends Command {
    * @param ta Requested ta value to be set to
   */
   public apriltagDistance(swerveSubsystem swerveSubsystem, limelight limelight, double ta) {
+    taController = new PIDController(0.15, 0, 0);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerveSubsystem);
     this.m_swerveDrive = swerveSubsystem;
     this.swerveDrive = swerveSubsystem.swerveDrive;
     this.m_limelight = limelight;
     this.targetTa = ta;
-  }
-
-  
-  public ChassisSpeeds getTargetChassisSpeedsTa(double speed){
-    Translation2d translativeValues = new Translation2d(speed, swerveDrive.getOdometryHeading());
-
-    ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getRawTargetSpeeds(translativeValues.getX(), 
-                                                                            translativeValues.getY(), 
-                                                                            swerveDrive.getOdometryHeading().getRadians(), 
-                                                                            swerveDrive.getOdometryHeading().getRadians());
-
-    return chassisSpeeds;
   }
 
   // Called when the command is initially scheduled.
@@ -62,7 +55,26 @@ public class apriltagDistance extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerveDrive.setChassisSpeeds(getTargetChassisSpeedsTa(taController.calculate(m_limelight.ta, targetTa)));
+    error = targetTa - m_limelight.ta;
+
+    // Check if our current Apriltag ID is a valid ID
+    isValidID = false;
+    for (double i :validIDs){
+      if (m_limelight.currentApriltagID == i){
+        isValidID = true;
+      }
+    }
+
+    // Increase targetTimer if our absolute error is less than a certain value
+    if (Math.abs(error) < 0.5){
+      targetTimer++;
+    }
+    else{
+      targetTimer = 0;
+    }
+
+    swerveDrive.drive(new ChassisSpeeds(taController.calculate(m_limelight.ta, targetTa) + (minSpeed * Math.signum(error)),
+                        0.0, 0.0));
   }
 
   // Called once the command ends or is interrupted.
@@ -72,15 +84,12 @@ public class apriltagDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // End command if our Apriltag ID is not a valid ID 
-    if (isValidID){
-      return false;
-    }
-    if (targetTa == m_limelight.ta){
+    // End command if our Apriltag ID is not a valid ID or if our target timer has reached a certain value
+    if (targetTimer >= 50 || !isValidID || m_limelight.ta == 0){
       return true;
      }
     else{
-      return true;
+      return false;
     }
 
   }
