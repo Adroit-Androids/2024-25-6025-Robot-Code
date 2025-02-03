@@ -15,6 +15,8 @@ public class limelight extends SubsystemBase {
   public double ty;
   public double ta;
   public double currentApriltagID;
+
+  //TODO: Add limelight pose estimation
   LimelightHelpers.PoseEstimate limelightMeasurement;
 
   /** Creates a new limelight. */
