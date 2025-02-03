@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.Limelight;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
@@ -14,12 +15,15 @@ public class limelight extends SubsystemBase {
   public double ty;
   public double ta;
   public double currentApriltagID;
+  LimelightHelpers.PoseEstimate limelightMeasurement;
+
   /** Creates a new limelight. */
   public limelight() {}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
     tx = LimelightHelpers.getTX(ll_table);
     ty = LimelightHelpers.getTY(ll_table);
     ta = LimelightHelpers.getTA(ll_table);
