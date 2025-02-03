@@ -126,7 +126,7 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-    m_driverController.leftBumper().onTrue(new apriltagAllignment(m_swerveDrive, m_limelight));
+    m_driverController.leftBumper().onTrue(new reefAllignmentRight(m_swerveDrive, m_limelight, 10, 8));
       //Coral Station Allignment
 
       //Processor Allignment
@@ -160,10 +160,10 @@ public class RobotContainer {
     Command driveLeft = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(-1, 0, 0)));
     m_driverController.povLeft().whileTrue(new RepeatCommand(driveLeft));
 
-    Command driveForward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, 1, 0)));
+    Command driveForward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, -1, 0)));
     m_driverController.povUp().whileTrue(new RepeatCommand(driveForward));
 
-    Command driveBackward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, -1, 0)));
+    Command driveBackward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, 1, 0)));
     m_driverController.povDown().whileTrue(new RepeatCommand(driveBackward));
     
         //Coral Station State
