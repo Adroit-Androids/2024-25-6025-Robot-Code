@@ -1,0 +1,85 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8P1C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Placement_CoralL3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8R1C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Retreive_Coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8P2C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Placement_CoralL3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8R3C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Retreive_Coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8P2C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Placement_CoralL3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Retreive_Algae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8P4A"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
