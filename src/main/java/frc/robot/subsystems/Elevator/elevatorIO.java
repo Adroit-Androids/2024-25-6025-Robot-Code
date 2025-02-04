@@ -16,7 +16,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorIds;
 
-public class elevatorIO extends SubsystemBase {
+public class ElevatorIO extends SubsystemBase {
   public SparkMax leadMotor;
   public SparkMax followerMotor;
   Follower follower;
@@ -28,7 +28,7 @@ public class elevatorIO extends SubsystemBase {
   PositionVoltage m_request;
 
   /** Creates a new elevatorIO. */
-  public elevatorIO() {
+  public ElevatorIO() {
     leadMotor = new SparkMax(MotorIds.kElevatorLeadMotor, MotorType.kBrushless);
     followerMotor = new SparkMax(MotorIds.kElevatorFollowMotor, MotorType.kBrushless);
 

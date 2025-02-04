@@ -5,15 +5,15 @@
 package frc.robot.commands.SwerveDrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Swerve.swerveSubsystem;
+import frc.robot.subsystems.Swerve.SwerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Poselock extends Command {
 
-  public swerveSubsystem m_SwerveSubsystem;
+  public SwerveSubsystem m_SwerveSubsystem;
   
   /** Creates a new Poselock. */
-  public Poselock(swerveSubsystem m_SwerveSubsystem) {
+  public Poselock(SwerveSubsystem m_SwerveSubsystem) {
     addRequirements(m_SwerveSubsystem);
     this.m_SwerveSubsystem = m_SwerveSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.

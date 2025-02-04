@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public class elevator extends SubsystemBase {
+public class Elevator extends SubsystemBase {
   private DigitalInput magneticSwitchUpper = new DigitalInput(0);
   private DigitalInput magneticSwitchLower = new DigitalInput(1);
 
-  private final elevatorIO io;
+  private final ElevatorIO io;
 
   // Constructor
-  public elevator (elevatorIO io) {
+  public Elevator (ElevatorIO io) {
     this.io = io;
   }
 

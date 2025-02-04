@@ -8,15 +8,15 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Limelight.limelight;
-import frc.robot.subsystems.Swerve.swerveSubsystem;
+import frc.robot.subsystems.Limelight.Limelight;
+import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class apriltagDistance extends Command {
-  swerveSubsystem m_swerveDrive;
+public class ApriltagDistance extends Command {
+  SwerveSubsystem m_swerveDrive;
   SwerveDrive swerveDrive;
-  limelight m_limelight;
+  Limelight m_limelight;
   int[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
   double targetTa;
@@ -32,7 +32,7 @@ public class apriltagDistance extends Command {
    * @param limelight limelight subsystem to get the tx and ta values
    * @param ta Requested ta value to be set to
   */
-  public apriltagDistance(swerveSubsystem swerveSubsystem, limelight limelight, double ta) {
+  public ApriltagDistance(SwerveSubsystem swerveSubsystem, Limelight limelight, double ta) {
     taController = new PIDController(0.15, 0, 0);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerveSubsystem);

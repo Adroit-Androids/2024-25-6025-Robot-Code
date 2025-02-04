@@ -11,15 +11,15 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Limelight.limelight;
-import frc.robot.subsystems.Swerve.swerveSubsystem;
+import frc.robot.subsystems.Limelight.Limelight;
+import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class apriltagAllignment extends Command {
-  swerveSubsystem m_swerveDrive;
+public class ApriltagAllignment extends Command {
+  SwerveSubsystem m_swerveDrive;
   SwerveDrive swerveDrive;
-  limelight m_limelight;
+  Limelight m_limelight;
   int[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
   double targetAngle;
@@ -32,7 +32,7 @@ public class apriltagAllignment extends Command {
   PIDController angularVelocityController;
 
   /** Creates a new apriltagAllignment. */
-  public apriltagAllignment(swerveSubsystem swerveSubsystem, limelight limelight) {
+  public ApriltagAllignment(SwerveSubsystem swerveSubsystem, Limelight limelight) {
     angularVelocityController = new PIDController(3.5, 3.5, 0.0);
     // Use addRequirements() here to declare subsystem dependencies.,
     addRequirements(swerveSubsystem);

@@ -10,19 +10,19 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.subsystems.Swerve.swerveSubsystem;
+import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
 import swervelib.math.SwerveMath;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class turnDrive extends Command {
-  swerveSubsystem m_swerveSubsystem;
+public class TurnDrive extends Command {
+  SwerveSubsystem m_swerveSubsystem;
   SwerveDrive swerveDrive;
   CommandXboxController robotController;
 
 
   /** Creates a new turnDrive. */
-  public turnDrive(swerveSubsystem m_swerveSubsystem, CommandXboxController m_driverController) {
+  public TurnDrive(SwerveSubsystem m_swerveSubsystem, CommandXboxController m_driverController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_swerveSubsystem);
     this.m_swerveSubsystem = m_swerveSubsystem;

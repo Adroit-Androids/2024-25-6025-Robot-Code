@@ -26,7 +26,7 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
-public class swerveSubsystem extends SubsystemBase {
+public class SwerveSubsystem extends SubsystemBase {
   
 
   /**
@@ -57,7 +57,7 @@ public class swerveSubsystem extends SubsystemBase {
    * @param directory Directory of the swerve drive json file
    * 
    */
-  public swerveSubsystem(File directory) {
+  public SwerveSubsystem(File directory) {
     // Configure how much telemetry  data is sent
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try{

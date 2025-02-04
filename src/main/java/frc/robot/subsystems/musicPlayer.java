@@ -10,7 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class musicPlayer extends SubsystemBase {
+public class MusicPlayer extends SubsystemBase {
   TalonFX leadMotor;
   TalonFX bassMotor;
 
@@ -18,7 +18,7 @@ public class musicPlayer extends SubsystemBase {
 
 
   /** Creates a new musicPlayer. */
-  public musicPlayer() {
+  public MusicPlayer() {
     leadMotor = new TalonFX(10);
     bassMotor = new TalonFX(11);
     

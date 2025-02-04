@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 
-public class limelight extends SubsystemBase {
+public class Limelight extends SubsystemBase {
   private String ll_table = "limelight";
   public double tx;
   public double ty;
@@ -20,7 +20,7 @@ public class limelight extends SubsystemBase {
   LimelightHelpers.PoseEstimate limelightMeasurement;
 
   /** Creates a new limelight. */
-  public limelight() {}
+  public Limelight() {}
 
   @Override
   public void periodic() {

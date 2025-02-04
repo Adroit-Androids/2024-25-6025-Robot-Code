@@ -5,20 +5,20 @@
 package frc.robot.commands.SwerveDrive.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.SwerveDrive.apriltagAllignment;
-import frc.robot.commands.SwerveDrive.apriltagDistance;
-import frc.robot.commands.SwerveDrive.coralAllignment;
-import frc.robot.subsystems.Limelight.limelight;
-import frc.robot.subsystems.Swerve.swerveSubsystem;
+import frc.robot.commands.SwerveDrive.ApriltagAllignment;
+import frc.robot.commands.SwerveDrive.ApriltagDistance;
+import frc.robot.commands.SwerveDrive.CoralAllignment;
+import frc.robot.subsystems.Limelight.Limelight;
+import frc.robot.subsystems.Swerve.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class reefAllignmentRight extends SequentialCommandGroup {
+public class ReefAllignmentRight extends SequentialCommandGroup {
   /** Creates a new reefAllignmentRight. */
-  public reefAllignmentRight(swerveSubsystem swerveSubsystem, limelight limelight, double targetTx, double targetTa) {
+  public ReefAllignmentRight(SwerveSubsystem swerveSubsystem, Limelight limelight, double targetTx, double targetTa) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new apriltagAllignment(swerveSubsystem, limelight), new apriltagDistance(swerveSubsystem, limelight, targetTa), new coralAllignment(swerveSubsystem, limelight, targetTx));
+    addCommands(new ApriltagAllignment(swerveSubsystem, limelight), new ApriltagDistance(swerveSubsystem, limelight, targetTa), new CoralAllignment(swerveSubsystem, limelight, targetTx));
   }
 }

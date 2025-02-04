@@ -6,14 +6,14 @@ package frc.robot.commands.EndgameCommands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Endgame.endgame;
+import frc.robot.subsystems.Endgame.Endgame;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class EndgameDown extends Command {
-  endgame m_endgame;
+  Endgame m_endgame;
 
   /** Creates a new EndgameDown. */
-  public EndgameDown(endgame endgame) {
+  public EndgameDown(Endgame endgame) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_endgame);
 
