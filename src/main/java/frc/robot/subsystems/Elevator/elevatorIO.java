@@ -14,12 +14,11 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.Utilities.Constants.MotorIds;
+import frc.robot.Constants.MotorIds;
 
 public class ElevatorIO extends SubsystemBase {
   public SparkMax leadMotor;
   public SparkMax followerMotor;
-  
   Follower follower;
   
   SparkMaxConfig followerConfig = new SparkMaxConfig();

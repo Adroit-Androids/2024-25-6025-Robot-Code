@@ -18,7 +18,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.Utilities.Constants.MotorIds;
+import frc.robot.Constants.MotorIds;
 
 public class IntakeIO extends SubsystemBase {
   TalonSRX coralIntake;

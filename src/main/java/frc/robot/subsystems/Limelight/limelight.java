@@ -6,7 +6,7 @@ package frc.robot.subsystems.Limelight;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.Utilities.LimelightHelpers;
+import frc.robot.LimelightHelpers;
 
 public class Limelight extends SubsystemBase {
   private String ll_table = "limelight";
