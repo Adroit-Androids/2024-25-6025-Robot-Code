@@ -5,14 +5,14 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.SwerveDrive.absoluteDrive;
-import frc.robot.commands.SwerveDrive.apriltagAllignment;
-import frc.robot.commands.SwerveDrive.turnDrive;
-import frc.robot.commands.SwerveDrive.CommandGroups.reefAllignmentRight;
+import frc.robot.commands.SwerveDrive.AbsoluteDrive;
+import frc.robot.commands.SwerveDrive.ApriltagAllignment;
+import frc.robot.commands.SwerveDrive.TurnDrive;
+import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignmentRight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.MusicPlayer;
-import frc.robot.subsystems.Elevator.elevator;
-import frc.robot.subsystems.Elevator.elevatorIO;
+import frc.robot.subsystems.Elevator.Elevator;
+import frc.robot.subsystems.Elevator.ElevatorIO;
 import frc.robot.subsystems.Endgame.Endgame;
 import frc.robot.subsystems.Intake.IntakeIO;
 import frc.robot.subsystems.Intake.Intake;
@@ -72,15 +72,15 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  public static final elevator m_elevator = new elevator(new elevatorIO());
+  public static final Elevator m_elevator = new Elevator(new ElevatorIO());
   public static final Endgame m_endgame = new Endgame();
   public static final Limelight m_limelight = new Limelight();
   public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
-  public static final absoluteDrive absoluteDriveCommand = new absoluteDrive(m_swerveDrive, m_driverController);
-  public static final turnDrive turnDriveCommand = new turnDrive(m_swerveDrive, m_driverController);
-  public static final apriltagAllignment apriltagAllignmentCommand = new apriltagAllignment(m_swerveDrive, m_limelight);
+  public static final AbsoluteDrive absoluteDriveCommand = new AbsoluteDrive(m_swerveDrive, m_driverController);
+  public static final TurnDrive turnDriveCommand = new TurnDrive(m_swerveDrive, m_driverController);
+  public static final ApriltagAllignment apriltagAllignmentCommand = new ApriltagAllignment(m_swerveDrive, m_limelight);
   public SendableChooser<Command> autoChooser;
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
@@ -126,7 +126,7 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-    m_driverController.leftBumper().onTrue(new reefAllignmentRight(m_swerveDrive, m_limelight, 10, 8));
+    m_driverController.leftBumper().onTrue(new ReefAllignmentRight(m_swerveDrive, m_limelight, 10, 8));
       //Coral Station Allignment
 
       //Processor Allignment
