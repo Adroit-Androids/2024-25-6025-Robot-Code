@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.vision;
+import frc.robot.subsystems.Vision;
 import swervelib.SwerveDrive;
 import swervelib.imu.NavXSwerve;
 import swervelib.parser.SwerveParser;
@@ -48,7 +48,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * PhotonVision class to keep an accurate odometry.
    */
-  private vision vision;
+  private Vision vision;
   
   
   /**
@@ -124,7 +124,7 @@ public class SwerveSubsystem extends SubsystemBase {
    * Setup the photon vision class.
    */
   public void setupPhotonVision(){
-    vision = new vision(swerveDrive::getPose, swerveDrive.field);
+    vision = new Vision(swerveDrive::getPose, swerveDrive.field);
   }
 
   //Function to return the pose of the robot
