@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
-import frc.robot.commands.SwerveDrive.ApriltagAllignment;
+import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
 import frc.robot.commands.SwerveDrive.TurnDrive;
 import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignmentRight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
