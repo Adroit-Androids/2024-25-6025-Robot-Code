@@ -22,7 +22,7 @@ public class ApriltagDistance extends Command {
   double error;
   int targetTimer = 0;
 
-  double minSpeed = 0.1;
+  double minSpeed = 0.01;
 
   PIDController taController;
 
@@ -32,7 +32,7 @@ public class ApriltagDistance extends Command {
    * @param ta Requested ta value to be set to
   */
   public ApriltagDistance(SwerveSubsystem swerveSubsystem, Limelight limelight, double ta) {
-    taController = new PIDController(0.15, 0, 0);
+    taController = new PIDController(0.2, 0, 0.0);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerveSubsystem);
     this.m_swerveDrive = swerveSubsystem;
@@ -72,8 +72,13 @@ public class ApriltagDistance extends Command {
       targetTimer = 0;
     }
 
+    if (Math.abs(error) < 0.5){
     swerveDrive.drive(new ChassisSpeeds(taController.calculate(m_limelight.ta, targetTa) + (minSpeed * Math.signum(error)),
                         0.0, 0.0));
+    }
+    else {
+      swerveDrive.drive(new ChassisSpeeds(taController.calculate(m_limelight.ta, targetTa), 0.0, 0.0));
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -84,7 +89,7 @@ public class ApriltagDistance extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID or if our target timer has reached a certain value
-    if (targetTimer >= 50 || !isValidID || m_limelight.ta == 0){
+    if (targetTimer >= 10 || !isValidID || m_limelight.ta == 0){
       return true;
      }
     else{

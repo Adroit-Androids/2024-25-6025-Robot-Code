@@ -27,7 +27,7 @@ public class ApriltagAllignment extends Command {
   int targetTimer = 0;
   double error;
   double currentAngle;
-  double minSpeed = 1.0;
+  double minSpeed = 2.0;
 
   PIDController angularVelocityController;
 
@@ -106,7 +106,7 @@ public class ApriltagAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (targetTimer >= 50 || Math.abs(error) >= 50 || !isValidID){
+    if (targetTimer >= 5 || Math.abs(error) >= 50 || !isValidID){
       return true;
      }
     else{

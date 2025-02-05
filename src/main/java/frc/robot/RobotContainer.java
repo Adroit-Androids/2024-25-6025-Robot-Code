@@ -21,6 +21,7 @@ import frc.robot.subsystems.Limelight.Limelight;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -91,7 +92,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     
-    new EventTrigger("Coral_Placement").onTrue(Commands.print("1"));
+    new EventTrigger("Reef_Position_Right").onTrue(new ReefAllignmentRight(m_swerveDrive, m_limelight, L1_HEIGHT, L1_ANGLE));
     
     //Configure the autochooser
     autoChooser = AutoBuilder.buildAutoChooser();

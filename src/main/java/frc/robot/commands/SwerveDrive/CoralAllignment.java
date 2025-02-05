@@ -22,13 +22,13 @@ public class CoralAllignment extends Command {
   double targetTx;
   double error;
 
-  double minSpeed = 0.1;
+  double minSpeed = 0.005;
 
   //Value wich increases everytime our current tx is in a certain range of our target tx
   //Made to prevent the command ending when it overshoots
   int targetTimer;
 
-  PIDController txController = new PIDController(0.02, 0.0, 0);
+  PIDController txController = new PIDController(0.075, 0.0, 0);
 
 
   /** Creates a new coralAllignment. 
@@ -91,13 +91,10 @@ public class CoralAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (targetTimer >= 25 || !isValidID){
+    if (targetTimer >= 10 || !isValidID){
       return true;
      }
     else{
-      if (!isValidID){
-        return true;
-      }
       return false;
     }
   }
