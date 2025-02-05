@@ -4,7 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [
     "Infinity",
-    "Test 2",
+    "Scenario 8",
     "Scenario 1",
     "Scenario 2",
     "Scenario 3",
@@ -12,7 +12,8 @@
     "Scenario 5",
     "Scenario 6",
     "Scenario 7",
-    "Test 1"
+    "Test 1",
+    "Test 2"
   ],
   "autoFolders": [],
   "defaultMaxVel": 24.0,

@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.183861301369863,
+        "y": 2.777868150684932
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.484375000000001,
+        "y": 1.3354023972602742
+      },
+      "isLocked": false,
+      "linkedName": "S8E1"
+    },
+    {
+      "anchor": {
+        "x": 1.5025684931506849,
+        "y": 0.8696061643835616
+      },
+      "prevControl": {
+        "x": 3.741395547945206,
+        "y": 1.1250428082191786
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "S8E2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 24.0,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -125.00000000000001
+  },
+  "reversed": false,
+  "folder": "Scenario 8",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "useDefaultConstraints": true
+}
