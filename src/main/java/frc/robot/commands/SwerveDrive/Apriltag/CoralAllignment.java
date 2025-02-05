@@ -22,13 +22,13 @@ public class CoralAllignment extends Command {
   double targetTx;
   double error;
 
-  double minSpeed = 0.005;
+  double minSpeed = 0.05;
 
   //Value wich increases everytime our current tx is in a certain range of our target tx
   //Made to prevent the command ending when it overshoots
   int targetTimer;
 
-  PIDController txController = new PIDController(0.075, 0.0, 0);
+  PIDController txController = new PIDController(0.04, 0.0, 0);
 
 
   /** Creates a new coralAllignment. 
@@ -78,8 +78,8 @@ public class CoralAllignment extends Command {
     }
 
     swerveDrive.drive(new ChassisSpeeds(0, 
-                                        -1 * (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(minSpeed))),
-                                        0));
+                                          -1 * (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(error))),
+                                         0));
      SmartDashboard.putNumber("Target time", targetTimer);
   }
 

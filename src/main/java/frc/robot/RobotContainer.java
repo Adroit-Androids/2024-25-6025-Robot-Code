@@ -43,6 +43,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  public static double lastReadTxTarget;
+  public static double currentTargetID;
 
   private final double LEFT_TX = -6;
   private final double RIGHT_TX = 6;
@@ -90,9 +92,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
-    
-    new EventTrigger("Reef_Position_Right").onTrue(new ReefAllignmentRight(m_swerveDrive, m_limelight, L1_HEIGHT, L1_ANGLE));
+    // Configure named commands
+    NamedCommands.registerCommand("Reef_Position_Right", new ReefAllignmentRight(m_swerveDrive, m_limelight, 10.0, 8.0));
+
     
     //Configure the autochooser
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -127,7 +129,7 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-    m_driverController.leftBumper().onTrue(new ReefAllignmentRight(m_swerveDrive, m_limelight, 10, 8));
+    m_driverController.leftBumper().onTrue(new ReefAllignmentRight(m_swerveDrive, m_limelight, 16.0, 10.0));
       //Coral Station Allignment
 
       //Processor Allignment

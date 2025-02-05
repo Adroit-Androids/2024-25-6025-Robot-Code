@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Limelight.Limelight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
@@ -47,6 +48,7 @@ public class ApriltagAllignment extends Command {
     for (double i :validIDs){
       if (m_limelight.currentApriltagID == i){
         isValidID = true;
+        RobotContainer.currentTargetID = m_limelight.currentApriltagID;
       }
     }
 
@@ -86,6 +88,10 @@ public class ApriltagAllignment extends Command {
     }
     else{
       targetTimer = 0;
+    }
+
+    if (m_limelight.currentApriltagID == RobotContainer.currentTargetID){
+      RobotContainer.lastReadTxTarget = m_limelight.tx;
     }
     
     swerveDrive.drive(new Translation2d(),

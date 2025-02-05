@@ -7,6 +7,7 @@ package frc.robot.commands.SwerveDrive.Apriltag;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Limelight.Limelight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
@@ -22,7 +23,8 @@ public class ApriltagDistance extends Command {
   double error;
   int targetTimer = 0;
 
-  double minSpeed = 0.01;
+  double minSpeed = 0.05;
+  double horizontalSpeed = 1.0;
 
   PIDController taController;
 
@@ -65,20 +67,26 @@ public class ApriltagDistance extends Command {
     }
 
     // Increase targetTimer if our absolute error is less than a certain value
-    if (Math.abs(error) < 0.5){
+    if (Math.abs(error) < 0.3){
       targetTimer++;
     }
     else{
       targetTimer = 0;
     }
 
-    if (Math.abs(error) < 0.5){
-    swerveDrive.drive(new ChassisSpeeds(taController.calculate(m_limelight.ta, targetTa) + (minSpeed * Math.signum(error)),
-                        0.0, 0.0));
+    
+    if (m_limelight.currentApriltagID != RobotContainer.currentTargetID || Math.abs(m_limelight.tx) >= 10){
+      swerveDrive.drive(new ChassisSpeeds(0.0, (Math.signum(RobotContainer.lastReadTxTarget) * horizontalSpeed), 0));
     }
-    else {
-      swerveDrive.drive(new ChassisSpeeds(taController.calculate(m_limelight.ta, targetTa), 0.0, 0.0));
-    }
+    else{
+      if (Math.abs(error) < 0.5){
+        swerveDrive.drive(new ChassisSpeeds(taController.calculate(m_limelight.ta, targetTa) + (minSpeed * Math.signum(error)),
+                            0.0, 0.0));
+        }
+        else {
+           swerveDrive.drive(new ChassisSpeeds(taController.calculate(m_limelight.ta, targetTa), 0.0, 0.0));
+        }
+      }
   }
 
   // Called once the command ends or is interrupted.
@@ -89,7 +97,7 @@ public class ApriltagDistance extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID or if our target timer has reached a certain value
-    if (targetTimer >= 10 || !isValidID || m_limelight.ta == 0){
+    if (targetTimer >= 10 ){
       return true;
      }
     else{

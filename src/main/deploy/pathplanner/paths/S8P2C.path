@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.277708983007864,
-        "y": 1.528105006675188
+        "x": 2.3988421092148426,
+        "y": 1.6571218097985572
       },
       "isLocked": false,
       "linkedName": "S8E2"
@@ -20,8 +20,8 @@
         "y": 2.8229452054794524
       },
       "prevControl": {
-        "x": 3.2420184443578446,
-        "y": 2.30874771870597
+        "x": 3.2554887835949025,
+        "y": 2.304850400223767
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 59.99999999999999
   },
   "reversed": false,
-  "folder": "Scenario 8",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -125.00000000000001
+    "rotation": 55.0
   },
   "useDefaultConstraints": true
 }
