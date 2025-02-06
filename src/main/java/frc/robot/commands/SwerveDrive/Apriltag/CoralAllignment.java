@@ -24,7 +24,6 @@ public class CoralAllignment extends Command {
   double error;
 
   double minSpeed = 0.05;
-  double minSpeed = 0.0;
 
   //Value wich increases everytime our current tx is in a certain range of our target tx
   //Made to prevent the command ending when it overshoots
@@ -40,7 +39,7 @@ public class CoralAllignment extends Command {
   */
   public CoralAllignment(SwerveSubsystem swerveSubsystem, Limelight limelight, double tx) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(swerveSubsystem);
+    addRequirements();
     this.m_swerveDrive = swerveSubsystem;
     this.swerveDrive = swerveSubsystem.swerveDrive;
     this.m_limelight = limelight;
@@ -55,7 +54,7 @@ public class CoralAllignment extends Command {
 
   public ChassisSpeeds getTargetChassisSpeedsTx(double speed){
 
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0.0, -speed, 0.0);
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0.0, speed, 0.0);
 
     return chassisSpeeds;
   }
@@ -71,7 +70,6 @@ public class CoralAllignment extends Command {
         isValidID = true;
       }
     }
-    SmartDashboard.putBoolean("Is valid Id", isValidID);
 
     if (Math.abs(error) < 0.5 ){
       targetTimer++;
@@ -82,7 +80,7 @@ public class CoralAllignment extends Command {
 
     if (Math.abs(error) < 1.0 && Math.abs(error) > 0.2){
       swerveDrive.drive(new ChassisSpeeds(0, 
-                          -1 * (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(error))),
+                          (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(error))),
                          0));
       }
       else {
@@ -94,7 +92,6 @@ public class CoralAllignment extends Command {
     swerveDrive.drive(new ChassisSpeeds(0, 
                                           -1 * (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(error))),
                                          0));
-     SmartDashboard.putNumber("Target time", targetTimer);
   }
 
   // Called once the command ends or is interrupted.
