@@ -8,6 +8,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Limelight.Limelight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
@@ -23,12 +24,13 @@ public class CoralAllignment extends Command {
   double error;
 
   double minSpeed = 0.05;
+  double minSpeed = 0.0;
 
   //Value wich increases everytime our current tx is in a certain range of our target tx
   //Made to prevent the command ending when it overshoots
   int targetTimer;
 
-  PIDController txController = new PIDController(0.04, 0.0, 0);
+  PIDController txController = new PIDController(0.065, 0.0, 0);
 
 
   /** Creates a new coralAllignment. 
@@ -69,13 +71,25 @@ public class CoralAllignment extends Command {
         isValidID = true;
       }
     }
+    SmartDashboard.putBoolean("Is valid Id", isValidID);
 
-    if (Math.abs(error) < 0.5){
+    if (Math.abs(error) < 0.5 ){
       targetTimer++;
      }
     else{
       targetTimer = 0;
     }
+
+    if (Math.abs(error) < 1.0 && Math.abs(error) > 0.2){
+      swerveDrive.drive(new ChassisSpeeds(0, 
+                          -1 * (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(error))),
+                         0));
+      }
+      else {
+        swerveDrive.drive(new ChassisSpeeds(0, 
+                           -1 * (txController.calculate(m_limelight.tx, targetTx)),
+                            0));
+      }
 
     swerveDrive.drive(new ChassisSpeeds(0, 
                                           -1 * (txController.calculate(m_limelight.tx, targetTx) + (minSpeed * Math.signum(error))),
@@ -91,7 +105,7 @@ public class CoralAllignment extends Command {
   @Override
   public boolean isFinished() {
     // End command if our Apriltag ID is not a valid ID 
-    if (targetTimer >= 10 || !isValidID){
+    if (targetTimer >= 5 || m_limelight.currentApriltagID != RobotContainer.currentTargetID){
       return true;
      }
     else{
