@@ -12,14 +12,16 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS.NavXComType;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
-import frc.robot.subsystems.Vision;
+import frc.robot.RobotContainer;
 import swervelib.SwerveDrive;
 import swervelib.imu.NavXSwerve;
 import swervelib.parser.SwerveParser;
@@ -44,11 +46,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     =  false;
-  /**
-   * PhotonVision class to keep an accurate odometry.
-   */
-  private Vision vision;
+  public final boolean             visionDriveTest     =  true;
   
   
   /**
@@ -74,7 +72,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     if (visionDriveTest){
-      setupPhotonVision();
+      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, Math.toRadians(80)));
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
@@ -120,12 +118,6 @@ public class SwerveSubsystem extends SubsystemBase {
     );
   }
 
-  /**
-   * Setup the photon vision class.
-   */
-  public void setupPhotonVision(){
-    vision = new Vision(swerveDrive::getPose, swerveDrive.field);
-  }
 
   //Function to return the pose of the robot
   public Pose2d getPose(){
@@ -152,6 +144,9 @@ public class SwerveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // When vision is enabled we must manually update odometry in SwerveDrive
+    LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getYaw().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
+                                           swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
+
     SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
     if (getCurrentCommand() != null) {
       SmartDashboard.putString("Current swerve command", getCurrentCommand().getName());
@@ -162,8 +157,10 @@ public class SwerveSubsystem extends SubsystemBase {
     }
     if (visionDriveTest)
     {
+      if (!RobotContainer.m_limelight.doRejectUpdate){
+        swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelighPoseEstimate.pose, RobotContainer.m_limelight.limelighPoseEstimate.timestampSeconds);
+      }
       swerveDrive.updateOdometry();
-      vision.updatePoseEstimation(swerveDrive);
     }
   }
 }
