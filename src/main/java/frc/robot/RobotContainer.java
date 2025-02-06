@@ -180,7 +180,7 @@ public class RobotContainer {
         //Coral Drop
 
         //Debug
-      m_driverController.start().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(5, 1, new Rotation2d(0)))));
+      m_driverController.start().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(7.215, 4.001, new Rotation2d(0)))));
         
 //--------------------------------------------------------------------------------------------------------------
 
