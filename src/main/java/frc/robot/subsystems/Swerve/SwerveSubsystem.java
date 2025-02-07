@@ -16,6 +16,8 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -46,8 +48,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  public final boolean             visionDriveTest     =  true;
-  
+  public final boolean             visionDriveTest     =  false;
   
   /**
    * Innitialive {@link SwerveDrive} with the directory provided
@@ -72,7 +73,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     if (visionDriveTest){
-      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, Math.toRadians(80)));
+      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(7, 7, Math.toRadians(2)));
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
