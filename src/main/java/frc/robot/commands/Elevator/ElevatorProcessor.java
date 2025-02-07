@@ -5,12 +5,16 @@
 package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Elevator.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorProcess extends Command {
-  /** Creates a new ElevatorProcess. */
-  public ElevatorProcess() {
+public class ElevatorProcessor extends Command {
+  private Elevator elevatorSubsystem;
+  /** Creates a new ElevatorProcessor. */
+  public ElevatorProcessor(Elevator m_Elevator) {
+    this.elevatorSubsystem = m_Elevator;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
