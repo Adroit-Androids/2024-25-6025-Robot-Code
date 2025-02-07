@@ -40,7 +40,6 @@ public class IntakeIO extends SubsystemBase {
 
 
 
-  /** Creates a new IntakeIO. */
   public IntakeIO() {
     coralIntake = new TalonSRX(0);
     coralWrist = new TalonFX(1);
