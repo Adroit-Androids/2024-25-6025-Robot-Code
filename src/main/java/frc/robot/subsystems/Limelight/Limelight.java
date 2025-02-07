@@ -19,7 +19,7 @@ public class Limelight extends SubsystemBase {
   public double ty;
   public double ta;
   public double currentApriltagID;
-  public LimelightHelpers.PoseEstimate limelighPoseEstimate;
+  public LimelightHelpers.PoseEstimate limelightPoseEstimate;
   public boolean doRejectUpdate = false; 
 
   /** Creates a new limelight. */
@@ -27,6 +27,7 @@ public class Limelight extends SubsystemBase {
     this.swerveDrive = m_swerveDrive.swerveDrive;
     this.swerveSubsystem = m_swerveDrive;
     LimelightHelpers.setCameraPose_RobotSpace(ll_table, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    limelightPoseEstimate = new LimelightHelpers.PoseEstimate();
   }
 
   @Override
@@ -41,7 +42,7 @@ public class Limelight extends SubsystemBase {
       {
         doRejectUpdate = true;
       }
-      if(limelighPoseEstimate.tagCount == 0)
+      if(limelightPoseEstimate.tagCount == 0)
       {
         doRejectUpdate = true;
       }
