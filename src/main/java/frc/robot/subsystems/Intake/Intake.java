@@ -9,7 +9,7 @@ import frc.robot.subsystems.Intake.IntakeIO.IntakeIOInputs;
 
 public class Intake extends SubsystemBase {
 
-IntakeIO io;
+private final IntakeIO io;
 IntakeIOInputs inputs = new IntakeIOInputs();
 
 
@@ -56,7 +56,7 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   }
 
   public void wristAngle(double position) {
-    io.wristAngle(position);;
+    io.wristAngle(position);
   }
 
   public void setWristVoltage(double voltage) {

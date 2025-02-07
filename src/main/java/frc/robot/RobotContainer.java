@@ -77,7 +77,7 @@ public class RobotContainer {
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final Elevator m_elevator = new Elevator(new ElevatorIO());
   public static final Endgame m_endgame = new Endgame();
-  public static final Limelight m_limelight = new Limelight();
+  public static final Limelight m_limelight = new Limelight(m_swerveDrive);
   public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
@@ -180,7 +180,7 @@ public class RobotContainer {
         //Coral Drop
 
         //Debug
-      m_driverController.start().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(5, 1, new Rotation2d(0)))));
+      m_driverController.start().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(7.215, 4.001, new Rotation2d(Math.toRadians(180))))));
         
 //--------------------------------------------------------------------------------------------------------------
 
