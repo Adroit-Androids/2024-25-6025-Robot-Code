@@ -23,12 +23,14 @@ public class ApriltagAllignment extends Command {
   Limelight m_limelight;
   int[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
-  double targetAngle;
-  Rotation2d targeRotation2d;
   int targetTimer = 0;
+  double targetAngle;
   double error;
   double currentAngle;
-  double minSpeed = 2.0;
+  double minSpeed = 0.0;
+  double pAdjustment = 0.0;
+
+  double kP = 3.5;
 
   PIDController angularVelocityController;
 
@@ -58,16 +60,16 @@ public class ApriltagAllignment extends Command {
         targetAngle = 60;
       }
       if (m_limelight.currentApriltagID == 21 || m_limelight.currentApriltagID == 7){
-        targetAngle = 0;
+        targetAngle = 180;
       }
       if (m_limelight.currentApriltagID == 20 || m_limelight.currentApriltagID == 8){
-        targetAngle = -60;
+        targetAngle = 360;
       }
       if (m_limelight.currentApriltagID == 19 || m_limelight.currentApriltagID == 9){
-        targetAngle = -120;
+        targetAngle = 240;
       }
       if (m_limelight.currentApriltagID == 18 || m_limelight.currentApriltagID == 10){
-        targetAngle = -180;
+        targetAngle = 180;
       }
       if (m_limelight.currentApriltagID == 17 || m_limelight.currentApriltagID == 11){
         targetAngle = 120;
@@ -79,8 +81,12 @@ public class ApriltagAllignment extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentAngle = swerveDrive.getOdometryHeading().getDegrees();
+    currentAngle = swerveDrive.getOdometryHeading().getDegrees() + 180;
     error = targetAngle - currentAngle;
+    if (error < -180){
+      error += 360;
+    }
+    pAdjustment = error * kP;
     
     // Increase targetTimer if we are within a certain range of our target angle
     if (Math.abs(error) <= 0.5){
@@ -95,7 +101,7 @@ public class ApriltagAllignment extends Command {
     }
     
     swerveDrive.drive(new Translation2d(),
-                      Math.toRadians(angularVelocityController.calculate(currentAngle, error) + Math.toRadians(minSpeed * Math.signum(error))),
+                      Math.toRadians(pAdjustment),
                       true, false);
 
     SmartDashboard.putBoolean("Command is finished", isFinished());
