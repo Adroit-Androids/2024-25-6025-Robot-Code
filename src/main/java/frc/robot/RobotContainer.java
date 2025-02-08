@@ -5,6 +5,11 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Elevator.ElevatorDown;
+import frc.robot.commands.Elevator.ElevatorL1;
+import frc.robot.commands.Elevator.ElevatorL2;
+import frc.robot.commands.Elevator.ElevatorL3;
+import frc.robot.commands.Elevator.ElevatorL4;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagDistanceAndCoralAllignment;
@@ -53,10 +58,6 @@ public class RobotContainer {
 
   private final double PROCESSOR_HEIGHT = 0;
   private final double SOURCE_HEIGHT = 8.75;
-  private final double L1_HEIGHT = 3;
-  private final double L2_HEIGHT = 5.5;
-  private final double L3_HEIGHT = 21.5;
-  private final double L4_HEIGHT = 52.5;
   private final double TOP_ALGAE_HEIGHT = 40;
 
   private final double PROCESSOR_ANGLE = 0;
@@ -71,7 +72,7 @@ public class RobotContainer {
   public static final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   
-  public static final CommandXboxController m_operatorContorller=
+  public static final CommandXboxController m_operatorController=
       new CommandXboxController(OperatorConstants.kOperatorControllerPort);
   // The robot's subsystems and commands are defined here...
 
@@ -142,21 +143,19 @@ public class RobotContainer {
         //Operator Controls:
 
         // L1 state
-    Command liftToL1Command = new RunCommand(() -> m_elevator.setPosition(L1_HEIGHT), m_elevator);
-    m_driverController.a().onTrue(liftToL1Command);
+    m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
 
         // L2 state
-    Command liftToL2Command = new RunCommand(() -> m_elevator.setPosition(L2_HEIGHT), m_elevator);
-    m_driverController.x().onTrue(liftToL2Command);
+    m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
 
         // L3 state
-    Command liftToL3Command = new RunCommand(() -> m_elevator.setPosition(L3_HEIGHT), m_elevator);
-    m_driverController.y().onTrue(liftToL3Command);
+    m_operatorController.y().onTrue(new ElevatorL3(m_elevator));
 
         // L4 state
-    Command liftToL4Command = new RunCommand(() -> m_elevator.setPosition(L4_HEIGHT), m_elevator);
-    m_driverController.b().onTrue(liftToL4Command);
+    m_operatorController.b().onTrue(new ElevatorL4(m_elevator));
 
+        // Elevator Down State
+    m_operatorController.start().onTrue(new ElevatorDown(m_elevator));
 
     
 

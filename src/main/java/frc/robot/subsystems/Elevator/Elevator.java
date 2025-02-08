@@ -16,6 +16,7 @@ public class Elevator extends SubsystemBase {
   // Constructor
   public Elevator (ElevatorIO io) {
     this.io = io;
+    io.resetPosition();
   }
 
 
