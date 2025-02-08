@@ -59,11 +59,9 @@ public class IntakeIO extends SubsystemBase {
     
     coralWristConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     coralWristConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    coralWristConfig.Slot0.withGravityType(GravityTypeValue.Arm_Cosine);
     closedLoopConfigs.withKP(0.1);
     closedLoopConfigs.withKI(0.0);
     closedLoopConfigs.withKD(0.0);
-    closedLoopConfigs.withKG(0.0);
 
     coralWrist.getConfigurator().apply(coralWristConfig);
     coralWrist.getConfigurator().apply(closedLoopConfigs);
