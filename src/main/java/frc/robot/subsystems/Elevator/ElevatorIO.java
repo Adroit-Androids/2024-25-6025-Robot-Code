@@ -23,7 +23,6 @@ public class ElevatorIO extends SubsystemBase {
   
   SparkMaxConfig followerConfig;
   SparkMaxConfig leadConfig;
-  EncoderConfig encoderConfig;
   
   PositionVoltage m_request;
 
