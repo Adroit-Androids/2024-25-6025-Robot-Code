@@ -7,8 +7,9 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
+import frc.robot.commands.SwerveDrive.Apriltag.ApriltagDistanceAndCoralAllignment;
 import frc.robot.commands.SwerveDrive.TurnDrive;
-import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignmentRight;
+import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.MusicPlayer;
 import frc.robot.subsystems.Elevator.Elevator;
@@ -93,7 +94,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure named commands
-    NamedCommands.registerCommand("Reef_Position_Right", new ReefAllignmentRight(m_swerveDrive, m_limelight, 10.0, 8.0));
+    NamedCommands.registerCommand("Reef_Position_Right", new ReefAllignment(m_swerveDrive, m_limelight, 10.0, 8.0));
 
     
     //Configure the autochooser
@@ -129,7 +130,9 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-    m_driverController.leftBumper().onTrue(new ReefAllignmentRight(m_swerveDrive, m_limelight, 16.0, 10.0));
+    m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.0, 10.0));
+    m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.0, 10.0));
+    m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 16.0, 10.0, true));
       //Coral Station Allignment
 
       //Processor Allignment

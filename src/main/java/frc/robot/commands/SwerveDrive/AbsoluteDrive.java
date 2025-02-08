@@ -7,6 +7,8 @@ package frc.robot.commands.SwerveDrive;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
@@ -38,6 +40,12 @@ public class AbsoluteDrive extends Command {
    * @param headingY Heading as y to calculate angle of the joysticks
    */
   public ChassisSpeeds getChassisSpeeds(double translationX, Double translationY, Double headingY, Double headingX){
+      if (DriverStation.getAlliance().get() == Alliance.Red){
+        translationX *= -1;
+        translationY *= -1;
+        headingX *= -1;
+        headingY *= -1;
+      }
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d( MathUtil.applyDeadband(translationY, OperatorConstants.kLeftJoystickDeadband),
                                                                                 MathUtil.applyDeadband(translationX, OperatorConstants.kLeftJoystickDeadband)),

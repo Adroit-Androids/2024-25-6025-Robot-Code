@@ -30,7 +30,7 @@ public class ApriltagAllignment extends Command {
   double minSpeed = 0.0;
   double pAdjustment = 0.0;
 
-  double kP = 3.5;
+  double kP = 5.0;
 
   PIDController angularVelocityController;
 
@@ -56,23 +56,23 @@ public class ApriltagAllignment extends Command {
 
     if (isValidID){
 
-      if (m_limelight.currentApriltagID == 22 || m_limelight.currentApriltagID == 8){
+      if (m_limelight.currentApriltagID == 21 || m_limelight.currentApriltagID == 7){
+        targetAngle = 0;
+      }
+      if (m_limelight.currentApriltagID == 22 || m_limelight.currentApriltagID == 6){
         targetAngle = 60;
       }
-      if (m_limelight.currentApriltagID == 21 || m_limelight.currentApriltagID == 7){
-        targetAngle = 180;
-      }
-      if (m_limelight.currentApriltagID == 20 || m_limelight.currentApriltagID == 8){
-        targetAngle = 360;
-      }
-      if (m_limelight.currentApriltagID == 19 || m_limelight.currentApriltagID == 9){
-        targetAngle = 240;
+      if (m_limelight.currentApriltagID == 17 || m_limelight.currentApriltagID == 11){
+        targetAngle = 120;
       }
       if (m_limelight.currentApriltagID == 18 || m_limelight.currentApriltagID == 10){
         targetAngle = 180;
       }
-      if (m_limelight.currentApriltagID == 17 || m_limelight.currentApriltagID == 11){
-        targetAngle = 120;
+      if (m_limelight.currentApriltagID == 19 || m_limelight.currentApriltagID == 9){
+        targetAngle = 240;
+      }
+      if (m_limelight.currentApriltagID == 20 || m_limelight.currentApriltagID == 8){
+        targetAngle = 300;
       }
 
     }
@@ -89,7 +89,7 @@ public class ApriltagAllignment extends Command {
     pAdjustment = error * kP;
     
     // Increase targetTimer if we are within a certain range of our target angle
-    if (Math.abs(error) <= 0.5){
+    if (Math.abs(error) <= 1.0){
       ++targetTimer;
     }
     else{

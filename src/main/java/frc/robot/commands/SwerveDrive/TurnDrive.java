@@ -7,8 +7,11 @@ package frc.robot.commands.SwerveDrive;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
@@ -30,7 +33,12 @@ public class TurnDrive extends Command {
     this.robotController = m_driverController;
   }
 
-    public ChassisSpeeds getChassisSpeeds(double translationX, double translationY, double angularVelocity){
+    public ChassisSpeeds getChassisSpeeds(double translationX, double translationY, double angularVelocity){ 
+      if (DriverStation.getAlliance().get() == Alliance.Red){
+        translationX *= -1;
+        translationY *= -1;
+        angularVelocity *= -1;
+      }
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(-translationY, OperatorConstants.kLeftJoystickDeadband),
                                                                                 MathUtil.applyDeadband(-translationX, OperatorConstants.kLeftJoystickDeadband)),

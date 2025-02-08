@@ -29,7 +29,7 @@ public class CoralAllignment extends Command {
   //Made to prevent the command ending when it overshoots
   int targetTimer;
 
-  PIDController txController = new PIDController(0.065, 0.0, 0);
+  PIDController txController = new PIDController(0.065, 0.0, 0.01);
 
 
   /** Creates a new coralAllignment. 

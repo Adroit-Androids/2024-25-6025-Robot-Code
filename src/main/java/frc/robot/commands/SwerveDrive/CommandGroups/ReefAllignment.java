@@ -18,15 +18,14 @@ import frc.robot.subsystems.Swerve.SwerveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ReefAllignmentRight extends SequentialCommandGroup {
-  ParallelCommandGroup allignToApriltag;
+public class ReefAllignment extends SequentialCommandGroup {
   /** Creates a new reefAllignmentRight. */
-  public ReefAllignmentRight(SwerveSubsystem swerveSubsystem, Limelight limelight, double targetTx, double targetTa) {
+  public ReefAllignment(SwerveSubsystem swerveSubsystem, Limelight limelight, double targetTx, double targetTa) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new ApriltagAllignment(swerveSubsystem, limelight),new GoToLastSeenApriltagTarget(swerveSubsystem, limelight),
                                       new CoralAllignment(swerveSubsystem, limelight, 0.0),
-                                      new ApriltagDistanceAndCoralAllignment(swerveSubsystem, limelight, targetTx, targetTa),
+                                      new ApriltagDistanceAndCoralAllignment(swerveSubsystem, limelight, targetTx, targetTa,true),
                                       new DriveTillSetTime(swerveSubsystem, 1.2, 0.0,
                                                                            0.0, 0.5));
 
