@@ -12,8 +12,8 @@ import frc.robot.subsystems.Elevator.Elevator;
 public class ElevatorL2 extends Command {
   private Elevator elevatorSubsystem;
   /** Creates a new ElevatorL2. */
-  public ElevatorL2(Elevator m_Elevator) {
-    this.elevatorSubsystem = m_Elevator;
+  public ElevatorL2(Elevator elevatorSubsystem) {
+    this.elevatorSubsystem = elevatorSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }

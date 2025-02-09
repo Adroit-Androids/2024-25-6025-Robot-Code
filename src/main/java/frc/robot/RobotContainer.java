@@ -77,7 +77,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  public static final Elevator m_elevator = new Elevator(new ElevatorIO());
+  public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO());
   public static final Endgame m_endgame = new Endgame();
   public static final Limelight m_limelight = new Limelight(m_swerveDrive);
   public static final MusicPlayer m_musicPlayer = new MusicPlayer();
@@ -143,19 +143,19 @@ public class RobotContainer {
         //Operator Controls:
 
         // L1 state
-    m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
+    m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
 
         // L2 state
-    m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
+    m_operatorController.x().onTrue(new ElevatorL2(elevatorSubsystem));
 
         // L3 state
-    m_operatorController.y().onTrue(new ElevatorL3(m_elevator));
+    m_operatorController.y().onTrue(new ElevatorL3(elevatorSubsystem));
 
         // L4 state
-    m_operatorController.b().onTrue(new ElevatorL4(m_elevator));
+    m_operatorController.b().onTrue(new ElevatorL4(elevatorSubsystem));
 
         // Elevator Down State
-    m_operatorController.start().onTrue(new ElevatorDown(m_elevator));
+    m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));
 
     
 

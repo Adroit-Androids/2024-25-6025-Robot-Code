@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Elevator;
 
+import com.google.flatbuffers.Constants;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator.Elevator;
 
@@ -11,15 +13,17 @@ import frc.robot.subsystems.Elevator.Elevator;
 public class ElevatorProcessor extends Command {
   private Elevator elevatorSubsystem;
   /** Creates a new ElevatorProcessor. */
-  public ElevatorProcessor(Elevator m_Elevator) {
-    this.elevatorSubsystem = m_Elevator;
+  public ElevatorProcessor(Elevator elevatorSubsystem) {
+    this.elevatorSubsystem = elevatorSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevatorSubsystem.setPosition(frc.robot.Constants.ElevatorHeights.kProcessorHeight);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
