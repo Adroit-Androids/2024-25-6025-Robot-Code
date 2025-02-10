@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.168710441542278,
-        "y": 2.521171448126064
+        "x": 4.677700850859991,
+        "y": 2.394426673240709
       },
       "isLocked": false,
       "linkedName": "S8E3"
     },
     {
       "anchor": {
-        "x": 6.430993150684932,
+        "x": 6.010273972602739,
         "y": 0.5540667808219177
       },
       "prevControl": {
-        "x": 6.245769746371027,
-        "y": 0.7522933160296408
+        "x": 5.834368198571927,
+        "y": 0.7636710478448833
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Scenario 8",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 59.99999999999999
