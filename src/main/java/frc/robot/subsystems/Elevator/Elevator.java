@@ -3,68 +3,98 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems.Elevator;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Elevator extends SubsystemBase {
-  private DigitalInput magneticSwitchUpper = new DigitalInput(0);
-  private DigitalInput magneticSwitchLower = new DigitalInput(1);
-
   private final ElevatorIO io;
 
+  // PID and Feedforward constants
+  private static final double kP = 0.1;
+  private static final double kI = 0.0;
+  private static final double kD = 0.0;
+  private static final double kS = 0.1;   // Static
+  private static final double kV = 0.1;   // Velocity
+  private static final double kA = 0.01;  // Acceleration
+
+  private final ProfiledPIDController pidController;
+  private final SimpleMotorFeedforward feedforward;
+
+  private DigitalInput magneticSwitchUpper = new DigitalInput(1);
+  private DigitalInput magneticSwitchLower = new DigitalInput(2);
+
+  private double targetPosition = 0.0; // Current target position
+
   // Constructor
-  public Elevator (ElevatorIO io) {
+  public Elevator(ElevatorIO io) {
     this.io = io;
-    io.resetPosition();
+    
+    // Set up the PID controller with limits on position changes
+    pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(1.0, 1.0));
+    feedforward = new SimpleMotorFeedforward(kS, kV, kA);
+    pidController.setTolerance(0.1); // Set tolerance for reaching the target position
+    
+    io.resetPosition(); // Initialize elevator position
   }
 
-
-  // Method to adjust/set power for the elevator
-  public void setVoltage(double voltage){
-    System.out.println("Elevator position: " + getPosition());
-    io.set(voltage);
+  // Set the elevator target position
+  public void setPosition(double targetPosition) {
+    if (this.targetPosition != targetPosition) {  // Only update if the target position changes
+      this.targetPosition = targetPosition;
+      pidController.setGoal(targetPosition);  // Update PID goal
+    }
   }
 
-  
-  // Method to stop the elevator
-  public void stop(){
-    io.stop();
-  }
-
-
-  //Method to set the elevator to a specific desired position
-  public void setPosition(double position){
-    io.setPosition(position);
-  }
-
-
-
-// ----------------------
-  public double getPosition(){
+  // Get the current position of the elevator
+  public double getPosition() {
     return io.getPosition();
   }
 
-  public double getVelocity(){
+  // Get the current velocity of the elevator
+  public double getVelocity() {
     return io.getVelocity();
   }
 
-  public void resetPosition(){
+  // Move the elevator to the target position
+  public void moveToPosition() {
+    if (!pidController.atGoal()) {
+
+      double pidOutput = pidController.calculate(getPosition());
+
+      double feedforwardOutput = feedforward.calculate(getVelocity());
+
+      double voltage = pidOutput + feedforwardOutput;
+      io.set(voltage);
+    } else {
+      io.stop();  // Stop the motor if the goal has been reached
+    }
+  }
+
+  // Stop the elevator
+  public void stop() {
+    io.stop();
+  }
+
+  // Reset the elevator position
+  public void resetPosition() {
     io.resetPosition();
   }
-// -----------------------
-
 
 
   @Override
   public void periodic() {
-    if (magneticSwitchUpper.get() == true){
+    // If the upper or lower limit switches are triggered, stop the elevator and reset position if necessary
+    if (magneticSwitchUpper.get()) {
       io.stop();
-    }
-    if (magneticSwitchLower.get() == true){
+    } else if (magneticSwitchLower.get()) {
       io.stop();
       io.resetPosition();
+    } else {
+      moveToPosition();
     }
-    //io.updateInputs(inputs);
   }
 }
