@@ -6,7 +6,6 @@ package frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.Elevator.ElevatorIO.ElevatorIOInputs;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -97,6 +96,6 @@ public class Elevator extends SubsystemBase {
     } else {
       moveToPosition();
     }
-    io.updateInputs(inputs);
+    io.updateInputs(null);
   }
 }

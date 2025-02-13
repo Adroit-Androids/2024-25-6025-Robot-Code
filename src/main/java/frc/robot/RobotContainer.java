@@ -19,7 +19,7 @@ import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.MusicPlayer;
 import frc.robot.subsystems.Elevator.Elevator;
 import frc.robot.subsystems.Elevator.ElevatorIOHardware;
-import frc.robot.subsystems.Elevaotr.ElevatorIO;
+import frc.robot.subsystems.Elevator.ElevatorIO;
 import frc.robot.subsystems.Endgame.Endgame;
 import frc.robot.subsystems.Intake.IntakeIO;
 import frc.robot.subsystems.Intake.Intake;
@@ -78,7 +78,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO());
+  public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO() {});
   public static final Endgame m_endgame = new Endgame();
   public static final Limelight m_limelight = new Limelight(m_swerveDrive);
   public static final MusicPlayer m_musicPlayer = new MusicPlayer();

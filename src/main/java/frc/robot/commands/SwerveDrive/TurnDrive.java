@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
