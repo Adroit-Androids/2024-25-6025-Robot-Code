@@ -20,26 +20,34 @@ import org.littletonrobotics.junction.AutoLog;
       public double elevatorVelocity = 0.0;
     }
     
+    // Update the inputs for the elevator
+    public default void updateInputs(ElevatorIOInputs inputs) {
+    }
+    
+    // Set the voltage of the elevator
+    public default void set(double voltage) {
+    }
+
     // Set the current position of the elevator
     public default double setPosition(double position) {
     }
 
-    // Set the voltage of the elevator
-    public default void setVoltage(double voltage) {
-    }
+    // Get the current position of the elevator
+     public default double getPosition() {
+       return 0;
+     }
+     
+     // Reset the position of the elevator
+     public default void resetPosition() {
+     }
 
-    // Reset the position of the elevator
-    public default void resetPosition() {
-    }
-
-    // Update the inputs for the elevator
-    public default void updateInputs(ElevatorIOInputs inputs) {
-    }
-
+    
     // Get the current velocity of the elevator
     public default double getVelocity() {
       return 0;
     }
 
+
+    
     public default void setProfiledPID(double kP, double kI, double kD) {}
   }

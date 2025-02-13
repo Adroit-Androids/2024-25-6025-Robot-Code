@@ -96,5 +96,6 @@ public class Elevator extends SubsystemBase {
     } else {
       moveToPosition();
     }
+    io.updateInputs(inputs);
   }
 }
