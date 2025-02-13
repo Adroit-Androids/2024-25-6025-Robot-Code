@@ -6,7 +6,7 @@ package frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -22,7 +22,7 @@ public class Elevator extends SubsystemBase {
   private static final double kA = 0.01;  // Acceleration
 
   private final ProfiledPIDController pidController;
-  private final SimpleMotorFeedforward feedforward;
+  private final ElevatorFeedforward feedforward;
 
   private DigitalInput magneticSwitchUpper = new DigitalInput(1);
   private DigitalInput magneticSwitchLower = new DigitalInput(2);
@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
     
     // Set up the PID controller with limits on position changes
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(1.0, 1.0));
-    feedforward = new SimpleMotorFeedforward(kS, kV, kA);
+    feedforward = new Elevatorfeedforward(kS, kV, kA);
     pidController.setTolerance(0.1); // Set tolerance for reaching the target position
     
     io.resetPosition(); // Initialize elevator position
