@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems.Elevator;
+import org.littletonrobotics.junction.AutoLog;
 
   public interface ElevatorIO {
 
