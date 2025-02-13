@@ -6,12 +6,14 @@ package frc.robot.subsystems.Limelight;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.RobotContainer;
+import frc.robot.LimelightHelpers.LimelightResults;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
 
@@ -23,13 +25,16 @@ public class Limelight extends SubsystemBase {
   public double ty;
   public double ta;
   public double currentApriltagID;
+  public LimelightResults results;
   public LimelightHelpers.PoseEstimate limelightPoseEstimate;
   public boolean doRejectUpdate = false; 
   StructPublisher<Pose2d> limelightPosePublisher;
+  StructPublisher<Pose3d> apriltagPoseToRobotPublisher;
 
   /** Creates a new limelight. */
   public Limelight(SwerveSubsystem m_swerveDrive) {
     limelightPosePublisher = NetworkTableInstance.getDefault().getStructTopic("/Limelight Pose", Pose2d.struct).publish();
+    apriltagPoseToRobotPublisher = NetworkTableInstance.getDefault().getStructTopic("/Apriltag Pose", Pose3d.struct).publish();
     this.swerveDrive = m_swerveDrive.swerveDrive;
     this.swerveSubsystem = m_swerveDrive;
     LimelightHelpers.setCameraPose_RobotSpace(ll_table, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0);
@@ -39,6 +44,8 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    results = LimelightHelpers.getLatestResults(ll_table);
+
     LimelightHelpers.SetRobotOrientation(ll_table, swerveDrive.getYaw().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
                                           swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
     limelightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(ll_table);
@@ -59,7 +66,9 @@ public class Limelight extends SubsystemBase {
     ta = LimelightHelpers.getTA(ll_table);
     currentApriltagID = LimelightHelpers.getFiducialID(ll_table);
     
-
+    if (results.targets_Fiducials.length > 0) {
+      apriltagPoseToRobotPublisher.set(results.targets_Fiducials[0].getTargetPose_RobotSpace());
+    }
     limelightPosePublisher.set(limelightPoseEstimate.pose);
     SmartDashboard.putNumber("LimelightX", tx);
     SmartDashboard.putNumber("LimelightY", ty);
