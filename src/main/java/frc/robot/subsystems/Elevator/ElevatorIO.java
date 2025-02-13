@@ -23,7 +23,7 @@ import org.littletonrobotics.junction.AutoLog;
     // Update the inputs for the elevator
     public default void updateInputs(ElevatorIOInputs inputs) {
     }
-    
+
     // Set the voltage of the elevator
     public default void set(double voltage) {
     }
@@ -50,4 +50,5 @@ import org.littletonrobotics.junction.AutoLog;
 
     
     public default void setProfiledPID(double kP, double kI, double kD) {}
+    public default void setFeedForward(double kS, double kV, double kA) {}
   }
