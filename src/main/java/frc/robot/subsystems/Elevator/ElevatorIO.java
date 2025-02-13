@@ -5,9 +5,9 @@
 package frc.robot.subsystems.Elevator;
 import org.littletonrobotics.junction.AutoLog;
 
-  public interface ElevatorIO {
+public interface ElevatorIO {
 
-    @Autolog
+    @AutoLog
     public class ElevatorIOInputs{
     // Inputs for the elevator
       public boolean motorLeaderConnected = true;
@@ -18,6 +18,7 @@ import org.littletonrobotics.junction.AutoLog;
       public double voltageApplied[] = new double[] {};
       public double elevatorPositionRad = 0.0;
       public double elevatorVelocity = 0.0;
+
     }
     
     // Update the inputs for the elevator
@@ -26,10 +27,6 @@ import org.littletonrobotics.junction.AutoLog;
 
     // Set the voltage of the elevator
     public default void set(double voltage) {
-    }
-
-    // Set the current position of the elevator
-    public default double setPosition(double position) {
     }
 
     // Get the current position of the elevator
@@ -46,6 +43,9 @@ import org.littletonrobotics.junction.AutoLog;
     public default double getVelocity() {
       return 0;
     }
+    
+    
+    public default void stop() {}
 
     public default void setProfiledPIDValues(double kP, double kI, double kD) {}
     public default void setFeedForwardValues(double kS, double kV, double kA) {}
