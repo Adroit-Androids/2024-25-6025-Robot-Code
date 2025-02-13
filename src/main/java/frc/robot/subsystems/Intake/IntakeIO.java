@@ -44,6 +44,7 @@ public class IntakeIO extends SubsystemBase {
     coralWrist = new TalonFX(1);
 
     coralWristConfig = new TalonFXConfiguration();
+    closedLoopConfigs = new Slot0Configs();
 
     m_request = new PositionVoltage(0);
     m_request.Slot = 0;

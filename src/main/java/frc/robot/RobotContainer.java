@@ -10,6 +10,7 @@ import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
 import frc.robot.commands.Elevator.ElevatorL4;
+import frc.robot.commands.Intake.AlgeaIntake;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagDistanceAndCoralAllignment;
@@ -80,6 +81,7 @@ public class RobotContainer {
   public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO());
   public static final Endgame m_endgame = new Endgame();
   public static final Limelight m_limelight = new Limelight(m_swerveDrive);
+  public static final Intake m_intake = new Intake(new IntakeIO());
   public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
@@ -131,9 +133,9 @@ public class RobotContainer {
       //PoseLock
 
       //Coral Allignment
-    m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.0, 10.0));
-    m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.0, 10.0));
-    m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 16.0, 10.0, true));
+    m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.87, 6.0));
+    m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.87, 6.0));
+    m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 17.2, 7.75, true));
       //Coral Station Allignment
 
       //Processor Allignment
@@ -159,16 +161,16 @@ public class RobotContainer {
 
     
 
-    Command driveRight = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(1, 0, 0)));
+    Command driveRight = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0.25, 0, 0)));
     m_driverController.povRight().whileTrue(new RepeatCommand(driveRight));
     
-    Command driveLeft = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(-1, 0, 0)));
+    Command driveLeft = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(-0.25, 0, 0)));
     m_driverController.povLeft().whileTrue(new RepeatCommand(driveLeft));
 
-    Command driveForward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, -1, 0)));
+    Command driveForward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, -0.25, 0)));
     m_driverController.povUp().whileTrue(new RepeatCommand(driveForward));
 
-    Command driveBackward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, 1, 0)));
+    Command driveBackward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, 0.25, 0)));
     m_driverController.povDown().whileTrue(new RepeatCommand(driveBackward));
     
         //Coral Station State
@@ -176,6 +178,8 @@ public class RobotContainer {
         //Coral Intake
 
         //Algae Intake
+    m_operatorController.a().whileTrue(new RunCommand(() -> m_intake.setAlgaeVoltage(0.4), m_intake));
+    m_operatorController.b().whileTrue(new RunCommand(() -> m_intake.setAlgaeVoltage(-0.4), m_intake));
 
         //Algae Drop
 
