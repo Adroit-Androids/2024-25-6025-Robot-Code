@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.subsystems.Elevator.ElevatorIOHardware;
 
 public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
