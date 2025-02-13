@@ -47,8 +47,6 @@ import org.littletonrobotics.junction.AutoLog;
       return 0;
     }
 
-
-    
     public default void setProfiledPID(double kP, double kI, double kD) {}
     public default void setFeedForward(double kS, double kV, double kA) {}
   }
