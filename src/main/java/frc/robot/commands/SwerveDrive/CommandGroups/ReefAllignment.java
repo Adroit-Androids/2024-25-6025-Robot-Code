@@ -24,7 +24,6 @@ public class ReefAllignment extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new ApriltagAllignment(swerveSubsystem, limelight),new GoToLastSeenApriltagTarget(swerveSubsystem, limelight),
-                                      new CoralAllignment(swerveSubsystem, limelight, 0.0),
                                       new ApriltagDistanceAndCoralAllignment(swerveSubsystem, limelight, targetTx, targetTa,true),
                                       new DriveTillSetTime(swerveSubsystem, 1.2, 0.0,
                                                                            0.0, 0.5));

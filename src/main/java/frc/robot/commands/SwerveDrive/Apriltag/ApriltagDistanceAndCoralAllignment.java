@@ -30,7 +30,7 @@ public class ApriltagDistanceAndCoralAllignment extends Command {
   double horizontalSpeed = 1.0;
 
   PIDController txController = new PIDController(0.065, 0.0, 0.005);
-  PIDController taController = new PIDController(0.2, 0, 0.0);
+  PIDController taController = new PIDController(0.25, 0, 0.005);
   /** Creates a new ApriltagDistanceAndCoralAllignment. */
   public ApriltagDistanceAndCoralAllignment(SwerveSubsystem swerveSubsystem, Limelight limelight, double tx, double ta, boolean runOnce) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -77,7 +77,7 @@ public class ApriltagDistanceAndCoralAllignment extends Command {
   @Override
   public boolean isFinished() {
     if (runOnce){
-     if (!isValidID || targetTimer >= 50){
+     if (!isValidID || (Math.abs(errorTa) < 0.3 && Math.abs(errorTx) < 0.5)){
        return true;
      }
   }
