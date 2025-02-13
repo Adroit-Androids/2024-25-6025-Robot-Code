@@ -15,7 +15,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorIds;
 
-public class ElevatorIOHardware extends SubsystemBase {
+public class ElevatorIOHardware implements ElevatorIO {
   public SparkMax leadMotor;
   public SparkMax followerMotor;
   Follower follower;

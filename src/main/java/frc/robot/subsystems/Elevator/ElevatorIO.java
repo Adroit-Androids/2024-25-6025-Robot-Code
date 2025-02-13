@@ -4,9 +4,6 @@
 
 package frc.robot.subsystems.Elevator;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-public class ElevatorIO extends SubsystemBase {
   public interface ElevatorIO {
     
     @Autolog
@@ -15,13 +12,10 @@ public class ElevatorIO extends SubsystemBase {
       public boolean elevatorMotorFollowerConnected = true;
       public double motorCurrent = 0.0;
       public double voltageCurent = 0.0;
-      
-
       public double elevatorPositionRad = 0.0;
       public double elevatorVelocity = 0.0;
     }
     
-
     public default double setPosition(double position) {}
 
     public default void setVoltage(double voltage) {}
@@ -33,5 +27,6 @@ public class ElevatorIO extends SubsystemBase {
     public default double getVelocity() {
       return 0;
     }
+
+    public default void setProfieldPIDValues(double kP, double kI, double kD) {}
   }
-}
