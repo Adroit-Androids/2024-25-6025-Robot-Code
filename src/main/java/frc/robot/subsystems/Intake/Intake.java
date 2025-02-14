@@ -19,8 +19,8 @@ IntakeIOInputs inputs = new IntakeIOInputs();
     this.io = io;
   }
 
-  public void setAlgaeVoltage(double voltage){
-    io.setAlgaeVoltage(voltage);
+  public void setAlgaeIntakeVoltage(double voltage){
+    io.setAlgaeIntakeVoltage(voltage);
   }
 
   public void setCoralIntakeVoltage(double voltage){

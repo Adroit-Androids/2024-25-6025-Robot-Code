@@ -22,7 +22,7 @@ public interface IntakeIO {
 
   // Set X Voltage
   public default void setWristVoltage(double voltage) {}
-  public default void setAlgaeVoltage(double voltage) {}
+  public default void setAlgaeIntakeVoltage(double voltage) {}
   public default void setCoralIntakeVoltage(double voltage) {}
 
   public default void adjustAngle(double angle) {}

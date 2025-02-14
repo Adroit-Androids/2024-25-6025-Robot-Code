@@ -61,7 +61,7 @@ public class IntakeIOHardware implements IntakeIO {
     inputs.coralWristPosition = coralWrist.getPosition().getValueAsDouble();
   }
 
-  public void setAlgaeVoltage(double voltage) {
+  public void setAlgaeIntakeVoltage(double voltage) {
     algeaIntake.set(TalonSRXControlMode.Current, voltage);
   }
 
