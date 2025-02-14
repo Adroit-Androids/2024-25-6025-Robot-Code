@@ -19,7 +19,7 @@ public class Elevator extends SubsystemBase {
   private static final double kD = 0.0;
   private static final double kS = 0.1;   // Static
   private static final double kV = 0.1;   // Velocity
-  private static final double kG = 0.01;  // Acceleration
+  private static final double kG = 0.01;  // Gravity
 
   private final ProfiledPIDController pidController;
   private final ElevatorFeedforward feedforward;
