@@ -180,8 +180,8 @@ public class RobotContainer {
         //Coral Intake
 
         //Algae Intake
-    m_operatorController.a().whileTrue(new RunCommand(() -> m_intake.setAlgaeVoltage(0.4), m_intake));
-    m_operatorController.b().whileTrue(new RunCommand(() -> m_intake.setAlgaeVoltage(-0.4), m_intake));
+    m_operatorController.a().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(0.4), m_intake));
+    m_operatorController.b().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(-0.4), m_intake));
 
         //Algae Drop
 
