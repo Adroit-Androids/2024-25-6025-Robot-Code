@@ -19,11 +19,12 @@ import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.MusicPlayer;
 import frc.robot.subsystems.Elevator.Elevator;
-import frc.robot.subsystems.Elevator.ElevatorIOHardware;
 import frc.robot.subsystems.Elevator.ElevatorIO;
+import frc.robot.subsystems.Elevator.ElevatorIOHardware;
 import frc.robot.subsystems.Endgame.Endgame;
 import frc.robot.subsystems.Intake.IntakeIO;
 import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Intake.IntakeIOHardware;
 import frc.robot.subsystems.Limelight.Limelight;
 
 import java.io.File;
@@ -82,7 +83,7 @@ public class RobotContainer {
   public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO() {});
   public static final Endgame m_endgame = new Endgame();
   public static final Limelight m_limelight = new Limelight(m_swerveDrive);
-  public static final Intake m_intake = new Intake(new IntakeIO());
+  public static final Intake m_intake = new Intake(new IntakeIO() {});
   public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
