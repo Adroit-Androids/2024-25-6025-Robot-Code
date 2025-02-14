@@ -3,81 +3,50 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems.Elevator;
+import org.littletonrobotics.junction.AutoLog;
 
-import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.controls.PositionVoltage;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+public interface ElevatorIO {
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.MotorIds;
+    @AutoLog
+    public class ElevatorIOInputs{
+    // Inputs for the elevator
+      public boolean motorLeaderConnected = true;
+      public boolean motorFollowerConnected = true;
 
-public class ElevatorIO extends SubsystemBase {
-  public SparkMax leadMotor;
-  public SparkMax followerMotor;
-  Follower follower;
-  
-  SparkMaxConfig followerConfig;
-  SparkMaxConfig leadConfig;
-  
-  PositionVoltage m_request;
+      public double motorCurrent = 0.0;
+      public double voltageCurent = 0.0;
+      public double voltageApplied[] = new double[] {};
+      public double elevatorPositionRad = 0.0;
+      public double elevatorVelocity = 0.0;
 
-  /** Creates a new elevatorIO. */
-  public ElevatorIO() {
-    leadMotor = new SparkMax(MotorIds.kElevatorLeadMotor, MotorType.kBrushless);
-    followerMotor = new SparkMax(MotorIds.kElevatorFollowMotor, MotorType.kBrushless);
+    }
+    
+    // Update the inputs for the elevator
+    public default void updateInputs(ElevatorIOInputs inputs) {
+    }
 
-    followerConfig = new SparkMaxConfig();
-    leadConfig = new SparkMaxConfig();
+    // Set the voltage of the elevator
+    public default void set(double voltage) {
+    }
 
-    leadConfig.closedLoop.pid(0, 0, 0);
-    leadConfig.idleMode(IdleMode.kBrake);
-    leadConfig.inverted(false);
+    // Get the current position of the elevator
+     public default double getPosition() {
+       return 0;
+     }
+     
+     // Reset the position of the elevator
+     public default void resetPosition() {
+     }
 
-    followerConfig.idleMode(IdleMode.kBrake);
-    followerConfig.inverted(true);
-    followerConfig.follow(leadMotor);
+    
+    // Get the current velocity of the elevator
+    public default double getVelocity() {
+      return 0;
+    }
+    
+    
+    public default void stop() {}
 
-    leadMotor.configure(leadConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kNoPersistParameters);
-    followerMotor.configure(followerConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kNoPersistParameters);
+    public default void setProfiledPIDValues(double kP, double kI, double kD) {}
+    public default void setFeedForwardValues(double kS, double kV, double kA) {}
   }
-
-  public void set(double voltage) {
-    // Set the power to the main motor
-    leadMotor.set(voltage);
-  }
-
-  public double getPosition() {
-    // Get the position from the encoder
-    return leadMotor.getEncoder().getPosition();
-  }
-
-
-  public double getVelocity() {
-    // Get the velocity from the encoder
-    return leadMotor.getEncoder().getVelocity();
-  }
-
-
-  public void resetPosition() {
-    // Reset the encoder to the specified position
-    leadMotor.getEncoder().setPosition(0.0);
-  }
-
-  
-  public void setPosition(double position) {
-    leadMotor.getClosedLoopController().setReference(position, ControlType.kPosition);
-  }
-
-
-  public void stop() {
-    leadMotor.setVoltage(0);
-  }
-
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-}
