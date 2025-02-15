@@ -16,7 +16,7 @@ public interface ElevatorIO {
       public double motorCurrent = 0.0;
       public double voltageCurent = 0.0;
       public double voltageApplied[] = new double[] {};
-      public double elevatorPositionRad = 0.0;
+      public double elevatorPositionDeg = 0.0;
       public double elevatorVelocity = 0.0;
 
     }

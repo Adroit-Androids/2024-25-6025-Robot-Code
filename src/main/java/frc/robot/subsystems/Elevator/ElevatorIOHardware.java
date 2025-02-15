@@ -7,7 +7,6 @@ package frc.robot.subsystems.Elevator;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -31,7 +30,6 @@ public class ElevatorIOHardware implements ElevatorIO {
     followerConfig = new SparkMaxConfig();
     leadConfig = new SparkMaxConfig();
 
-    leadConfig.closedLoop.pid(0, 0, 0);
     leadConfig.idleMode(IdleMode.kBrake);
     leadConfig.inverted(false);
 
@@ -59,17 +57,16 @@ public class ElevatorIOHardware implements ElevatorIO {
     return leadMotor.getEncoder().getVelocity();
   }
 
+  public double getVoltage() {
+    // Get the voltage from the motor
+    return leadMotor.getBusVoltage();
+  }
+
 
   public void resetPosition() {
     // Reset the encoder to the specified position
     leadMotor.getEncoder().setPosition(0.0);
   }
-
-  
-  public void setPosition(double position) {
-    leadMotor.getClosedLoopController().setReference(position, ControlType.kPosition);
-  }
-
 
   public void stop() {
     leadMotor.setVoltage(0);

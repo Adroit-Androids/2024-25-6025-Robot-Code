@@ -6,12 +6,15 @@ package frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.Elevator.ElevatorIO.ElevatorIOInputs;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
+  private final ElevatorIOInputs inputs = new ElevatorIOInputs();
 
   // PID and Feedforward constants
   private static final double kP = 0.1;
@@ -65,13 +68,19 @@ public class Elevator extends SubsystemBase {
 
       double pidOutput = pidController.calculate(getPosition());
 
-      double feedforwardOutput = feedforward.calculate(getVelocity());
+      double feedforwardOutput = feedforward.calculate(pidController.getSetpoint().velocity);
 
       double voltage = pidOutput + feedforwardOutput;
       io.set(voltage);
     } else {
       io.stop();  // Stop the motor if the goal has been reached
     }
+  }
+
+  public void movetoVelocity(double velocity) {
+  double feedforwardOutput = feedforward.calculate(velocity);
+  SmartDashboard.putNumber("Elevator target speed", velocity);
+   io.set(feedforwardOutput);
   }
 
   // Stop the elevator
@@ -89,13 +98,18 @@ public class Elevator extends SubsystemBase {
   public void periodic() {
     // If the upper or lower limit switches are triggered, stop the elevator and reset position if necessary
     if (magneticSwitchUpper.get()) {
-      io.stop();
+      setPosition(io.getPosition());
+      moveToPosition();
     } else if (magneticSwitchLower.get()) {
-      io.stop();
       io.resetPosition();
+      setPosition(io.getPosition());
+      moveToPosition();
     } else {
       moveToPosition();
     }
-    io.updateInputs(null);
+    inputs.elevatorVelocity = io.getVelocity();
+    inputs.voltageCurent = io.getVelocity();
+
+    io.updateInputs(inputs);
   }
 }
