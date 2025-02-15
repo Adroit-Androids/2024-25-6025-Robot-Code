@@ -4,12 +4,13 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ElevatorState;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
-import frc.robot.commands.Elevator.ElevatorL4;
+import frc.robot.commands.Elevator.ElevatorL0;
 import frc.robot.commands.Intake.AlgeaIntake;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
@@ -54,21 +55,7 @@ public class RobotContainer {
   public static double lastReadTxTarget;
   public static double currentTargetID;
 
-  private final double LEFT_TX = -6;
-  private final double RIGHT_TX = 6;
-  private final double MIDDLE_TX = 0; 
-
-  private final double PROCESSOR_HEIGHT = 0;
-  private final double SOURCE_HEIGHT = 8.75;
-  private final double TOP_ALGAE_HEIGHT = 40;
-
-  private final double PROCESSOR_ANGLE = 0;
-  private final double SOURCE_ANGLE = 0.15;
-  private final double L1_ANGLE = 0.3;
-  private final double L2_ANGLE = 0.225;
-  private final double L3_ANGLE = 0.225;
-  private final double L4_ANGLE = 0.26;
-  private final double TOP_ALGAE_ANGLE = 0;
+  public static ElevatorState currentElevatorState = ElevatorState.DOWN;
 
   // Replace with CommandXboxController or CommandJoystick if needed
   public static final CommandXboxController m_driverController =
@@ -155,7 +142,7 @@ public class RobotContainer {
     m_operatorController.y().onTrue(new ElevatorL3(elevatorSubsystem));
 
         // L4 state
-    m_operatorController.b().onTrue(new ElevatorL4(elevatorSubsystem));
+    m_operatorController.b().onTrue(new ElevatorL0(elevatorSubsystem));
 
         // Elevator Down State
     m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));

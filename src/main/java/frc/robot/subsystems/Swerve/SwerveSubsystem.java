@@ -42,6 +42,10 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public        double      maximumSpeed = 1.5;
   /**
+   * Maximum rotational speed of the robot in radians per second, used to limit acceleration.
+   */
+  public        double      maximumRotationSpeed = Math.toRadians(135);
+  /**
    * Robot configuration gathered from pathplanner
    */
   public RobotConfig robotConfig;
@@ -147,6 +151,27 @@ public class SwerveSubsystem extends SubsystemBase {
     // When vision is enabled we must manually update odometry in SwerveDrive
     LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getYaw().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
                                            swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
+
+    switch (RobotContainer.currentElevatorState){
+      case DOWN:
+        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
+        break;
+      case PROCESSOR:
+        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+        break;
+      case L0:
+        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+        break;
+      case L1:
+        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.8, maximumSpeed * 0.8);
+        break;
+      case L2:
+        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.7, maximumSpeed * 0.7);
+        break;
+      case L3:
+        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumSpeed * 0.6);
+        break;
+    }
 
     SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
     if (getCurrentCommand() != null) {
