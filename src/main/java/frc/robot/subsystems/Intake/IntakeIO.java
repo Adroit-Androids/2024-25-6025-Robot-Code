@@ -9,12 +9,17 @@ import org.littletonrobotics.junction.AutoLog;
 public interface IntakeIO {
   @AutoLog
   public static class IntakeIOInputs {
-    public boolean intakeConnected = true;
-    public double voltageCurent = 0.0;
+    public boolean coralIntakeConnected = true;
+    public boolean algaeIntakeConnected = true;
+    public double algageVoltageCurent = 0.0;
+    public double coralVoltageCurrent = 0.0;
     
     public double coralWristVoltage = 0.0;
     public double coralWristVelocity = 0.0;
     public double coralWristPosition = 0.0;
+
+    public double algaePosition = 0.0;
+    public double algaeVelocity = 0.0;
   }
 
 
