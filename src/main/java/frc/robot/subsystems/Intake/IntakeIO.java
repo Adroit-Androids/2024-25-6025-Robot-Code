@@ -11,7 +11,7 @@ public interface IntakeIO {
   public static class IntakeIOInputs {
     public boolean coralIntakeConnected = true;
     public boolean algaeIntakeConnected = true;
-    public double algageVoltageCurent = 0.0;
+    public double algaeVoltageCurent = 0.0;
     public double coralVoltageCurrent = 0.0;
     
     public double coralWristVoltage = 0.0;
