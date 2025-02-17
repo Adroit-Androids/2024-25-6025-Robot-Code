@@ -11,7 +11,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.LimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.subsystems.Limelight.Limelight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
@@ -23,7 +22,7 @@ public class TargetPoseAllignment extends Command {
   Limelight m_limelight;
   int[] validIDs = {6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22};
   boolean isValidID = false;
-  LimelightTarget_Fiducial fiducial;
+  double[] fidicualPose;
   int targetTimer = 0;
   double targetAngle;
   double targetX;
@@ -86,7 +85,7 @@ public class TargetPoseAllignment extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    fiducial = m_limelight.getTargetFidicual();
+    fidicualPose = m_limelight.getTargetPose2d();
     currentAngle = swerveDrive.getOdometryHeading().getDegrees() + 180;
 
 
@@ -109,8 +108,8 @@ public class TargetPoseAllignment extends Command {
       RobotContainer.lastReadTxTarget = m_limelight.tx;
     }
     
-    swerveDrive.drive(new Translation2d(xVelocityController.calculate(fiducial.getTargetPose_CameraSpace2D().getX(), targetX),
-                                        yVelocityController.calculate(fiducial.getTargetPose_CameraSpace2D().getY(), targetY)),
+    swerveDrive.drive(new Translation2d(xVelocityController.calculate(fidicualPose[0], targetX),
+                                        yVelocityController.calculate(fidicualPose[1], targetY)),
                       Math.toRadians(pAdjustment),
                       false, false);
 
