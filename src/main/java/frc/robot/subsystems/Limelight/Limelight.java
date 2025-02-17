@@ -36,10 +36,13 @@ public class Limelight extends SubsystemBase {
     limelightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(ll_table);
   }
 
+  public double[] getTargetPose2d() {
+    return LimelightHelpers.getTargetPose_CameraSpace(ll_table);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    results = LimelightHelpers.getLatestResults(ll_table);
 
     LimelightHelpers.SetRobotOrientation(ll_table, swerveDrive.getOdometryHeading().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
                                           swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
@@ -61,9 +64,6 @@ public class Limelight extends SubsystemBase {
     ta = LimelightHelpers.getTA(ll_table);
     currentApriltagID = LimelightHelpers.getFiducialID(ll_table);
     
-    if (results.targets_Fiducials.length > 0) {
-      apriltagPoseToRobotPublisher.set(results.targets_Fiducials[0].getTargetPose_RobotSpace());
-    }
     limelightPosePublisher.set(limelightPoseEstimate.pose);
     SmartDashboard.putNumber("LimelightX", tx);
     SmartDashboard.putNumber("LimelightY", ty);
