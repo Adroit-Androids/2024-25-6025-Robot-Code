@@ -171,31 +171,6 @@ public class RobotContainer {
 
         //Debug
       m_driverController.start().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(7.215, 4.001, new Rotation2d(Math.toRadians(180))))));
-        
-//--------------------------------------------------------------------------------------------------------------
-
-    //    // Intake L1 State
-    // Command intakeFromL1Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L1_ANGLE), m_intake);
-    // m_driverController.cross().onTrue(intakeFromL1Command);
-
-
-    //    // Intake L2 State
-    // Command intakeFromL2Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L2_ANGLE), m_intake);
-    // m_driverController.cross().onTrue(intakeFromL2Command);
-
-
-    //   // Intake L3 State
-    // Command intakeFromL3Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L3_ANGLE), m_intake);
-    // m_driverController.cross().onTrue(intakeFromL3Command);
-
-
-    //   // Intake L4 State
-    // Command intakeFromL4Command = new RunCommand(() -> m_intake.setWristPositionByDegrees(L4_ANGLE), m_intake);
-    // m_driverController.cross().onTrue(intakeFromL4Command);
-
-
-    
-
   }
 
   /**
