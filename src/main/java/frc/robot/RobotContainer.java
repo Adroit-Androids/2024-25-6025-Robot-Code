@@ -11,7 +11,6 @@ import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
 import frc.robot.commands.Elevator.ElevatorL0;
-import frc.robot.commands.Intake.AlgeaIntake;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagDistanceAndCoralAllignment;
@@ -21,18 +20,15 @@ import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.MusicPlayer;
 import frc.robot.subsystems.Elevator.Elevator;
 import frc.robot.subsystems.Elevator.ElevatorIO;
-import frc.robot.subsystems.Elevator.ElevatorIOHardware;
 import frc.robot.subsystems.Endgame.Endgame;
 import frc.robot.subsystems.Intake.IntakeIO;
 import frc.robot.subsystems.Intake.Intake;
-import frc.robot.subsystems.Intake.IntakeIOHardware;
 import frc.robot.subsystems.Limelight.Limelight;
 
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -40,7 +36,6 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
