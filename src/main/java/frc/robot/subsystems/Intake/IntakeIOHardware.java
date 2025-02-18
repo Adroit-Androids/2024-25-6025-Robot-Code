@@ -74,7 +74,6 @@ public class IntakeIOHardware implements IntakeIO {
   }
 
   public void wristAngle(double position) {
-    // System.out.println("Wrist position: " + getWristPosition());
     coralWrist.setControl(m_request.withPosition(position));
     
   }
@@ -84,7 +83,6 @@ public class IntakeIOHardware implements IntakeIO {
   }
 
   public void setWristVoltage(double voltage) {
-    // System.out.println("Wrist position: " + getWristPosition());
     coralWrist.set(voltage);
   }
 }
