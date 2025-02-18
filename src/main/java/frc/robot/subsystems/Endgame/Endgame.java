@@ -27,6 +27,20 @@ public class Endgame extends SubsystemBase {
     EndgameRight.setNeutralMode(NeutralMode.Brake);
   }
 
+  /**
+   * For electrical issues our encoder for our elevator had to be wired to the endgames talon srx.
+   * So we get it from our endgame subsytem
+   * 
+   * @return Elevator sensor position
+   */
+  public double getElevatorPosition(){
+    return EndgameRight.getSelectedSensorPosition();
+  }
+
+  public double getElevatorSpeed(){
+    return EndgameRight.getSelectedSensorVelocity();
+  }
+
   public void setSpeed(double speed){
     EndgameLeft.set(ControlMode.PercentOutput, speed);
     EndgameRight.set(ControlMode.PercentOutput, speed);

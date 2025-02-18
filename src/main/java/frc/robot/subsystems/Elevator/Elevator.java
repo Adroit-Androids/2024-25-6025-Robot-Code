@@ -11,6 +11,7 @@ import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.ElevatorTrapezoid;
 
 public class Elevator extends SubsystemBase {
@@ -43,8 +44,7 @@ public class Elevator extends SubsystemBase {
     // Set up the PID controller with limits on position changes
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
     pidController.setTolerance(0.1); // Set tolerance for reaching the target position
-    feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values
-    feedforward.calculate(10, 20); // Calculate feedforward values    
+    feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
     io.resetPosition(); // Initialize elevator position
   }
 
@@ -58,12 +58,12 @@ public class Elevator extends SubsystemBase {
 
   // Get the current position of the elevator
   public double getPosition() {
-    return io.getPosition();
+    return Math.toRadians(RobotContainer.m_endgame.getElevatorPosition()/4096 *360) * 0.05;
   }
 
   // Get the current velocity of the elevator
   public double getVelocity() {
-    return io.getVelocity();
+    return Math.toRadians(RobotContainer.m_endgame.getElevatorSpeed()/4096 * 360) * 0.05;
   }
 
   // Move the elevator to the target position
@@ -111,7 +111,7 @@ public class Elevator extends SubsystemBase {
     } else {
       moveToPosition();
     }
-    inputs.elevatorVelocity = io.getVelocity();
+    inputs.elevatorVelocity = RobotContainer.m_endgame.getElevatorSpeed();
     inputs.voltageCurent = io.getVelocity();
 
     io.updateInputs(inputs);

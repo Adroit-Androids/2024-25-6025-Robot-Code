@@ -4,19 +4,18 @@
 
 package frc.robot.subsystems.Elevator;
 
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorIds;
 
 public class ElevatorIOHardware implements ElevatorIO {
   public SparkMax leadMotor;
   public SparkMax followerMotor;
-  Follower follower;
   
   SparkMaxConfig followerConfig;
   SparkMaxConfig leadConfig;
@@ -48,7 +47,7 @@ public class ElevatorIOHardware implements ElevatorIO {
 
   public double getPosition() {
     // Get the position from the encoder
-    return leadMotor.getEncoder().getPosition();
+    return RobotContainer.m_endgame.getElevatorPosition();
   }
 
 
