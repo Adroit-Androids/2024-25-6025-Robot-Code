@@ -58,12 +58,12 @@ public class Elevator extends SubsystemBase {
 
   // Get the current position of the elevator
   public double getPosition() {
-    return Math.toRadians(RobotContainer.m_endgame.getElevatorPosition()/4096 *360) * 0.05;
+    return RobotContainer.m_endgame.getElevatorPosition()/4096 * Math.PI * 2 * 0.05;
   }
 
   // Get the current velocity of the elevator
   public double getVelocity() {
-    return Math.toRadians(RobotContainer.m_endgame.getElevatorSpeed()/4096 * 360) * 0.05;
+    return RobotContainer.m_endgame.getElevatorSpeed()/4096 * Math.PI * 2 * 0.05;
   }
 
   // Move the elevator to the target position
