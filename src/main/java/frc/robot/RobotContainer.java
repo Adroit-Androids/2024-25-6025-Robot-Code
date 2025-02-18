@@ -10,6 +10,8 @@ import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
+import frc.robot.commands.EndGame.EndgameDown;
+import frc.robot.commands.EndGame.EndgameUp;
 import frc.robot.commands.Elevator.ElevatorL0;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
@@ -62,7 +64,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO() {});
+  // public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO() {});
   public static final Endgame m_endgame = new Endgame();
   public static final Limelight m_limelight = new Limelight(m_swerveDrive);
   public static final Intake m_intake = new Intake(new IntakeIO() {});
@@ -125,23 +127,24 @@ public class RobotContainer {
       //Processor Allignment
 
       //Endgame
-
+    m_operatorController.a().whileTrue(new EndgameUp(m_endgame));
+    m_operatorController.b().whileTrue(new EndgameDown(m_endgame));
         //Operator Controls:
 
-        // L1 state
-    m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
+    //     // L1 state
+    // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
 
-        // L2 state
-    m_operatorController.x().onTrue(new ElevatorL2(elevatorSubsystem));
+    //     // L2 state
+    // m_operatorController.x().onTrue(new ElevatorL2(elevatorSubsystem));
 
-        // L3 state
-    m_operatorController.y().onTrue(new ElevatorL3(elevatorSubsystem));
+    //     // L3 state
+    // m_operatorController.y().onTrue(new ElevatorL3(elevatorSubsystem));
 
-        // L4 state
-    m_operatorController.b().onTrue(new ElevatorL0(elevatorSubsystem));
+    //     // L4 state
+    // m_operatorController.b().onTrue(new ElevatorL0(elevatorSubsystem));
 
-        // Elevator Down State
-    m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));
+    //     // Elevator Down State
+    // m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));
 
     
 
@@ -162,8 +165,8 @@ public class RobotContainer {
         //Coral Intake
 
         //Algae Intake
-    m_operatorController.a().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(0.4), m_intake));
-    m_operatorController.b().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(-0.4), m_intake));
+    // m_operatorController.a().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(0.4), m_intake));
+    // m_operatorController.b().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(-0.4), m_intake));
 
         //Algae Drop
 
