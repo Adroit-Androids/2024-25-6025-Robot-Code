@@ -11,10 +11,14 @@ import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.ElevatorTrapezoid;
 
 public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
   private final ElevatorIOInputs inputs = new ElevatorIOInputs();
+
+  private final double maxVelocity = ElevatorTrapezoid.maxVelocity;
+  private final double maxAcceleration = ElevatorTrapezoid.maxAcceleration;
 
   // PID and Feedforward constants
   private static final double kP = 0.1;
@@ -37,7 +41,7 @@ public class Elevator extends SubsystemBase {
     this.io = io;
     
     // Set up the PID controller with limits on position changes
-    pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(1.0, 1.0));
+    pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
     pidController.setTolerance(0.1); // Set tolerance for reaching the target position
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values
     feedforward.calculate(10, 20); // Calculate feedforward values    
