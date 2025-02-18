@@ -48,5 +48,5 @@ public interface ElevatorIO {
     public default void stop() {}
 
     public default void setProfiledPIDValues(double kP, double kI, double kD) {}
-    public default void setFeedForwardValues(double kS, double kV, double kA) {}
+    public default void setFeedForwardValues(double kS, double kV, double kG) {}
   }
