@@ -30,8 +30,8 @@ public final class Constants {
     public static final int kElevatorLeadMotor = 15;
     public static final int kElevatorFollowMotor = 16;
 
-    public static final int kEndgameLeftMotor = 20;
-    public static final int kEndgameRightMotor = 21;
+    public static final int kEndgameLeftMotor = 30;
+    public static final int kEndgameRightMotor = 31;
   }
 
   public static class ElevatorHeights {

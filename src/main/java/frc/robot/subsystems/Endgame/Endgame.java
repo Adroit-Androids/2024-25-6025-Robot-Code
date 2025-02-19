@@ -22,7 +22,7 @@ public class Endgame extends SubsystemBase {
     EndgameRight = new TalonSRX(MotorIds.kEndgameRightMotor);
 
     EndgameRight.setInverted(true);
-
+    
     EndgameLeft.configFactoryDefault();
     EndgameRight.configFactoryDefault();
     EndgameLeft.setNeutralMode(NeutralMode.Brake);

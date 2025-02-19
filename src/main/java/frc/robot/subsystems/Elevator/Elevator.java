@@ -6,6 +6,7 @@ package frc.robot.subsystems.Elevator;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+//import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.subsystems.Elevator.ElevatorIO.ElevatorIOInputs;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -80,6 +81,8 @@ public class Elevator extends SubsystemBase {
       io.stop();  // Stop the motor if the goal has been reached
     }
   }
+
+//SysIdRoutine routine = new SysIdRoutine(null, null);
 
   public void movetoVelocity(double velocity) {
   double feedforwardOutput = feedforward.calculate(velocity);
