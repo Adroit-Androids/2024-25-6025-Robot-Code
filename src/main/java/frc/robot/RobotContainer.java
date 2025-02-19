@@ -66,14 +66,13 @@ public class RobotContainer {
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   // public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO() {});
   public static final Endgame m_endgame = new Endgame();
-  public static final Limelight m_limelight = new Limelight(m_swerveDrive);
+  // public static final Limelight m_limelight = new Limelight(m_swerveDrive);
   public static final Intake m_intake = new Intake(new IntakeIO() {});
   public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final AbsoluteDrive absoluteDriveCommand = new AbsoluteDrive(m_swerveDrive, m_driverController);
   public static final TurnDrive turnDriveCommand = new TurnDrive(m_swerveDrive, m_driverController);
-  public static final ApriltagAllignment apriltagAllignmentCommand = new ApriltagAllignment(m_swerveDrive, m_limelight);
   public SendableChooser<Command> autoChooser;
   //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
@@ -82,8 +81,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure named commands
-    NamedCommands.registerCommand("Reef_Position_Right", new ReefAllignment(m_swerveDrive, m_limelight, 10.0, 8.0));
+    // // Configure named commands
+    // NamedCommands.registerCommand("Reef_Position_Right", new ReefAllignment(m_swerveDrive, m_limelight, 10.0, 8.0));
 
     
     //Configure the autochooser
@@ -118,10 +117,10 @@ public class RobotContainer {
     m_driverController.rightStick().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
-      //Coral Allignment
-    m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.87, 6.0));
-    m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.87, 6.0));
-    m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 17.2, 7.75, true));
+    //   //Coral Allignment
+    // m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.87, 6.0));
+    // m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.87, 6.0));
+    // m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 17.2, 7.75, true));
       //Coral Station Allignment
 
       //Processor Allignment

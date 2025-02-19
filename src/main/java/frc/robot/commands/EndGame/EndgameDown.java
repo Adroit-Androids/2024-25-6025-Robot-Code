@@ -15,9 +15,9 @@ public class EndgameDown extends Command {
   /** Creates a new EndgameDown. */
   public EndgameDown(Endgame endgame) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_endgame);
-
+    
     this.m_endgame = endgame;
+    addRequirements(m_endgame);
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +27,7 @@ public class EndgameDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_endgame.setSpeed(-0.1);
+    m_endgame.setSpeed(-1);
   }
 
   // Called once the command ends or is interrupted.

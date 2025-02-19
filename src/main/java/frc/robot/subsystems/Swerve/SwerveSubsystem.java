@@ -180,10 +180,10 @@ public class SwerveSubsystem extends SubsystemBase {
       SmartDashboard.putString("Default swerve command", getDefaultCommand().getName());
     }
     if (visionDriveTest)
-    {
-      if (!RobotContainer.m_limelight.doRejectUpdate){
-        swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelightPoseEstimate.pose, RobotContainer.m_limelight.limelightPoseEstimate.timestampSeconds);
-      }
+     {
+    //   if (!RobotContainer.m_limelight.doRejectUpdate){
+    //     swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelightPoseEstimate.pose, RobotContainer.m_limelight.limelightPoseEstimate.timestampSeconds);
+    //   }
       swerveDrive.updateOdometry();
     }
   }
