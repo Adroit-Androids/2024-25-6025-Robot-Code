@@ -21,7 +21,7 @@ public class Endgame extends SubsystemBase {
     EndgameLeft = new TalonSRX(MotorIds.kEndgameLeftMotor);
     EndgameRight = new TalonSRX(MotorIds.kEndgameRightMotor);
 
-    EndgameRight.setInverted(true);
+    EndgameRight.setInverted(false);
     
     EndgameLeft.configFactoryDefault();
     EndgameRight.configFactoryDefault();

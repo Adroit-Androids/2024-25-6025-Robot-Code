@@ -12,6 +12,8 @@ import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
 import frc.robot.commands.EndGame.EndgameDown;
 import frc.robot.commands.EndGame.EndgameUp;
+import frc.robot.commands.Intake.AlgeaWristDown;
+import frc.robot.commands.Intake.AlgeaWristUp;
 import frc.robot.commands.Elevator.ElevatorL0;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
@@ -126,9 +128,13 @@ public class RobotContainer {
       //Processor Allignment
 
       //Endgame
-    m_operatorController.a().whileTrue(new EndgameUp(m_endgame));
-    m_operatorController.b().whileTrue(new EndgameDown(m_endgame));
+    m_operatorController.a().whileTrue(new EndgameUp(m_endgame, 1.0));
+    m_operatorController.b().whileTrue(new EndgameDown(m_endgame, 1.0));
+    m_operatorController.x().whileTrue(new EndgameUp(m_endgame, 0.4));
+    m_operatorController.y().whileTrue(new EndgameDown(m_endgame, 0.4));
         //Operator Controls:
+    // m_operatorController.x().whileTrue(new AlgeaWristUp(m_intake));
+    // m_operatorController.y().whileTrue(new AlgeaWristDown(m_intake));
 
     //     // L1 state
     // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
