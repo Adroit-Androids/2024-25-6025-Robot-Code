@@ -133,8 +133,8 @@ public class RobotContainer {
       //Processor Allignment
 
       //Endgame
-    m_operatorController.a().whileTrue(new EndgameUp(m_endgame, 0.8));
-    m_operatorController.b().whileTrue(new EndgameDown(m_endgame, 0.8));
+    m_operatorController.a().whileTrue(new EndgameUp(m_endgame, 1.0));
+    m_operatorController.b().whileTrue(new EndgameDown(m_endgame, 1.0));
     m_operatorController.x().whileTrue(new EndgameUp(m_endgame, 0.4));
     m_operatorController.y().whileTrue(new EndgameDown(m_endgame, 0.4));
         //Operator Controls: kerem
@@ -143,7 +143,7 @@ public class RobotContainer {
     m_operatorController.rightTrigger().whileTrue(new ShootPiece(m_intake));
     m_operatorController.leftTrigger().whileTrue(new IntakePiece(m_intake));
 
-    m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, m_operatorController));
+   // m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, m_operatorController));
 
     //     // L1 state
     // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));

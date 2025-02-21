@@ -27,8 +27,8 @@ public class Endgame extends SubsystemBase {
     EndgameRight.configFactoryDefault();
     EndgameLeft.configPeakCurrentLimit(120);
     EndgameRight.configPeakCurrentLimit(120);
-    EndgameLeft.configVoltageCompSaturation(12);
-    EndgameRight.configVoltageCompSaturation(12);
+    EndgameLeft.configVoltageCompSaturation(12.5);
+    EndgameRight.configVoltageCompSaturation(12.5);
     EndgameLeft.setNeutralMode(NeutralMode.Brake);
     EndgameRight.setNeutralMode(NeutralMode.Brake);
   }
@@ -48,8 +48,8 @@ public class Endgame extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    EndgameLeft.set(ControlMode.PercentOutput, speed/2);
-    EndgameRight.set(ControlMode.PercentOutput, speed/2);
+    EndgameLeft.set(ControlMode.PercentOutput, speed);
+    EndgameRight.set(ControlMode.PercentOutput, speed);
   }
 
   public void setSpeedZero(){
