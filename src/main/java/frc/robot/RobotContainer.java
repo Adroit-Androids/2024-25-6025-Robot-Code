@@ -10,10 +10,13 @@ import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
+import frc.robot.commands.Elevator.ElevatorSetSpeed;
 import frc.robot.commands.EndGame.EndgameDown;
 import frc.robot.commands.EndGame.EndgameUp;
 import frc.robot.commands.Intake.AlgeaWristDown;
 import frc.robot.commands.Intake.AlgeaWristUp;
+import frc.robot.commands.Intake.IntakePiece;
+import frc.robot.commands.Intake.ShootPiece;
 import frc.robot.commands.Elevator.ElevatorL0;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
@@ -24,8 +27,10 @@ import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.MusicPlayer;
 import frc.robot.subsystems.Elevator.Elevator;
 import frc.robot.subsystems.Elevator.ElevatorIO;
+import frc.robot.subsystems.Elevator.ElevatorIOHardware;
 import frc.robot.subsystems.Endgame.Endgame;
 import frc.robot.subsystems.Intake.IntakeIO;
+import frc.robot.subsystems.Intake.IntakeIOHardware;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Limelight.Limelight;
 
@@ -66,11 +71,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  // public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO() {});
+  public static final Elevator m_elevator = new Elevator(new ElevatorIOHardware());
   public static final Endgame m_endgame = new Endgame();
   // public static final Limelight m_limelight = new Limelight(m_swerveDrive);
-  public static final Intake m_intake = new Intake(new IntakeIO() {});
-  public static final MusicPlayer m_musicPlayer = new MusicPlayer();
+  public static final Intake m_intake = new Intake(new IntakeIOHardware());
+  // public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final AbsoluteDrive absoluteDriveCommand = new AbsoluteDrive(m_swerveDrive, m_driverController);
@@ -128,13 +133,17 @@ public class RobotContainer {
       //Processor Allignment
 
       //Endgame
-    m_operatorController.a().whileTrue(new EndgameUp(m_endgame, 1.0));
-    m_operatorController.b().whileTrue(new EndgameDown(m_endgame, 1.0));
+    m_operatorController.a().whileTrue(new EndgameUp(m_endgame, 0.8));
+    m_operatorController.b().whileTrue(new EndgameDown(m_endgame, 0.8));
     m_operatorController.x().whileTrue(new EndgameUp(m_endgame, 0.4));
     m_operatorController.y().whileTrue(new EndgameDown(m_endgame, 0.4));
-        //Operator Controls:
-    // m_operatorController.x().whileTrue(new AlgeaWristUp(m_intake));
-    // m_operatorController.y().whileTrue(new AlgeaWristDown(m_intake));
+        //Operator Controls: kerem
+    m_operatorController.povUp().whileTrue(new AlgeaWristUp(m_intake));
+    m_operatorController.povDown().whileTrue(new AlgeaWristDown(m_intake));
+    m_operatorController.rightTrigger().whileTrue(new ShootPiece(m_intake));
+    m_operatorController.leftTrigger().whileTrue(new IntakePiece(m_intake));
+
+    m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, m_operatorController));
 
     //     // L1 state
     // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));

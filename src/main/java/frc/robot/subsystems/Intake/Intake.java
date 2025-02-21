@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.Intake;
 
+import javax.xml.transform.stream.StreamResult;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.Intake.IntakeIO.IntakeIOInputs;
 
@@ -19,12 +21,8 @@ IntakeIOInputs inputs = new IntakeIOInputs();
     this.io = io;
   }
 
-  public void setAlgaeIntakeVoltage(double voltage){
-    io.setAlgaeIntakeVoltage(voltage);
-  }
-
-  public void setCoralIntakeVoltage(double voltage){
-    io.setCoralIntakeVoltage(voltage);
+  public void setIntakeVoltage(double voltage){
+    io.setIntakeVoltage(voltage);
   }
 
   //---------------------------------------

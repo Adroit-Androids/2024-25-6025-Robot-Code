@@ -5,8 +5,8 @@
 package frc.robot.subsystems.Intake;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
@@ -17,31 +17,31 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.Constants.MotorIds;
 
 public class IntakeIOHardware implements IntakeIO {
-  TalonSRX coralIntake;
+  VictorSPX intakeMotor;
   TalonFX coralWrist;
 
   TalonFXConfiguration coralWristConfig;
 
-  TalonSRX algeaIntake;
 
   PositionVoltage m_request;
   Slot0Configs closedLoopConfigs;
 
   public IntakeIOHardware() {
-    coralIntake = new TalonSRX(0);
-    coralWrist = new TalonFX(1);
+    intakeMotor = new VictorSPX(MotorIds.kIntakeMotor);
+    coralWrist = new TalonFX(MotorIds.kAlgeaWristMotor);
 
     coralWristConfig = new TalonFXConfiguration();
+
+    closedLoopConfigs = new Slot0Configs();
 
     m_request = new PositionVoltage(0);
     m_request.Slot = 0;
 
-    algeaIntake = new TalonSRX(MotorIds.kAlgeaIntakeMotor);
 
-    algeaIntake.configFactoryDefault();
-    algeaIntake.setNeutralMode(NeutralMode.Brake);
-    coralIntake.configFactoryDefault();
-    coralIntake.setNeutralMode(NeutralMode.Brake);
+    intakeMotor.configFactoryDefault();
+    intakeMotor.setNeutralMode(NeutralMode.Brake);
+    intakeMotor.configFactoryDefault();
+    intakeMotor.setNeutralMode(NeutralMode.Brake);
     
     coralWristConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     coralWristConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
@@ -61,12 +61,8 @@ public class IntakeIOHardware implements IntakeIO {
     inputs.coralWristPosition = coralWrist.getPosition().getValueAsDouble();
   }
 
-  public void setAlgaeIntakeVoltage(double voltage) {
-    algeaIntake.set(TalonSRXControlMode.Current, voltage);
-  }
-
-  public void setCoralIntakeVoltage(double voltage) {
-    coralIntake.set(TalonSRXControlMode.Current, voltage);
+  public void setIntakeVoltage(double voltage) {
+    intakeMotor.set(VictorSPXControlMode.PercentOutput, voltage);
   }
 
   public void adjustAngle(double angleRadians) {

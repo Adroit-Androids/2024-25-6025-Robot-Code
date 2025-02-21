@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ElevatorTrapezoid;
+import frc.robot.commands.Elevator.ElevatorSetSpeed;
 
 public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
@@ -47,6 +48,11 @@ public class Elevator extends SubsystemBase {
     pidController.setTolerance(0.1); // Set tolerance for reaching the target position
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
     io.resetPosition(); // Initialize elevator position
+    setDefaultCommand(new ElevatorSetSpeed(this, RobotContainer.m_operatorController));
+  }
+
+  public void setVoltage(double voltage){
+    io.set(voltage);
   }
 
   // Set the elevator target position

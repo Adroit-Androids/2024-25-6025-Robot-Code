@@ -22,10 +22,8 @@ public final class Constants {
   }
 
   public static class MotorIds {
-    public static final int kCoralIntakeMotor = 10;
-    public static final int kCoralWristMotor = 10;
-
-    public static final int kAlgeaIntakeMotor = 11;
+    public static final int kIntakeMotor = 10;
+    public static final int kAlgeaWristMotor = 10;
 
     public static final int kElevatorLeadMotor = 15;
     public static final int kElevatorFollowMotor = 16;

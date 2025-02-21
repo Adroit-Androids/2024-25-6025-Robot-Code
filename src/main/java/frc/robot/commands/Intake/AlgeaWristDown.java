@@ -24,7 +24,7 @@ public class AlgeaWristDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setWristVoltage(0.2);
+    m_intake.setWristVoltage(0.05);
   }
 
   // Called once the command ends or is interrupted.

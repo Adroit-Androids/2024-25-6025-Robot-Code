@@ -42,7 +42,7 @@ public class ElevatorIOHardware implements ElevatorIO {
 
   public void set(double voltage) {
     // Set the power to the main motor
-    leadMotor.set(voltage);
+    leadMotor.setVoltage(voltage);
   }
 
   public double getPosition() {
