@@ -22,7 +22,7 @@ public final class Constants {
   }
 
   public static class MotorIds {
-    public static final int kIntakeMotor = 10;
+    public static final int kIntakeMotor = 9;
     public static final int kAlgeaWristMotor = 10;
 
     public static final int kElevatorLeadMotor = 15;
@@ -33,24 +33,24 @@ public final class Constants {
   }
 
   public static class ElevatorHeights {
-    public static final double kL0Height = 2.5;
-    public static final double kL1Height = 3;
-    public static final double kL2Height = 5.5;
-    public static final double kL3Height = 10;
-    public static final double kProcessorHeight = 2;
+    public static final double kL1Height = 2.5;
+    public static final double kL2Height = 4;
+    public static final double kL3Height = 6;
+    public static final double kL4Height = 9.23;
+    public static final double kProcessorHeight = 8;
   }
 
   public enum ElevatorState {
-    L0,
     L1,
     L2,
     L3,
+    L4,
     PROCESSOR,
     DOWN
   }
 
   public static class ElevatorTrapezoid {
-    public static final double maxVelocity = 1.0;
+    public static final double maxVelocity = 3.0;
     public static final double maxAcceleration = 1.0;
   }
 }

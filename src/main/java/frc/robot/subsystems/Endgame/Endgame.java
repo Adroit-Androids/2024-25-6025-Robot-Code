@@ -40,11 +40,11 @@ public class Endgame extends SubsystemBase {
    * @return Elevator sensor position
    */
   public double getElevatorPosition(){
-    return EndgameRight.getSelectedSensorPosition();
+    return EndgameLeft.getSelectedSensorPosition();
   }
 
   public double getElevatorSpeed(){
-    return EndgameRight.getSelectedSensorVelocity();
+    return EndgameLeft.getSelectedSensorVelocity();
   }
 
   public void setSpeed(double speed){

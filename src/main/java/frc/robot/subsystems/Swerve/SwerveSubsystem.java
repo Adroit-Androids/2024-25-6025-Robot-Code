@@ -157,18 +157,18 @@ public class SwerveSubsystem extends SubsystemBase {
       case PROCESSOR:
         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
         break;
-      case L0:
+        case L1:
         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
         break;
-      case L1:
+        case L2:
         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.8, maximumSpeed * 0.8);
         break;
-      case L2:
+        case L3:
         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.7, maximumSpeed * 0.7);
         break;
-      case L3:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumSpeed * 0.6);
-        break;
+        case L4:
+          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumSpeed * 0.6);
+          break;
     }
 
     SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);

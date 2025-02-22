@@ -24,7 +24,7 @@ public class ShootPiece extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setIntakeVoltage(0.1);
+    m_intake.setIntakeVoltage(-0.45);
   }
 
   // Called once the command ends or is interrupted.

@@ -24,12 +24,12 @@ public class Elevator extends SubsystemBase {
   private final double maxAcceleration = ElevatorTrapezoid.maxAcceleration;
 
   // PID and Feedforward constants
-  private static final double kP = 0.1;
+  private static final double kP = 0.0;
   private static final double kI = 0.0;
   private static final double kD = 0.0;
-  private static final double kS = 0.1;   // Static
-  private static final double kV = 0.1;   // Velocity
-  private static final double kG = 0.01;  // Gravity
+  private static final double kS = ((1.2 - 0.1) / 2);   // Static
+  private static final double kV = 0.0;   // Velocity
+  private static final double kG = (1.2 + 0.1) / 2;  // Gravity
 
   private final ProfiledPIDController pidController;
   private final ElevatorFeedforward feedforward;
@@ -47,8 +47,8 @@ public class Elevator extends SubsystemBase {
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
     pidController.setTolerance(0.1); // Set tolerance for reaching the target position
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
-    io.resetPosition(); // Initialize elevator position
     setDefaultCommand(new ElevatorSetSpeed(this, RobotContainer.m_operatorController));
+    io.resetPosition(); // Initialize elevator position
   }
 
   public void setVoltage(double voltage){
@@ -65,27 +65,24 @@ public class Elevator extends SubsystemBase {
 
   // Get the current position of the elevator
   public double getPosition() {
-    return RobotContainer.m_endgame.getElevatorPosition()/4096 * Math.PI * 2 * 0.05;
+    return RobotContainer.m_endgame.getElevatorPosition() / 4096;
   }
 
   // Get the current velocity of the elevator
   public double getVelocity() {
-    return RobotContainer.m_endgame.getElevatorSpeed()/4096 * Math.PI * 2 * 0.05;
+    return RobotContainer.m_endgame.getElevatorSpeed();
   }
 
   // Move the elevator to the target position
   public void moveToPosition() {
-    if (!pidController.atGoal()) {
 
-      double pidOutput = pidController.calculate(getPosition());
+    double pidOutput = pidController.calculate(getPosition(), targetPosition);
 
-      double feedforwardOutput = feedforward.calculate(pidController.getSetpoint().velocity);
+    double feedforwardOutput = feedforward.calculate(pidController.getSetpoint().velocity);
 
-      double voltage = pidOutput + feedforwardOutput;
-      io.set(voltage);
-    } else {
-      io.stop();  // Stop the motor if the goal has been reached
-    }
+    double voltage = pidOutput + feedforwardOutput;
+    io.set(voltage);
+
   }
 
 //SysIdRoutine routine = new SysIdRoutine(null, null);
@@ -110,19 +107,19 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // If the upper or lower limit switches are triggered, stop the elevator and reset position if necessary
-    if (magneticSwitchUpper.get()) {
-      setPosition(io.getPosition());
-      moveToPosition();
-    } else if (magneticSwitchLower.get()) {
-      io.resetPosition();
-      setPosition(io.getPosition());
-      moveToPosition();
-    } else {
-      moveToPosition();
-    }
+
+    moveToPosition();
+    
     inputs.elevatorVelocity = RobotContainer.m_endgame.getElevatorSpeed();
     inputs.voltageCurent = io.getVelocity();
 
+    SmartDashboard.putNumber("Elevator position meter", getPosition());
+    SmartDashboard.putNumber("Elevator velocity meter", getVelocity());
+    SmartDashboard.putNumber("Elevator encoder value", RobotContainer.m_endgame.getElevatorPosition());
+    SmartDashboard.putNumber("Elevator setpoint", pidController.getGoal().position);
+    SmartDashboard.putNumber("Elevator voltage", io.getVoltage());
+    SmartDashboard.putNumber("Elevator pid output", pidController.calculate(getPosition(), targetPosition));
+    SmartDashboard.putNumber("Elevator feedforward output", feedforward.calculate(pidController.getSetpoint().velocity));
     io.updateInputs(inputs);
   }
 }
