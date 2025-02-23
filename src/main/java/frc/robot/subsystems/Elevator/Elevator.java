@@ -25,7 +25,7 @@ public class Elevator extends SubsystemBase {
   private final double maxAcceleration = ElevatorTrapezoid.maxAcceleration;
 
   // PID and Feedforward constants
-  private static final double kP = 5.0;
+  private static final double kP = 4.0;
   private static final double kI = 0.0;
   private static final double kD = 0.0;
   private static final double kS = ((1.2 - 0.1) / 2);   // Static
