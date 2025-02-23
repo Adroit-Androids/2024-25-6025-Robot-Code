@@ -13,8 +13,6 @@ import frc.robot.commands.Elevator.ElevatorL3;
 import frc.robot.commands.Elevator.ElevatorSetSpeed;
 import frc.robot.commands.EndGame.EndgameDown;
 import frc.robot.commands.EndGame.EndgameUp;
-import frc.robot.commands.Intake.AlgeaWristDown;
-import frc.robot.commands.Intake.AlgeaWristUp;
 import frc.robot.commands.Intake.IntakePiece;
 import frc.robot.commands.Intake.ShootPiece;
 import frc.robot.commands.Elevator.ElevatorL4;
@@ -23,7 +21,10 @@ import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagDistanceAndCoralAllignment;
 import frc.robot.commands.SwerveDrive.TurnDrive;
 import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
+import frc.robot.commands.Wrist.SetWristAngle;
+import frc.robot.commands.Wrist.SetWristRest;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
+import frc.robot.subsystems.Wrist.Wrist;
 import frc.robot.subsystems.MusicPlayer;
 import frc.robot.subsystems.Elevator.Elevator;
 import frc.robot.subsystems.Elevator.ElevatorIO;
@@ -34,6 +35,9 @@ import frc.robot.subsystems.Intake.IntakeIOHardware;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Limelight.Limelight;
 
+import static edu.wpi.first.units.Units.Degree;
+import static edu.wpi.first.units.Units.Degrees;
+
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -41,6 +45,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -73,6 +78,7 @@ public class RobotContainer {
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
   public static final Elevator m_elevator = new Elevator(new ElevatorIOHardware());
   public static final Endgame m_endgame = new Endgame();
+  public static final Wrist m_writst = new Wrist();
   // public static final Limelight m_limelight = new Limelight(m_swerveDrive);
   public static final Intake m_intake = new Intake(new IntakeIOHardware());
   // public static final MusicPlayer m_musicPlayer = new MusicPlayer();
@@ -137,11 +143,13 @@ public class RobotContainer {
     m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
     m_operatorController.y().whileTrue(new ElevatorL3(m_elevator));
     m_operatorController.b().whileTrue(new ElevatorL4(m_elevator));
+    m_operatorController.rightStick().onTrue(new ElevatorDown(m_elevator));
         //Operator Controls:
-    m_operatorController.povUp().whileTrue(new EndgameUp(m_endgame, 0.4));
-    m_operatorController.povDown().whileTrue(new EndgameDown(m_endgame, 0.4));
     m_operatorController.rightTrigger().whileTrue(new ShootPiece(m_intake));
     m_operatorController.leftTrigger().whileTrue(new IntakePiece(m_intake));
+    m_operatorController.povUp().onTrue(new SetWristAngle(m_writst, 60));
+    m_operatorController.povLeft().onTrue(new SetWristRest(m_writst));
+    m_operatorController.povRight().onTrue(new SetWristAngle(m_writst, 30));
 
    // m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, m_operatorController));
 

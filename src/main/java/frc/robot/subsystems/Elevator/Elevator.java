@@ -13,6 +13,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.ElevatorState;
 import frc.robot.Constants.ElevatorTrapezoid;
 import frc.robot.commands.Elevator.ElevatorSetSpeed;
 
@@ -24,7 +25,7 @@ public class Elevator extends SubsystemBase {
   private final double maxAcceleration = ElevatorTrapezoid.maxAcceleration;
 
   // PID and Feedforward constants
-  private static final double kP = 0.0;
+  private static final double kP = 5.0;
   private static final double kI = 0.0;
   private static final double kD = 0.0;
   private static final double kS = ((1.2 - 0.1) / 2);   // Static
@@ -45,10 +46,12 @@ public class Elevator extends SubsystemBase {
     
     // Set up the PID controller with limits on position changes
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
-    pidController.setTolerance(0.1); // Set tolerance for reaching the target position
+    pidController.setTolerance(0.02); // Set tolerance for reaching the target position
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
-    setDefaultCommand(new ElevatorSetSpeed(this, RobotContainer.m_operatorController));
+    // setDefaultCommand(new ElevatorSetSpeed(this, RobotContainer.m_operatorController));
     io.resetPosition(); // Initialize elevator position
+    RobotContainer.currentElevatorState = ElevatorState.DOWN;
+    setPosition(0);
   }
 
   public void setVoltage(double voltage){
@@ -81,6 +84,9 @@ public class Elevator extends SubsystemBase {
     double feedforwardOutput = feedforward.calculate(pidController.getSetpoint().velocity);
 
     double voltage = pidOutput + feedforwardOutput;
+    if(RobotContainer.currentElevatorState == ElevatorState.DOWN && pidController.atGoal()){
+      voltage = 0;
+    }
     io.set(voltage);
 
   }
@@ -107,9 +113,12 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // If the upper or lower limit switches are triggered, stop the elevator and reset position if necessary
-
-    moveToPosition();
-    
+    if (!pidController.atGoal()){
+      moveToPosition();
+    }
+    else {
+      io.set(kG);
+    }
     inputs.elevatorVelocity = RobotContainer.m_endgame.getElevatorSpeed();
     inputs.voltageCurent = io.getVelocity();
 

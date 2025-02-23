@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems.Intake;
 
-import javax.xml.transform.stream.StreamResult;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.Intake.IntakeIO.IntakeIOInputs;
 
@@ -27,15 +25,7 @@ IntakeIOInputs inputs = new IntakeIOInputs();
 
   //---------------------------------------
 
-  private double targetPosition = 0.0;
 
-  public void setWristPositionByDegrees(double position) {
-    targetPosition = Math.toRadians(position);
-  }
-
-  public double getTargetWristPosition() {
-    return targetPosition;
-  }
 
   
   //---------------------------------------
@@ -48,19 +38,5 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   public double getCoralWristIntakeCurrent() {
     return inputs.coralWristVoltage;
   }
-  
-  public double getWristPosition(){ 
-    return inputs.coralWristPosition;
-  }
-
-  public void wristAngle(double position) {
-    io.wristAngle(position);
-  }
-
-  public void setWristVoltage(double voltage) {
-    io.setWristVoltage(voltage);
-  }
-  
-  //---------------------------------------
-  public void resetAngle(double Radians) {}
+  //--------------------------------------
 }

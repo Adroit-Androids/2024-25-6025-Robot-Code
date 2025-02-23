@@ -34,5 +34,9 @@ public interface IntakeIO {
 
   public default void setCoralWristPosition(double position, double ffvoltage) {}
 
+  public default double getWristPosition() {
+    return 0;
+  }
+
   public default void stop() {}
   }

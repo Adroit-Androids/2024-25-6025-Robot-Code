@@ -15,6 +15,7 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.ElevatorState;
 import swervelib.SwerveDrive;
 import swervelib.imu.NavXSwerve;
 import swervelib.parser.SwerveParser;
@@ -38,7 +40,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 1.5;
+  public        double      maximumSpeed = 1.0;
   /**
    * Maximum rotational speed of the robot in radians per second, used to limit acceleration.
    */
@@ -58,6 +60,8 @@ public class SwerveSubsystem extends SubsystemBase {
    * @param directory Directory of the swerve drive json file
    * 
    */
+
+  private ElevatorState lastElevatorState = ElevatorState.DOWN;
   public SwerveSubsystem(File directory) {
     // Configure how much telemetry  data is sent
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
@@ -150,25 +154,27 @@ public class SwerveSubsystem extends SubsystemBase {
     LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getYaw().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
                                            swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
 
-    switch (RobotContainer.currentElevatorState){
-      case DOWN:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
-        break;
-      case PROCESSOR:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
-        break;
-        case L1:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
-        break;
-        case L2:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.8, maximumSpeed * 0.8);
-        break;
+    if (lastElevatorState != RobotContainer.currentElevatorState){
+      switch (RobotContainer.currentElevatorState){
+        case DOWN:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
+         break;
+       case PROCESSOR:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+         break;
+       case L1:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+         break;
+       case L2:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.8, maximumSpeed * 0.8);
+         break;
         case L3:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.7, maximumSpeed * 0.7);
-        break;
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.7, maximumSpeed * 0.7);
+         break;
         case L4:
           swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumSpeed * 0.6);
           break;
+     }
     }
 
     SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
