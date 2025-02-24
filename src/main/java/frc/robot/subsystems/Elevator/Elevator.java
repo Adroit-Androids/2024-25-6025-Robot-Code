@@ -32,7 +32,7 @@ public class Elevator extends SubsystemBase {
   private static final double kV = 0.0;   // Velocity
   private static final double kG = (1.2 + 0.1) / 2;  // Gravity
 
-  private final ProfiledPIDController pidController;
+  public final ProfiledPIDController pidController;
   private final ElevatorFeedforward feedforward;
 
   private DigitalInput magneticSwitchUpper = new DigitalInput(1);
