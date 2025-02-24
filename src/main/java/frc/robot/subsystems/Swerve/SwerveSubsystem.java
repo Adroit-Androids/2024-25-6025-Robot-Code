@@ -15,6 +15,7 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.ElevatorState;
 import swervelib.SwerveDrive;
 import swervelib.imu.NavXSwerve;
 import swervelib.parser.SwerveParser;
@@ -42,7 +44,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Maximum rotational speed of the robot in radians per second, used to limit acceleration.
    */
-  public        double      maximumRotationSpeed = Math.toRadians(135);
+  public        double      maximumRotationSpeed = Math.toRadians(150);
   /**
    * Robot configuration gathered from pathplanner
    */
@@ -58,6 +60,8 @@ public class SwerveSubsystem extends SubsystemBase {
    * @param directory Directory of the swerve drive json file
    * 
    */
+
+  private ElevatorState lastElevatorState = ElevatorState.DOWN;
   public SwerveSubsystem(File directory) {
     // Configure how much telemetry  data is sent
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
@@ -73,12 +77,18 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveDrive.setHeadingCorrection(false);
       swerveDrive.setCosineCompensator(false);
     }
+    else {
+      swerveDrive.setHeadingCorrection(true);
+      swerveDrive.setCosineCompensator(true);
+    }
 
     if (visionDriveTest){
-      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(7, 7, Math.toRadians(2)));
+      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999));
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
+    resetOdometry(new Pose2d(7.215, 4.001, new Rotation2d(Math.toRadians(180))));
+
     setUpPathplanner();
 
   }
@@ -147,28 +157,30 @@ public class SwerveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // When vision is enabled we must manually update odometry in SwerveDrive
-    LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getYaw().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
+    LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getOdometryHeading().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
                                            swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
 
-    switch (RobotContainer.currentElevatorState){
-      case DOWN:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
-        break;
-      case PROCESSOR:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
-        break;
-      case L0:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
-        break;
-      case L1:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.8, maximumSpeed * 0.8);
-        break;
-      case L2:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.7, maximumSpeed * 0.7);
-        break;
-      case L3:
-        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumSpeed * 0.6);
-        break;
+    if (lastElevatorState != RobotContainer.currentElevatorState){
+      switch (RobotContainer.currentElevatorState){
+        case DOWN:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
+         break;
+       case PROCESSOR:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+         break;
+       case L1:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+         break;
+       case L2:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.8, maximumSpeed * 0.8);
+         break;
+        case L3:
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.7, maximumSpeed * 0.7);
+         break;
+        case L4:
+          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumSpeed * 0.6);
+          break;
+     }
     }
 
     SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
@@ -180,11 +192,11 @@ public class SwerveSubsystem extends SubsystemBase {
       SmartDashboard.putString("Default swerve command", getDefaultCommand().getName());
     }
     if (visionDriveTest)
-    {
-      if (!RobotContainer.m_limelight.doRejectUpdate){
-        swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelightPoseEstimate.pose, RobotContainer.m_limelight.limelightPoseEstimate.timestampSeconds);
-      }
-      swerveDrive.updateOdometry();
+     {
+       swerveDrive.updateOdometry();
+       if (!RobotContainer.m_limelight.doRejectUpdate){
+         swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelightPoseEstimate.pose, RobotContainer.m_limelight.limelightPoseEstimate.timestampSeconds);
+        }
     }
   }
 }

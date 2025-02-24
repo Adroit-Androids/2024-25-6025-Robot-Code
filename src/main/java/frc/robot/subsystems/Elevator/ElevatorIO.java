@@ -33,6 +33,10 @@ public interface ElevatorIO {
      public default double getPosition() {
        return 0;
      }
+
+     public default double getVoltage() {
+      return 0;
+     }
      
      // Reset the position of the elevator
      public default void resetPosition() {

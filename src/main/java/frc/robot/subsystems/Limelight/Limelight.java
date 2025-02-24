@@ -16,7 +16,7 @@ import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
 
 public class Limelight extends SubsystemBase {
-  private SwerveDrive swerveDrive;
+  private SwerveSubsystem swerveDrive;
   private String ll_table = "limelight";
   public double tx;
   public double ty;
@@ -32,7 +32,7 @@ public class Limelight extends SubsystemBase {
   public Limelight(SwerveSubsystem m_swerveDrive) {
     limelightPosePublisher = NetworkTableInstance.getDefault().getStructTopic("/Limelight Pose", Pose2d.struct).publish();
     apriltagPoseToRobotPublisher = NetworkTableInstance.getDefault().getStructTopic("/Apriltag Pose", Pose3d.struct).publish();
-    this.swerveDrive = m_swerveDrive.swerveDrive;
+    this.swerveDrive = m_swerveDrive;
     limelightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(ll_table);
   }
 
@@ -43,9 +43,6 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-    LimelightHelpers.SetRobotOrientation(ll_table, swerveDrive.getOdometryHeading().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
-                                          swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
     limelightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(ll_table);
 
     doRejectUpdate = false;
@@ -65,6 +62,7 @@ public class Limelight extends SubsystemBase {
     currentApriltagID = LimelightHelpers.getFiducialID(ll_table);
     
     limelightPosePublisher.set(limelightPoseEstimate.pose);
+    SmartDashboard.putNumber("Swerve Heading", swerveDrive.swerveDrive.getOdometryHeading().getDegrees());
     SmartDashboard.putNumber("LimelightX", tx);
     SmartDashboard.putNumber("LimelightY", ty);
     SmartDashboard.putNumber("LimelightArea", ta);

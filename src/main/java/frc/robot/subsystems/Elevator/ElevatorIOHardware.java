@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorIds;
 
@@ -30,19 +31,19 @@ public class ElevatorIOHardware implements ElevatorIO {
     leadConfig = new SparkMaxConfig();
 
     leadConfig.idleMode(IdleMode.kBrake);
-    leadConfig.inverted(false);
+    leadConfig.inverted(true);
 
     followerConfig.idleMode(IdleMode.kBrake);
-    followerConfig.inverted(true);
+    followerConfig.inverted(false);
     followerConfig.follow(leadMotor);
 
-    leadMotor.configure(leadConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kNoPersistParameters);
-    followerMotor.configure(followerConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kNoPersistParameters);
+    leadMotor.configure(leadConfig, SparkMax.ResetMode.kNoResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
+    followerMotor.configure(followerConfig, SparkMax.ResetMode.kNoResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
   }
 
   public void set(double voltage) {
     // Set the power to the main motor
-    leadMotor.set(voltage);
+    leadMotor.setVoltage(voltage);
   }
 
   public double getPosition() {
@@ -58,7 +59,7 @@ public class ElevatorIOHardware implements ElevatorIO {
 
   public double getVoltage() {
     // Get the voltage from the motor
-    return leadMotor.getBusVoltage();
+    return leadMotor.getAppliedOutput();
   }
 
 

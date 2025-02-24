@@ -19,25 +19,13 @@ IntakeIOInputs inputs = new IntakeIOInputs();
     this.io = io;
   }
 
-  public void setAlgaeIntakeVoltage(double voltage){
-    io.setAlgaeIntakeVoltage(voltage);
-  }
-
-  public void setCoralIntakeVoltage(double voltage){
-    io.setCoralIntakeVoltage(voltage);
+  public void setIntakeVoltage(double voltage){
+    io.setIntakeVoltage(voltage);
   }
 
   //---------------------------------------
 
-  private double targetPosition = 0.0;
 
-  public void setWristPositionByDegrees(double position) {
-    targetPosition = Math.toRadians(position);
-  }
-
-  public double getTargetWristPosition() {
-    return targetPosition;
-  }
 
   
   //---------------------------------------
@@ -50,19 +38,5 @@ IntakeIOInputs inputs = new IntakeIOInputs();
   public double getCoralWristIntakeCurrent() {
     return inputs.coralWristVoltage;
   }
-  
-  public double getWristPosition(){ 
-    return inputs.coralWristPosition;
-  }
-
-  public void wristAngle(double position) {
-    io.wristAngle(position);
-  }
-
-  public void setWristVoltage(double voltage) {
-    io.setWristVoltage(voltage);
-  }
-  
-  //---------------------------------------
-  public void resetAngle(double Radians) {}
+  //--------------------------------------
 }

@@ -29,7 +29,7 @@ public class ElevatorDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setPosition(0);
+    elevatorSubsystem.setPosition(0.0);
   }
 
   // Called once the command ends or is interrupted.

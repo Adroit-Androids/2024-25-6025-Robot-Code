@@ -21,8 +21,14 @@ public class Endgame extends SubsystemBase {
     EndgameLeft = new TalonSRX(MotorIds.kEndgameLeftMotor);
     EndgameRight = new TalonSRX(MotorIds.kEndgameRightMotor);
 
+    EndgameRight.setInverted(false);
+    
     EndgameLeft.configFactoryDefault();
     EndgameRight.configFactoryDefault();
+    EndgameLeft.configPeakCurrentLimit(120);
+    EndgameRight.configPeakCurrentLimit(120);
+    EndgameLeft.configVoltageCompSaturation(12.5);
+    EndgameRight.configVoltageCompSaturation(12.5);
     EndgameLeft.setNeutralMode(NeutralMode.Brake);
     EndgameRight.setNeutralMode(NeutralMode.Brake);
   }
@@ -34,11 +40,11 @@ public class Endgame extends SubsystemBase {
    * @return Elevator sensor position
    */
   public double getElevatorPosition(){
-    return EndgameRight.getSelectedSensorPosition();
+    return EndgameLeft.getSelectedSensorPosition();
   }
 
   public double getElevatorSpeed(){
-    return EndgameRight.getSelectedSensorVelocity();
+    return EndgameLeft.getSelectedSensorVelocity();
   }
 
   public void setSpeed(double speed){

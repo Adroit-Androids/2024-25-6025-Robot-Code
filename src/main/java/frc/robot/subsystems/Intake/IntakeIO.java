@@ -27,13 +27,16 @@ public interface IntakeIO {
 
   // Set X Voltage
   public default void setWristVoltage(double voltage) {}
-  public default void setAlgaeIntakeVoltage(double voltage) {}
-  public default void setCoralIntakeVoltage(double voltage) {}
+  public default void setIntakeVoltage(double voltage) {}
 
   public default void adjustAngle(double angle) {}
   public default void wristAngle(double position) {}
 
   public default void setCoralWristPosition(double position, double ffvoltage) {}
+
+  public default double getWristPosition() {
+    return 0;
+  }
 
   public default void stop() {}
   }

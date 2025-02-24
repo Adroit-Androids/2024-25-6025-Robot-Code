@@ -10,20 +10,34 @@ import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
-import frc.robot.commands.Elevator.ElevatorL0;
+import frc.robot.commands.Elevator.ElevatorSetSpeed;
+import frc.robot.commands.EndGame.EndgameDown;
+import frc.robot.commands.EndGame.EndgameUp;
+import frc.robot.commands.Intake.IntakePiece;
+import frc.robot.commands.Intake.ShootPiece;
+import frc.robot.commands.Elevator.ElevatorL4;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagAllignment;
 import frc.robot.commands.SwerveDrive.Apriltag.ApriltagDistanceAndCoralAllignment;
 import frc.robot.commands.SwerveDrive.TurnDrive;
 import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
+import frc.robot.commands.Wrist.SetWristAngle;
+import frc.robot.commands.Wrist.SetWristRest;
+import frc.robot.commands.Wrist.WristControl;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
+import frc.robot.subsystems.Wrist.Wrist;
 import frc.robot.subsystems.MusicPlayer;
 import frc.robot.subsystems.Elevator.Elevator;
 import frc.robot.subsystems.Elevator.ElevatorIO;
+import frc.robot.subsystems.Elevator.ElevatorIOHardware;
 import frc.robot.subsystems.Endgame.Endgame;
 import frc.robot.subsystems.Intake.IntakeIO;
+import frc.robot.subsystems.Intake.IntakeIOHardware;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Limelight.Limelight;
+
+import static edu.wpi.first.units.Units.Degree;
+import static edu.wpi.first.units.Units.Degrees;
 
 import java.io.File;
 
@@ -32,6 +46,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,26 +77,25 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  public static final Elevator elevatorSubsystem = new Elevator(new ElevatorIO() {});
+  public static final Elevator m_elevator = new Elevator(new ElevatorIOHardware());
   public static final Endgame m_endgame = new Endgame();
+  public static final Wrist m_wrist = new Wrist();
   public static final Limelight m_limelight = new Limelight(m_swerveDrive);
-  public static final Intake m_intake = new Intake(new IntakeIO() {});
-  public static final MusicPlayer m_musicPlayer = new MusicPlayer();
+  public static final Intake m_intake = new Intake(new IntakeIOHardware());
+  // public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final AbsoluteDrive absoluteDriveCommand = new AbsoluteDrive(m_swerveDrive, m_driverController);
   public static final TurnDrive turnDriveCommand = new TurnDrive(m_swerveDrive, m_driverController);
-  public static final ApriltagAllignment apriltagAllignmentCommand = new ApriltagAllignment(m_swerveDrive, m_limelight);
   public SendableChooser<Command> autoChooser;
-  //public static final telescopicArm m_telescopicArm = new telescopicArm();
 
 
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure named commands
-    NamedCommands.registerCommand("Reef_Position_Right", new ReefAllignment(m_swerveDrive, m_limelight, 10.0, 8.0));
+    // // Configure named commands
+    // NamedCommands.registerCommand("Reef_Position_Right", new ReefAllignment(m_swerveDrive, m_limelight, 10.0, 8.0));
 
     
     //Configure the autochooser
@@ -116,32 +130,43 @@ public class RobotContainer {
     m_driverController.rightStick().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
-      //Coral Allignment
-    m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.87, 6.0));
-    m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.87, 6.0));
-    m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 17.2, 7.75, true));
+    //   //Coral Allignment
+    // m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.87, 6.0));
+    // m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.87, 6.0));
+    // m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 17.2, 7.75, true));
       //Coral Station Allignment
 
       //Processor Allignment
 
       //Endgame
-
+    m_operatorController.a().whileTrue(new ElevatorL1(m_elevator));
+    m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
+    m_operatorController.y().whileTrue(new ElevatorL3(m_elevator));
+    m_operatorController.b().whileTrue(new ElevatorL4(m_elevator));
+    m_operatorController.rightStick().onTrue(new ElevatorDown(m_elevator));
         //Operator Controls:
+    m_operatorController.rightTrigger().whileTrue(new ShootPiece(m_intake));
+    m_operatorController.leftTrigger().whileTrue(new IntakePiece(m_intake));
+    // m_operatorController.povUp().onTrue(new SetWristAngle(m_writst, 60));
+    // m_operatorController.povLeft().onTrue(new SetWristRest(m_writst));
+    // m_operatorController.povRight().onTrue(new SetWristAngle(m_writst, 30));
 
-        // L1 state
-    m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
+   // m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, m_operatorController));
 
-        // L2 state
-    m_operatorController.x().onTrue(new ElevatorL2(elevatorSubsystem));
+    //     // L1 state
+    // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
 
-        // L3 state
-    m_operatorController.y().onTrue(new ElevatorL3(elevatorSubsystem));
+    //     // L2 state
+    // m_operatorController.x().onTrue(new ElevatorL2(elevatorSubsystem));
 
-        // L4 state
-    m_operatorController.b().onTrue(new ElevatorL0(elevatorSubsystem));
+    //     // L3 state
+    // m_operatorController.y().onTrue(new ElevatorL3(elevatorSubsystem));
 
-        // Elevator Down State
-    m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));
+    //     // L4 state
+    // m_operatorController.b().onTrue(new ElevatorL0(elevatorSubsystem));
+
+    //     // Elevator Down State
+    // m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));
 
     
 
@@ -162,8 +187,8 @@ public class RobotContainer {
         //Coral Intake
 
         //Algae Intake
-    m_operatorController.a().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(0.4), m_intake));
-    m_operatorController.b().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(-0.4), m_intake));
+    // m_operatorController.a().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(0.4), m_intake));
+    // m_operatorController.b().whileTrue(new RunCommand(() -> m_intake.setAlgaeIntakeVoltage(-0.4), m_intake));
 
         //Algae Drop
 

@@ -5,22 +5,22 @@
 package frc.robot.commands.Elevator;
 
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants;
 import frc.robot.subsystems.Elevator.Elevator;
 
 public class ElevatorSetSpeed extends Command {
 
 Elevator m_elevator;
-CommandXboxController m_driverController;
+CommandXboxController m_operatorController;
 
 
 
-  public ElevatorSetSpeed(Elevator m_elevator, CommandXboxController m_driveController) {
+  public ElevatorSetSpeed(Elevator m_elevator, CommandXboxController operatorController) {
     addRequirements(m_elevator);
     this.m_elevator = m_elevator;
-    this.m_driverController = m_driveController;
+    this.m_operatorController = operatorController;
   }
 
 
@@ -29,7 +29,7 @@ CommandXboxController m_driverController;
 
   @Override
   public void execute() {
-    m_elevator.movetoVelocity(m_driverController.getLeftY() * Constants.ElevatorTrapezoid.maxVelocity);
+    m_elevator.setVoltage(MathUtil.applyDeadband(m_operatorController.getLeftY() * -1, 0.05) * 2);
   }
 
   @Override

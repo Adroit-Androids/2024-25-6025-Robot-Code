@@ -11,13 +11,15 @@ import frc.robot.subsystems.Endgame.Endgame;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class EndgameDown extends Command {
   Endgame m_endgame;
+  double appliedPercentageOutput;
 
   /** Creates a new EndgameDown. */
-  public EndgameDown(Endgame endgame) {
+  public EndgameDown(Endgame endgame, double percentageOutput) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_endgame);
-
+    
     this.m_endgame = endgame;
+    this.appliedPercentageOutput = percentageOutput;
+    addRequirements(m_endgame);
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +29,7 @@ public class EndgameDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_endgame.setSpeed(-0.5);
+    m_endgame.setSpeed(-appliedPercentageOutput);
   }
 
   // Called once the command ends or is interrupted.

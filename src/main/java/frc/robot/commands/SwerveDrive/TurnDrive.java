@@ -36,7 +36,6 @@ public class TurnDrive extends Command {
       if (DriverStation.getAlliance().get() == Alliance.Red){
         translationX *= -1;
         translationY *= -1;
-        angularVelocity *= -1;
       }
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(-translationY, OperatorConstants.kLeftJoystickDeadband),
