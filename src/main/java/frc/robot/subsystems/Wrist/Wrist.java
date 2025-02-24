@@ -25,7 +25,7 @@ public class Wrist extends SubsystemBase {
   private TalonFX wristMotor;
   private TalonFXConfiguration wristMotorConfig;
 
-  public final double encoderOffset = 106;
+  public final double encoderOffset = 94.6;
 
   public double targetAngle = 106;
 
@@ -56,6 +56,7 @@ public class Wrist extends SubsystemBase {
 
     pidController.setTolerance(0.5);
     targetAngle = getDegree();
+    // setDefaultCommand(new WristControl(this, RobotContainer.m_operatorController));
   }
 
   public double moveToDegree(){

@@ -29,7 +29,7 @@ CommandXboxController m_operatorController;
 
   @Override
   public void execute() {
-    m_elevator.setVoltage(MathUtil.applyDeadband(m_operatorController.getLeftY() * -1, 0.05) * 3);
+    m_elevator.setVoltage(MathUtil.applyDeadband(m_operatorController.getLeftY() * -1, 0.05) * 2);
   }
 
   @Override

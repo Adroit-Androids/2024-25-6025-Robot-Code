@@ -40,11 +40,11 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 1.0;
+  public        double      maximumSpeed = 1.5;
   /**
    * Maximum rotational speed of the robot in radians per second, used to limit acceleration.
    */
-  public        double      maximumRotationSpeed = Math.toRadians(135);
+  public        double      maximumRotationSpeed = Math.toRadians(150);
   /**
    * Robot configuration gathered from pathplanner
    */
@@ -77,12 +77,18 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveDrive.setHeadingCorrection(false);
       swerveDrive.setCosineCompensator(false);
     }
+    else {
+      swerveDrive.setHeadingCorrection(true);
+      swerveDrive.setCosineCompensator(true);
+    }
 
     if (visionDriveTest){
-      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(7, 7, Math.toRadians(2)));
+      swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999));
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
+    resetOdometry(new Pose2d(7.215, 4.001, new Rotation2d(Math.toRadians(180))));
+
     setUpPathplanner();
 
   }
@@ -151,7 +157,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // When vision is enabled we must manually update odometry in SwerveDrive
-    LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getYaw().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
+    LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getOdometryHeading().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
                                            swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
 
     if (lastElevatorState != RobotContainer.currentElevatorState){
@@ -187,10 +193,10 @@ public class SwerveSubsystem extends SubsystemBase {
     }
     if (visionDriveTest)
      {
-    //   if (!RobotContainer.m_limelight.doRejectUpdate){
-    //     swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelightPoseEstimate.pose, RobotContainer.m_limelight.limelightPoseEstimate.timestampSeconds);
-    //   }
-      swerveDrive.updateOdometry();
+       swerveDrive.updateOdometry();
+       if (!RobotContainer.m_limelight.doRejectUpdate){
+         swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelightPoseEstimate.pose, RobotContainer.m_limelight.limelightPoseEstimate.timestampSeconds);
+        }
     }
   }
 }

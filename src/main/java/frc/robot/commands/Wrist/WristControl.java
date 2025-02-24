@@ -18,6 +18,7 @@ public class WristControl extends Command {
     this.m_wrist = wristSubsystem;
     this.m_operatorController = operatorController; 
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_wrist);
   }
 
   // Called when the command is initially scheduled.
