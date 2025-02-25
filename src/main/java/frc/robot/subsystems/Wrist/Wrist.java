@@ -12,36 +12,32 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorIds;
-import frc.robot.Constants.WristTrapezoid;
 import frc.robot.commands.Wrist.WristControl;
 
 public class Wrist extends SubsystemBase {
   private TalonFX wristMotor;
   private TalonFXConfiguration wristMotorConfig;
 
-  public final double encoderOffset = 94.6;
+  public final double encoderOffset = 108;
 
-  public double targetAngle = 106;
+  public double targetAngle = 90;
 
     // PID and Feedforward constants
-  private static final double kP = 0.001;
+  private static final double kP = 0.045;
   private static final double kI = 0.0;
-  private static final double kD = 0.0;
-  private static final double kS = (0.55 - 0.4) / 2;   // Static
+  private static final double kD = 0.004;
+  private static final double kS = (0.43 - 0.41) / 2;   // Static
   private static final double kV = 0.0;   // Velocity
-  private static final double kG = (0.55 + 0.4) / 2;  // Gravity
+  private static final double kG = (0.43 + 0.41) / 2;  // Gravity
 
-  private final double maxVelocity = WristTrapezoid.maxVelocity;
-  private final double maxAcceleration = WristTrapezoid.maxAcceleration;
 
-  private final ProfiledPIDController pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
-  private final ArmFeedforward feedforward = new ArmFeedforward(kS, kG, kV);
+  private final PIDController pidController = new PIDController(kP, kI, kD);
+  private final ArmFeedforward feedforward = new ArmFeedforward(kS, kG * 1.1, kV);
 
   public boolean isAtRest = true;
   /** Creates a new Wrist. */
@@ -54,9 +50,10 @@ public class Wrist extends SubsystemBase {
     
     wristMotor.getConfigurator().apply(wristMotorConfig);
 
-    pidController.setTolerance(0.5);
-    targetAngle = getDegree();
-    // setDefaultCommand(new WristControl(this, RobotContainer.m_operatorController));
+    wristMotor.setPosition(0);
+    pidController.setTolerance(3);
+    //targetAngle = getDegree();
+    //setDefaultCommand(new WristControl(this, RobotContainer.m_operatorController));
   }
 
   public double moveToDegree(){
@@ -68,21 +65,35 @@ public class Wrist extends SubsystemBase {
   }
 
   public double getDegree(){
-    return ((wristMotor.getPosition().getValue().in(Degrees) / 11.38 ) - encoderOffset) * -1;
+    return ((wristMotor.getPosition().getValue().in(Degrees) / 11.53 ) - encoderOffset) * -1;
   }
 
   public void setWristVoltage(double voltage){
-    wristMotor.setVoltage(-voltage);
+    if (Math.abs(voltage) < 3){
+      wristMotor.setVoltage(-voltage);
+    }
+    else {
+      wristMotor.setVoltage(-3 * Math.signum(voltage));
+    }
+
     SmartDashboard.putNumber("Wrist voltage", voltage);
   }
 
   @Override
   public void periodic() {
-    
+    // if (!pidController.atSetpoint()){
+    //   setWristVoltage(moveToDegree());
+    // }
+    // else {
+    //   setWristVoltage(feedforward.calculate(Math.toRadians(getDegree()), 1));
+    // }
+    setWristVoltage(moveToDegree());
+
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Wrist raw encoder", wristMotor.getPosition().getValue().in(Degrees));
+    SmartDashboard.putNumber("Wrist target", targetAngle);
     SmartDashboard.putNumber("Wrist Degree", getDegree());
     SmartDashboard.putNumber("Wrist pid output", pidController.calculate(getDegree(), targetAngle));
-    SmartDashboard.putNumber("Wrist feedforward output", feedforward.calculate(Math.toRadians(getDegree()), pidController.calculate(getDegree(), targetAngle)));
+    SmartDashboard.putNumber("Wrist feedforward output", feedforward.calculate(Math.toRadians(getDegree()), 1));
   }
 }

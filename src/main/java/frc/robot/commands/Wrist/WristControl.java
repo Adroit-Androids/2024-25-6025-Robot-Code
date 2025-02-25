@@ -28,7 +28,7 @@ public class WristControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_wrist.setWristVoltage(MathUtil.applyDeadband(-m_operatorController.getLeftY(), 0.2) * 1.0);
+    m_wrist.setWristVoltage(MathUtil.applyDeadband(-m_operatorController.getRightY(), 0.2) * 0.6);
   }
 
   // Called once the command ends or is interrupted.

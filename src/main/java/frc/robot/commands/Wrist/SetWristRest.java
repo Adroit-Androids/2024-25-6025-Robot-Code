@@ -4,9 +4,6 @@
 
 package frc.robot.commands.Wrist;
 
-import static edu.wpi.first.units.Units.Degree;
-
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Wrist.Wrist;
 

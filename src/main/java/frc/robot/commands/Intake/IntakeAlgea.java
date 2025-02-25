@@ -8,12 +8,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakePiece extends Command {
+public class IntakeAlgea extends Command {
   Intake m_intake;
-  /** Creates a new AlgeaIntake. */
-  public IntakePiece(Intake intakeSubsystem) {
+  /** Creates a new IntakeAlgea. */
+  public IntakeAlgea(Intake intakeSubystem) {
+    m_intake = intakeSubystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_intake = intakeSubsystem;
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
@@ -23,13 +24,13 @@ public class IntakePiece extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setIntakeVoltage(0.2);
+    m_intake.setIntakeVoltage(-0.55);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.setIntakeVoltage(0.0);
+    m_intake.setIntakeVoltage(-0.2);
   }
 
   // Returns true when the command should end.
