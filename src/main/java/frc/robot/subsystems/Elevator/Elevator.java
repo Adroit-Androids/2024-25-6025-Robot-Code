@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.Elevator.ElevatorIO.ElevatorIOInputs;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ElevatorState;
@@ -35,9 +34,6 @@ public class Elevator extends SubsystemBase {
   public final ProfiledPIDController pidController;
   private final ElevatorFeedforward feedforward;
 
-  private DigitalInput magneticSwitchUpper = new DigitalInput(1);
-  private DigitalInput magneticSwitchLower = new DigitalInput(2);
-
   private double targetPosition = 0.0; // Current target position
 
   // Constructor
@@ -48,7 +44,7 @@ public class Elevator extends SubsystemBase {
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
     pidController.setTolerance(0.02); // Set tolerance for reaching the target position
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
-    // setDefaultCommand(new ElevatorSetSpeed(this, RobotContainer.m_operatorController));
+    //setDefaultCommand(new ElevatorSetSpeed(this, RobotContainer.m_operatorController));
     io.resetPosition(); // Initialize elevator position
     RobotContainer.currentElevatorState = ElevatorState.DOWN;
     setPosition(0);
@@ -112,13 +108,13 @@ public class Elevator extends SubsystemBase {
   
   @Override
   public void periodic() {
-    // If the upper or lower limit switches are triggered, stop the elevator and reset position if necessary
     if (!pidController.atGoal()){
       moveToPosition();
     }
     else {
       io.set(kG);
     }
+
     inputs.elevatorVelocity = RobotContainer.m_endgame.getElevatorSpeed();
     inputs.voltageCurent = io.getVelocity();
 

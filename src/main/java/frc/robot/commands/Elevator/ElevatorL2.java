@@ -23,12 +23,12 @@ public class ElevatorL2 extends Command {
   @Override
   public void initialize() {
     RobotContainer.currentElevatorState = Constants.ElevatorState.L2;
+    elevatorSubsystem.setPosition(Constants.ElevatorHeights.kL2Height);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setPosition(Constants.ElevatorHeights.kL2Height);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +42,7 @@ public class ElevatorL2 extends Command {
       return true;
     }
     else {
-      return false;  }
+      return false;  
+    }
  }
 }

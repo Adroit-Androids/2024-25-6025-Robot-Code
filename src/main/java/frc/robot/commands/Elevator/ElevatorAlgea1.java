@@ -4,33 +4,28 @@
 
 package frc.robot.commands.Elevator;
 
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.robot.Constants.ElevatorHeights;
 import frc.robot.subsystems.Elevator.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorL1 extends Command {
-  private Elevator elevatorSubsystem;
-  /** Creates a new ElevatorL1. */
-  public ElevatorL1(Elevator elevatorSubsystem) {
-    this.elevatorSubsystem = elevatorSubsystem;
+public class ElevatorAlgea1 extends Command {
+  private Elevator m_elevator;
+  /** Creates a new ElevatorL2. */
+  public ElevatorAlgea1(Elevator elevatorSubsystem) {
+    this.m_elevator = elevatorSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevatorSubsystem);
+    addRequirements(m_elevator);
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.currentElevatorState = Constants.ElevatorState.L1;
-    elevatorSubsystem.setPosition(Constants.ElevatorHeights.kL1Height);
+    m_elevator.setPosition(ElevatorHeights.firstAlgea);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -39,11 +34,11 @@ public class ElevatorL1 extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (elevatorSubsystem.pidController.atGoal()){
+    if (m_elevator.pidController.atGoal()){
       return true;
     }
     else {
       return false;  
-    }
+    }  
   }
 }
