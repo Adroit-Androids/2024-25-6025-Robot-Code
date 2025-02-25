@@ -15,7 +15,6 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,10 +40,12 @@ public class SwerveSubsystem extends SubsystemBase {
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
   public        double      maximumSpeed = 1.5;
+  public double scaleMaximumSpeed = 1.5;
   /**
    * Maximum rotational speed of the robot in radians per second, used to limit acceleration.
    */
-  public        double      maximumRotationSpeed = Math.toRadians(150);
+  public        double      maximumRotationSpeed = Math.toRadians(90);
+  public double scaleMaximumRotationSpeed = maximumRotationSpeed;
   /**
    * Robot configuration gathered from pathplanner
    */
@@ -164,21 +165,28 @@ public class SwerveSubsystem extends SubsystemBase {
       switch (RobotContainer.currentElevatorState){
         case DOWN:
          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
-         break;
-       case PROCESSOR:
-         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+         scaleMaximumSpeed = maximumSpeed * 1.0;
+         scaleMaximumRotationSpeed = maximumRotationSpeed * 1.0;
          break;
        case L1:
-         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumSpeed * 0.9);
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumRotationSpeed * 0.9);
+         scaleMaximumSpeed = maximumSpeed * 0.9;
+         scaleMaximumRotationSpeed = maximumRotationSpeed * 0.9;
          break;
        case L2:
-         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.8, maximumSpeed * 0.8);
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumRotationSpeed * 0.6);
+         scaleMaximumSpeed = maximumSpeed * 0.6;
+         scaleMaximumRotationSpeed = maximumRotationSpeed * 0.6;
          break;
         case L3:
-         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.7, maximumSpeed * 0.7);
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.45, maximumRotationSpeed * 0.45);
+         scaleMaximumSpeed = maximumSpeed * 0.45;
+         scaleMaximumRotationSpeed = maximumRotationSpeed * 0.45;
          break;
         case L4:
-          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumSpeed * 0.6);
+          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.3, maximumRotationSpeed * 0.3);
+          scaleMaximumSpeed = maximumSpeed * 0.3;
+          scaleMaximumRotationSpeed = maximumRotationSpeed * 0.3;
           break;
      }
     }
@@ -198,5 +206,6 @@ public class SwerveSubsystem extends SubsystemBase {
          swerveDrive.addVisionMeasurement(RobotContainer.m_limelight.limelightPoseEstimate.pose, RobotContainer.m_limelight.limelightPoseEstimate.timestampSeconds);
         }
     }
+    lastElevatorState = RobotContainer.currentElevatorState;
   }
 }

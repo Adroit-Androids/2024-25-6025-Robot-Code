@@ -40,10 +40,10 @@ public class TurnDrive extends Command {
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(-translationY, OperatorConstants.kLeftJoystickDeadband),
                                                                                 MathUtil.applyDeadband(-translationX, OperatorConstants.kLeftJoystickDeadband)),
-                                                                                m_swerveSubsystem.maximumSpeed);
+                                                                                m_swerveSubsystem.scaleMaximumSpeed);
 
     ChassisSpeeds chassisSpeeds = swerveDrive.swerveController.getRawTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-    MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -swerveDrive.getMaximumChassisAngularVelocity());
+    MathUtil.applyDeadband(angularVelocity, OperatorConstants.kRightJoystickDeadband) * -m_swerveSubsystem.scaleMaximumRotationSpeed);
 
     return chassisSpeeds;
 
