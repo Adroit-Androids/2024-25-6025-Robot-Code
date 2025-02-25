@@ -38,6 +38,7 @@ public final class Constants {
     public static final double kL3Height = 6;
     public static final double kL4Height = 9.23;
     public static final double kProcessorHeight = 8;
+    public static final double firstAlgea = 2.3;
   }
 
   public enum ElevatorState {
@@ -45,7 +46,6 @@ public final class Constants {
     L2,
     L3,
     L4,
-    PROCESSOR,
     DOWN
   }
 
@@ -54,8 +54,4 @@ public final class Constants {
     public static final double maxAcceleration = 2.0;
   }
 
-  public static class WristTrapezoid {
-    public static final double maxVelocity = 2;
-    public static final double maxAcceleration = 1.5;
-  }
 }
