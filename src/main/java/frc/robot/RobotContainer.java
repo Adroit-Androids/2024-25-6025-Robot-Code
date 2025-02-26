@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.ElevatorState;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Elevator.ElevatorAlgea1;
+import frc.robot.commands.Elevator.ElevatorAlgea2;
 import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
@@ -15,8 +16,11 @@ import frc.robot.commands.Intake.IntakeAlgea;
 import frc.robot.commands.Intake.ShootAlgea;
 import frc.robot.commands.Intake.ShootCoral;
 import frc.robot.commands.Elevator.ElevatorL4;
+import frc.robot.commands.EndGame.EndgameUp;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.TurnDrive;
+import frc.robot.commands.SwerveDrive.Apriltag.TargetPoseAllignment;
+import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
 import frc.robot.commands.Wrist.SetWristAngle;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.Wrist.Wrist;
@@ -111,34 +115,43 @@ public class RobotContainer {
     //Driver Controls:
 
       //FieldRelative
-    m_driverController.leftStick().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
+    // m_driverController.leftStick().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
       //RobotRelative
     m_driverController.rightStick().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
     //   //Coral Allignment
+    m_driverController.x().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, 0.8, 1.5));
+    //m_driverController.y().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, 0.8, 1.5));
+    m_driverController.y().onTrue(new TargetPoseAllignment(m_swerveDrive, m_limelight, 0.0, 1.0));
+    m_driverController.b().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.16, 1, 2.0));
     // m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.87, 6.0));
     // m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.87, 6.0));
     // m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 17.2, 7.75, true));
-      //Coral Station Allignment
 
-      //Processor Allignment
 
-      //Endgame
-    m_operatorController.a().whileTrue(new ElevatorL1(m_elevator));
+
+    m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
     m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
-    m_operatorController.y().whileTrue(new ElevatorL3(m_elevator));
-    m_operatorController.b().whileTrue(new ElevatorL4(m_elevator));
-    m_operatorController.rightStick().onTrue(new ElevatorDown(m_elevator));
-        //Operator Controls:
-    m_operatorController.rightTrigger().whileTrue(new ShootAlgea(m_intake));
-    m_operatorController.leftTrigger().whileTrue(new IntakeAlgea(m_intake));
-    m_operatorController.leftBumper().whileTrue(new ShootCoral(m_intake));
-    m_operatorController.povRight().onTrue(new SetWristAngle(m_wrist, 63));
-    m_operatorController.povDown().onTrue(new SetWristAngle(m_wrist, 30));
-    m_operatorController.povUp().onTrue(new SetWristAngle(m_wrist, 90));
-    m_operatorController.leftStick().onTrue(new ElevatorAlgea1(m_elevator));
+    m_operatorController.y().onTrue(new ElevatorL3(m_elevator));
+    m_operatorController.b().onTrue(new ElevatorL4(m_elevator));
+    m_operatorController.start().onTrue(new ElevatorDown(m_elevator));
 
+    m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
+    m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
+    m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
+
+        //Operator Controls:
+    m_driverController.rightTrigger().whileTrue(new ShootAlgea(m_intake));
+    m_driverController.leftTrigger().whileTrue(new IntakeAlgea(m_intake, m_wrist, 63));
+    m_driverController.leftBumper().whileTrue(new IntakeAlgea(m_intake, m_wrist, 30));
+    m_driverController.rightBumper().whileTrue(new ShootCoral(m_intake));
+    m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
+
+    m_operatorController.rightTrigger().whileTrue(new EndgameUp(m_endgame, 1));
+    m_operatorController.leftTrigger().whileTrue(new EndgameUp(m_endgame, -1));
+    m_operatorController.rightBumper().whileTrue(new EndgameUp(m_endgame, 0.5));
+    m_operatorController.back().whileTrue(new EndgameUp(m_endgame, -0.5));
    // m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, m_operatorController));
 
     //     // L1 state
@@ -158,16 +171,16 @@ public class RobotContainer {
 
     
 
-    Command driveRight = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0.25, 0, 0)));
+    Command driveRight = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(-0.25, 0, 0)));
     m_driverController.povRight().whileTrue(new RepeatCommand(driveRight));
     
-    Command driveLeft = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(-0.25, 0, 0)));
+    Command driveLeft = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0.25, 0, 0)));
     m_driverController.povLeft().whileTrue(new RepeatCommand(driveLeft));
 
-    Command driveForward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, -0.25, 0)));
+    Command driveForward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, 0.25, 0)));
     m_driverController.povUp().whileTrue(new RepeatCommand(driveForward));
 
-    Command driveBackward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, 0.25, 0)));
+    Command driveBackward = new RunCommand(() -> m_swerveDrive.swerveDrive.drive(turnDriveCommand.getChassisSpeeds(0, -0.25, 0)));
     m_driverController.povDown().whileTrue(new RepeatCommand(driveBackward));
     
         //Coral Station State

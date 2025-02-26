@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.LimelightHelpers.LimelightResults;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
-import swervelib.SwerveDrive;
 
 public class Limelight extends SubsystemBase {
   private SwerveSubsystem swerveDrive;
@@ -37,7 +36,8 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getTargetPose2d() {
-    return LimelightHelpers.getTargetPose_CameraSpace(ll_table);
+    //return LimelightHelpers.getTargetPose_RobotSpace(ll_table);
+    return LimelightHelpers.getBotPose_TargetSpace(ll_table);
   }
 
   @Override
@@ -54,6 +54,7 @@ public class Limelight extends SubsystemBase {
       {
         doRejectUpdate = true;
       }
+
     
     
     tx = LimelightHelpers.getTX(ll_table);
@@ -62,7 +63,7 @@ public class Limelight extends SubsystemBase {
     currentApriltagID = LimelightHelpers.getFiducialID(ll_table);
     
     limelightPosePublisher.set(limelightPoseEstimate.pose);
-    SmartDashboard.putNumber("Swerve Heading", swerveDrive.swerveDrive.getOdometryHeading().getDegrees());
+    SmartDashboard.putNumberArray("Target pose robot space", getTargetPose2d());
     SmartDashboard.putNumber("LimelightX", tx);
     SmartDashboard.putNumber("LimelightY", ty);
     SmartDashboard.putNumber("LimelightArea", ta);

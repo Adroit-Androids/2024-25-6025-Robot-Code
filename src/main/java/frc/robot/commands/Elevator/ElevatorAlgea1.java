@@ -39,6 +39,6 @@ public class ElevatorAlgea1 extends Command {
     }
     else {
       return false;  
-    }  
+    }
   }
 }

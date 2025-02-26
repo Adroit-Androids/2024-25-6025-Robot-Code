@@ -15,22 +15,20 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorIds;
-import frc.robot.commands.Wrist.WristControl;
 
 public class Wrist extends SubsystemBase {
   private TalonFX wristMotor;
   private TalonFXConfiguration wristMotorConfig;
 
-  public final double encoderOffset = 108;
+  public final double encoderOffset = 104;
 
   public double targetAngle = 90;
 
     // PID and Feedforward constants
-  private static final double kP = 0.045;
+  private static final double kP = 0.04;
   private static final double kI = 0.0;
-  private static final double kD = 0.004;
+  private static final double kD = 0.003;
   private static final double kS = (0.43 - 0.41) / 2;   // Static
   private static final double kV = 0.0;   // Velocity
   private static final double kG = (0.43 + 0.41) / 2;  // Gravity

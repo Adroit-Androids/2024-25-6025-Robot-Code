@@ -53,7 +53,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  public final boolean             visionDriveTest     =  false;
+  public final boolean             visionDriveTest     =  true;
   
   /**
    * Innitialive {@link SwerveDrive} with the directory provided

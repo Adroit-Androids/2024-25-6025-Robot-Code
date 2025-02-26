@@ -4,46 +4,51 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake.Intake;
-import frc.robot.subsystems.Wrist.Wrist;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakeAlgea extends Command {
+public class ShootCoralSetTime extends Command {
   Intake m_intake;
-  Wrist m_wrist;
-  double newAngle;
-  /** Creates a new IntakeAlgea. */
-  public IntakeAlgea(Intake intakeSubystem, Wrist wristSubsytem, double setAngle) {
-    m_intake = intakeSubystem;
-    m_wrist = wristSubsytem;
-    newAngle = setAngle;
+
+  double setTime;
+  double time;  
+
+  /** Creates a new ShootAlgeaSetTime. */
+  public ShootCoralSetTime(Intake intakeSubsytem, double commandTime) {
+    m_intake = intakeSubsytem;
+    time = commandTime;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_intake, m_wrist);
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_wrist.targetAngle = newAngle;
+    setTime = Timer.getFPGATimestamp() + time;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setIntakeVoltage(-0.55);
+    m_intake.setIntakeVoltage(-0.45);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.setIntakeVoltage(-0.2);
-    m_wrist.targetAngle = 90;
+    m_intake.setIntakeVoltage(0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (Timer.getFPGATimestamp() > setTime) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }
