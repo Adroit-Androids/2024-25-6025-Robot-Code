@@ -39,7 +39,7 @@ public final class Constants {
     public static final double kL4Height = 9.23;
     public static final double kProcessorHeight = 8;
     public static final double firstAlgea = 2.3;
-    public static final double secondAlgea = 5;
+    public static final double secondAlgea = 4.1;
   }
 
   public enum ElevatorState {

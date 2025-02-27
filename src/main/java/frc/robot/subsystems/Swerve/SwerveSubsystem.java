@@ -13,6 +13,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS.NavXComType;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -53,7 +54,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  public final boolean             visionDriveTest     =  true;
+  public final boolean             visionDriveTest     =  false;
   
   /**
    * Innitialive {@link SwerveDrive} with the directory provided
@@ -69,6 +70,7 @@ public class SwerveSubsystem extends SubsystemBase {
     try{
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
       swerveDrive.swerveDriveConfiguration.imu = new NavXSwerve(NavXComType.kMXP_SPI);
+      swerveDrive.swerveController.setMaximumChassisAngularVelocity(Math.abs(maximumRotationSpeed));
     }catch (Exception e)
     {
       throw new RuntimeException(e);
@@ -114,7 +116,7 @@ public class SwerveSubsystem extends SubsystemBase {
             this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
                     new PIDConstants(1.0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(2.0, 0.0, 0.0) // Rotation PID constants
+                    new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
             ),
             robotConfig, // The robot configuration
             () -> {

@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.ElevatorState;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Elevator.ELevatorEnableManualControl;
 import frc.robot.commands.Elevator.ElevatorAlgea1;
 import frc.robot.commands.Elevator.ElevatorAlgea2;
 import frc.robot.commands.Elevator.ElevatorDown;
@@ -21,7 +22,6 @@ import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.TurnDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.TargetPoseAllignment;
 import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
-import frc.robot.commands.Wrist.SetWristAngle;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.Wrist.Wrist;
 import frc.robot.subsystems.Elevator.Elevator;
@@ -120,15 +120,15 @@ public class RobotContainer {
     m_driverController.rightStick().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
-    //   //Coral Allignment
-    m_driverController.x().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, 0.8, 1.5));
-    //m_driverController.y().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, 0.8, 1.5));
-    m_driverController.y().onTrue(new TargetPoseAllignment(m_swerveDrive, m_limelight, 0.0, 1.0));
-    m_driverController.b().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.16, 1, 2.0));
-    // m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -16.87, 6.0));
-    // m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 16.87, 6.0));
-    // m_driverController.rightTrigger().whileTrue(new ApriltagDistanceAndCoralAllignment(m_swerveDrive, m_limelight, 17.2, 7.75, true));
-
+    //   //Coral Allignment 
+    //
+    // WARNING:
+    //    FORWARD DISTANCE GIVEN INTO THE COMMAND MUST BE NEGATIVE 
+    //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MARK
+    //
+    m_driverController.b().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.15, -1.1, 2.8));
+    m_driverController.x().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.19, -0.8, 1.75));
+    m_driverController.y().onTrue(new TargetPoseAllignment(m_swerveDrive, m_limelight, 0.0, -1.0));
 
 
     m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
@@ -148,11 +148,13 @@ public class RobotContainer {
     m_driverController.rightBumper().whileTrue(new ShootCoral(m_intake));
     m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
+
+    m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
+
     m_operatorController.rightTrigger().whileTrue(new EndgameUp(m_endgame, 1));
     m_operatorController.leftTrigger().whileTrue(new EndgameUp(m_endgame, -1));
     m_operatorController.rightBumper().whileTrue(new EndgameUp(m_endgame, 0.5));
     m_operatorController.back().whileTrue(new EndgameUp(m_endgame, -0.5));
-   // m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, m_operatorController));
 
     //     // L1 state
     // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));

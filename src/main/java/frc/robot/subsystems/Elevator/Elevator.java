@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ElevatorState;
 import frc.robot.Constants.ElevatorTrapezoid;
-import frc.robot.commands.Elevator.ElevatorSetSpeed;
+import frc.robot.commands.Elevator.ElevatorDown;
 
 public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
@@ -31,10 +31,12 @@ public class Elevator extends SubsystemBase {
   private static final double kV = 0.0;   // Velocity
   private static final double kG = (1.2 + 0.1) / 2;  // Gravity
 
-  public final ProfiledPIDController pidController;
-  private final ElevatorFeedforward feedforward;
+  public ProfiledPIDController pidController;
+  public ElevatorFeedforward feedforward;
 
   private double targetPosition = 0.0; // Current target position
+
+  public boolean isManualControl = false;
 
   // Constructor
   public Elevator(ElevatorIO io) {
@@ -44,7 +46,7 @@ public class Elevator extends SubsystemBase {
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
     pidController.setTolerance(0.02); // Set tolerance for reaching the target position
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
-    //setDefaultCommand(new ElevatorSetSpeed(this, RobotContainer.m_operatorController));
+    setDefaultCommand(new ElevatorDown(this));
     io.resetPosition(); // Initialize elevator position
     RobotContainer.currentElevatorState = ElevatorState.DOWN;
     setPosition(0);
@@ -108,11 +110,13 @@ public class Elevator extends SubsystemBase {
   
   @Override
   public void periodic() {
-    if (!pidController.atGoal()){
-      moveToPosition();
-    }
-    else {
-      io.set(kG);
+    if (!isManualControl){
+      if (!pidController.atGoal()){
+        moveToPosition();
+      }
+      else {
+        io.set(kG);
+      }
     }
 
     inputs.elevatorVelocity = RobotContainer.m_endgame.getElevatorSpeed();
