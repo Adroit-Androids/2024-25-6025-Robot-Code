@@ -8,6 +8,9 @@ package frc.robot.commands.SwerveDrive.Apriltag;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.units.measure.Time;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.TimesliceRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -31,11 +34,17 @@ public class TargetPoseAllignment extends Command {
   double currentAngle;
   double minSpeed = 0.0;
   double pAdjustment = 0.0;
+  double timer;
+  double timerLimit = 0.5;
+  double timerStartTimeFPGAT;
+  
+  double kP = 3.0;
+  
+  boolean lastTimerStartedState = false;
+  boolean timerStarted = false;
 
-  double kP = 4.5;
-
-  PIDController leftVelocityController = new PIDController(2.75, 0.0, 0.04);
-  PIDController forwardVelocityController = new PIDController(2.0, 0.0, 0.01);
+  PIDController leftVelocityController = new PIDController(1.5, 0.0, 0.0);
+  PIDController forwardVelocityController = new PIDController(1.0, 0.0, 0.0);
 
   private double xTranslation = 0;
   private double yTranslation = 0;
@@ -48,8 +57,8 @@ public class TargetPoseAllignment extends Command {
     this.m_limelight = limelight;
     this.targetLeft = leftDistance;
     this.targetForward = forwardDistance;
-    leftVelocityController.setTolerance(0.015);
-    forwardVelocityController.setTolerance(0.03);
+    leftVelocityController.setTolerance(0.02);
+    forwardVelocityController.setTolerance(0.05);
 
   }
 
@@ -104,17 +113,17 @@ public class TargetPoseAllignment extends Command {
       angleError += 360;
     }
 
-    // if (Math.abs(angleError) < 1){
-    //   angleError = 0;
-    // }
-    
-    // Increase targetTimer if we are within a certain range of our target angle
-    // if (Math.abs(angleError) <= 1.0){
-    //   ++targetTimer;
-    // }
-    // else{
-    //   targetTimer = 0;
-    // }
+    if (fidicualPose[0] == 0 && lastTimerStartedState == false) {
+      timerStarted = true;
+      startTimer();
+    }
+
+    if (timerStarted) {
+      timer = Timer.getFPGATimestamp() - timerStartTimeFPGAT;
+    }
+    else {
+      timer = 0;
+    }
 
     if (m_limelight.currentApriltagID == RobotContainer.currentTargetID){
       RobotContainer.lastReadTxTarget = m_limelight.tx;
@@ -128,24 +137,42 @@ public class TargetPoseAllignment extends Command {
     // }
   if (fidicualPose[2] != 0){
       xTranslation = forwardVelocityController.calculate(fidicualPose[2]);
+      timerStarted = false;
   }
   if (fidicualPose[0] != 0){
       yTranslation = leftVelocityController.calculate(fidicualPose[0]);
   }
-  if (forwardVelocityController.atSetpoint()){
+
+  if (forwardVelocityController.atSetpoint()) {
     xTranslation = 0;
+  }
+  if (leftVelocityController.atSetpoint()){
+    yTranslation = 0;
   }
     // swerveDrive.drive(new Translation2d(0 * -xTranslation, -yTranslation),
     //                   0 * Math.toRadians(pAdjustment),
     //                   false, false);
-    swerveDrive.drive(new ChassisSpeeds(0 * xTranslation, -yTranslation, -Math.toRadians(pAdjustment)));
+    if (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint()) {
+      swerveDrive.drive(new ChassisSpeeds(0.0, 0.0, -Math.toRadians(pAdjustment)));
+    }
+    else {
+      if (Math.abs(angleError) < 4.0) {
+        pAdjustment = 0;
+      }
+      swerveDrive.drive(new ChassisSpeeds(0 * xTranslation, -yTranslation,-Math.toRadians(pAdjustment)));
+    }
+
+
+    lastTimerStartedState = timerStarted;
 
     SmartDashboard.putBoolean("Command is finished", isFinished());
     SmartDashboard.putNumber("Target angle", targetAngle);
+    SmartDashboard.putNumber("Forward pid",  forwardVelocityController.calculate(fidicualPose[2]));
     SmartDashboard.putNumber("Current angle", swerveDrive.getOdometryHeading().getDegrees());
     SmartDashboard.putNumber("Angle error", angleError);
     SmartDashboard.putNumber("Target left", targetLeft);
   }
+
   
   // Called once the command ends or is interrupted.
   @Override
@@ -155,15 +182,15 @@ public class TargetPoseAllignment extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (leftVelocityController.atSetpoint()){
+    if ( (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint() && Math.abs(angleError) < 1.5) || timer > timerLimit){
       return true;
     }
-    return false;
-    // if (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint() && Math.abs(angleError) < 0.5){
-    //   return true;
-    // }
-    // else {
-    //   return false;
-    // }
+    else {
+      return false;
+    }
+  }
+
+  public void startTimer() {
+    timerStartTimeFPGAT = Timer.getFPGATimestamp();
   }
 }
