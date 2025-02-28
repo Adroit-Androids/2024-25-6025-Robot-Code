@@ -25,12 +25,13 @@ public class Elevator extends SubsystemBase {
   private final double maxAcceleration = ElevatorTrapezoid.maxAcceleration;
 
   // PID and Feedforward constants
-  private static final double kP = 4.0;
-  private static final double kI = 0.0;
+  private static final double kP = 4.25;
+  private static final double kI = 0.5;
   private static final double kD = 0.0;
   private static final double kS = ((1.2 - 0.1) / 2);   // Static
   private static final double kV = 0.0;   // Velocity
   private static final double kG = (1.2 + 0.1) / 2;  // Gravity
+  public double errorTolerance = 0.1;
 
   public ProfiledPIDController pidController;
   public ElevatorFeedforward feedforward;
@@ -45,7 +46,8 @@ public class Elevator extends SubsystemBase {
     
     // Set up the PID controller with limits on position changes
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
-    pidController.setTolerance(0.02); // Set tolerance for reaching the target position
+    pidController.setTolerance(errorTolerance); // Set tolerance for reaching the target position
+    pidController.setIZone(0.5);
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
     //setDefaultCommand(new ElevatorDown(this));
     io.resetPosition(); // Initialize elevator position

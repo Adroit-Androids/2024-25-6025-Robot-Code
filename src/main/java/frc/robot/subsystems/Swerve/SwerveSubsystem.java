@@ -45,7 +45,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Maximum rotational speed of the robot in radians per second, used to limit acceleration.
    */
-  public        double      maximumRotationSpeed = Math.toRadians(90);
+  public        double      maximumRotationSpeed = Math.toRadians(180);
   public double scaleMaximumRotationSpeed = maximumRotationSpeed;
   /**
    * Robot configuration gathered from pathplanner

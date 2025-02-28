@@ -31,13 +31,13 @@ public class IntakeAlgea extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setIntakeVoltage(-0.55);
+    m_intake.setIntakeVoltage(-0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.setIntakeVoltage(-0.2);
+    m_intake.setIntakeVoltage(-0.25);
     m_wrist.targetAngle = 90;
   }
 

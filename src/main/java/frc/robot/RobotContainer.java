@@ -18,6 +18,7 @@ import frc.robot.commands.Intake.ShootAlgea;
 import frc.robot.commands.Intake.ShootCoral;
 import frc.robot.commands.Intake.ShootCoralSetTime;
 import frc.robot.commands.Elevator.ElevatorL4;
+import frc.robot.commands.EndGame.EndgameDown;
 import frc.robot.commands.EndGame.EndgameUp;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.DriveTillSetTime;
@@ -159,17 +160,19 @@ public class RobotContainer {
         //Operator Controls:
     m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
     m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 63));
-    m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 30));
+    m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 22.5));
     m_driverController.R1().whileTrue(new ShootCoral(m_intake));
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 
     m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
 
-    // m_operatorController.rightTrigger().whileTrue(new EndgameUp(m_endgame, 1));
-    // m_operatorController.leftTrigger().whileTrue(new EndgameUp(m_endgame, -1));
-    // m_operatorController.rightBumper().whileTrue(new EndgameUp(m_endgame, 0.5));
-    // m_operatorController.back().whileTrue(new EndgameUp(m_endgame, -0.5));
+    // m_operatorController.rightTrigger(0.1).whileTrue(new RepeatCommand(new EndgameUp(m_endgame, m_operatorController.getRightTriggerAxis())));
+    // m_operatorController.leftTrigger(0.1).whileTrue(new RepeatCommand(new EndgameDown(m_endgame, m_operatorController.getRightTriggerAxis())));
+    m_operatorController.rightTrigger().whileTrue(new EndgameUp(m_endgame, 0.7));
+    m_operatorController.leftTrigger().whileTrue(new EndgameUp(m_endgame, -1));
+    m_operatorController.back().whileTrue(new EndgameUp(m_endgame, 0.5));
+    m_operatorController.leftBumper().whileTrue(new EndgameUp(m_endgame, -0.5));
 
     //     // L1 state
     // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));

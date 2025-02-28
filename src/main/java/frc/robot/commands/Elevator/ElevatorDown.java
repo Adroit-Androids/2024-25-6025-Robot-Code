@@ -24,6 +24,7 @@ public class ElevatorDown extends Command {
   @Override
   public void initialize() {
     RobotContainer.currentElevatorState = ElevatorState.DOWN;
+    elevatorSubsystem.pidController.setTolerance(0.175);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,7 +35,9 @@ public class ElevatorDown extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elevatorSubsystem.pidController.setTolerance(elevatorSubsystem.errorTolerance);
+  }
 
   // Returns true when the command should end.
   @Override
