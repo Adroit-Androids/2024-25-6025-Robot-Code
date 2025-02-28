@@ -70,7 +70,7 @@ public class SwerveSubsystem extends SubsystemBase {
     try{
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
       swerveDrive.swerveDriveConfiguration.imu = new NavXSwerve(NavXComType.kMXP_SPI);
-      swerveDrive.swerveController.setMaximumChassisAngularVelocity(Math.abs(maximumRotationSpeed));
+      swerveDrive.swerveController.setMaximumChassisAngularVelocity(maximumRotationSpeed);
     }catch (Exception e)
     {
       throw new RuntimeException(e);
@@ -169,26 +169,31 @@ public class SwerveSubsystem extends SubsystemBase {
          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
          scaleMaximumSpeed = maximumSpeed * 1.0;
          scaleMaximumRotationSpeed = maximumRotationSpeed * 1.0;
+         swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
          break;
        case L1:
          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumRotationSpeed * 0.9);
          scaleMaximumSpeed = maximumSpeed * 0.9;
          scaleMaximumRotationSpeed = maximumRotationSpeed * 0.9;
+         swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
          break;
        case L2:
          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.6, maximumRotationSpeed * 0.6);
          scaleMaximumSpeed = maximumSpeed * 0.6;
          scaleMaximumRotationSpeed = maximumRotationSpeed * 0.6;
+         swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
          break;
         case L3:
          swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.45, maximumRotationSpeed * 0.45);
          scaleMaximumSpeed = maximumSpeed * 0.45;
          scaleMaximumRotationSpeed = maximumRotationSpeed * 0.45;
+         swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
          break;
         case L4:
           swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.3, maximumRotationSpeed * 0.3);
           scaleMaximumSpeed = maximumSpeed * 0.3;
           scaleMaximumRotationSpeed = maximumRotationSpeed * 0.3;
+          swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
           break;
      }
     }
