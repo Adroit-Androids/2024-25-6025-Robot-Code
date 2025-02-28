@@ -5,7 +5,9 @@
 package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.ElevatorState;
 import frc.robot.subsystems.Elevator.Elevator;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -22,14 +24,14 @@ public class ELevatorEnableManualControl extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_elevator.getDefaultCommand().getClass() != ElevatorSetSpeed.class) {
-      m_elevator.isManualControl = true;
-      m_elevator.setDefaultCommand(new ElevatorSetSpeed(m_elevator, RobotContainer.m_operatorController));
+    if (m_elevator.isManualControl) {
+      m_elevator.isManualControl = false;
+      m_elevator.pidController.reset(m_elevator.getPosition(), 0);
+      m_elevator.pidController.setGoal(0);
+      RobotContainer.currentElevatorState = ElevatorState.DOWN;
     }
     else {
-      m_elevator.isManualControl = false;
-      m_elevator.pidController.reset(m_elevator.getPosition(), 0);;
-      m_elevator.setDefaultCommand(new ElevatorDown(m_elevator));
+      m_elevator.isManualControl = true;
     }
   }
 }

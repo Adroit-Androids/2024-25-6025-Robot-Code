@@ -8,6 +8,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.subsystems.Elevator.ElevatorIO.ElevatorIOInputs;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,7 +47,7 @@ public class Elevator extends SubsystemBase {
     pidController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
     pidController.setTolerance(0.02); // Set tolerance for reaching the target position
     feedforward = new ElevatorFeedforward(kS, kG, kV); // Set up feedforward values 
-    setDefaultCommand(new ElevatorDown(this));
+    //setDefaultCommand(new ElevatorDown(this));
     io.resetPosition(); // Initialize elevator position
     RobotContainer.currentElevatorState = ElevatorState.DOWN;
     setPosition(0);
@@ -82,9 +83,6 @@ public class Elevator extends SubsystemBase {
     double feedforwardOutput = feedforward.calculate(pidController.getSetpoint().velocity);
 
     double voltage = pidOutput + feedforwardOutput;
-    if(RobotContainer.currentElevatorState == ElevatorState.DOWN && pidController.atGoal()){
-      voltage = 0;
-    }
     io.set(voltage);
 
   }
@@ -111,12 +109,22 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     if (!isManualControl){
-      if (!pidController.atGoal()){
+      if (!pidController.atSetpoint()){
         moveToPosition();
       }
       else {
-        io.set(kG);
+        if (RobotContainer.currentElevatorState == ElevatorState.DOWN){
+          io.stop();
+        }
+        else {
+          io.set(kG);
+        }
       }
+    }
+    else {
+    double controlOutput = MathUtil.applyDeadband(RobotContainer.m_operatorController.getLeftY() * -1, 0.05) * 2;
+    double feedforwardOutput = feedforward.calculate(controlOutput);
+    setVoltage(controlOutput + feedforwardOutput);
     }
 
     inputs.elevatorVelocity = RobotContainer.m_endgame.getElevatorSpeed();
@@ -128,6 +136,7 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Elevator setpoint", pidController.getGoal().position);
     SmartDashboard.putNumber("Elevator voltage", io.getVoltage());
     SmartDashboard.putNumber("Elevator pid output", pidController.calculate(getPosition(), targetPosition));
+    SmartDashboard.putBoolean("Elevator at setpoint", pidController.atSetpoint());
     SmartDashboard.putNumber("Elevator feedforward output", feedforward.calculate(pidController.getSetpoint().velocity));
     io.updateInputs(inputs);
   }

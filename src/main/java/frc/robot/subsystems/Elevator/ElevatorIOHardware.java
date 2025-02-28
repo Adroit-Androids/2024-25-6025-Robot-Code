@@ -68,7 +68,7 @@ public class ElevatorIOHardware implements ElevatorIO {
   }
 
   public void stop() {
-    leadMotor.setVoltage(0);
+    leadMotor.stopMotor();
   }
 
   public void periodic() {

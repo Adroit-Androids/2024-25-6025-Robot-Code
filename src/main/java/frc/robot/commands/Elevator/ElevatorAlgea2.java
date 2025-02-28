@@ -35,11 +35,11 @@ public class ElevatorAlgea2 extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_elevator.pidController.atGoal()){
+    if (m_elevator.pidController.atSetpoint()){
       return true;
     }
     else {
       return false;  
-    }  
+    } 
   }
 }

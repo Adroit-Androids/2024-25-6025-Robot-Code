@@ -38,7 +38,7 @@ public class ElevatorL4 extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (elevatorSubsystem.pidController.atGoal()){
+    if (elevatorSubsystem.pidController.atSetpoint()){
       return true;
     }
     else {
