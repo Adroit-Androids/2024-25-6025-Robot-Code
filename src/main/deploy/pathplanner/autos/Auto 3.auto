@@ -9,6 +9,12 @@
           "data": {
             "pathName": "3Single_CoralPath"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Reef_Position_Left "
+          }
         }
       ]
     }
