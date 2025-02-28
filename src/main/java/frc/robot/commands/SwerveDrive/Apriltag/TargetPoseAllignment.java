@@ -8,9 +8,7 @@ package frc.robot.commands.SwerveDrive.Apriltag;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.TimesliceRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -38,12 +36,12 @@ public class TargetPoseAllignment extends Command {
   double timerLimit = 0.5;
   double timerStartTimeFPGAT;
   
-  double kP = 3.0;
+  double kP = 4.0;
   
   boolean lastTimerStartedState = false;
   boolean timerStarted = false;
 
-  PIDController leftVelocityController = new PIDController(1.5, 0.0, 0.0);
+  PIDController leftVelocityController = new PIDController(2.0, 0.0, 0.0);
   PIDController forwardVelocityController = new PIDController(1.0, 0.0, 0.0);
 
   private double xTranslation = 0;
@@ -57,14 +55,15 @@ public class TargetPoseAllignment extends Command {
     this.m_limelight = limelight;
     this.targetLeft = leftDistance;
     this.targetForward = forwardDistance;
-    leftVelocityController.setTolerance(0.02);
-    forwardVelocityController.setTolerance(0.05);
+    leftVelocityController.setTolerance(0.01);
+    forwardVelocityController.setTolerance(0.1);
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    kP = 4;
     for (double i :validIDs){
       if (m_limelight.currentApriltagID == i){
         isValidID = true;
@@ -153,13 +152,14 @@ public class TargetPoseAllignment extends Command {
     //                   0 * Math.toRadians(pAdjustment),
     //                   false, false);
     if (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint()) {
+      kP = 5.0;
       swerveDrive.drive(new ChassisSpeeds(0.0, 0.0, -Math.toRadians(pAdjustment)));
     }
     else {
-      if (Math.abs(angleError) < 4.0) {
+      if (Math.abs(angleError) < 2.0) {
         pAdjustment = 0;
       }
-      swerveDrive.drive(new ChassisSpeeds(0 * xTranslation, -yTranslation,-Math.toRadians(pAdjustment)));
+      swerveDrive.drive(new ChassisSpeeds(xTranslation, -yTranslation,-Math.toRadians(pAdjustment)));
     }
 
 
@@ -182,7 +182,8 @@ public class TargetPoseAllignment extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ( (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint() && Math.abs(angleError) < 1.5) || timer > timerLimit){
+    SmartDashboard.putNumber("timer", timer);
+    if ( (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint() && Math.abs(angleError) < 0.5) || timer > timerLimit){
       return true;
     }
     else {
