@@ -71,7 +71,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static final SwerveSubsystem m_swerveDrive = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),"swerve"));
-  //public static final Elevator m_elevator = new Elevator(new ElevatorIOHardware());
+  public static final Elevator m_elevator = new Elevator(new ElevatorIOHardware());
   public static final Endgame m_endgame = new Endgame();
   public static final Wrist m_wrist = new Wrist();
   public static final Limelight m_limelight = new Limelight(m_swerveDrive);
@@ -146,15 +146,15 @@ public class RobotContainer {
     m_driverController.triangle().onTrue(new TargetPoseAllignment(m_swerveDrive, m_limelight, 0.0, -1.0));
 
 
-    // m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
-    // m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
-    // m_operatorController.y().onTrue(new ElevatorL3(m_elevator));
-    // m_operatorController.b().onTrue(new ElevatorL4(m_elevator));
-    // m_operatorController.start().onTrue(new ElevatorDown(m_elevator));
+    m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
+    m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
+    m_operatorController.y().onTrue(new ElevatorL3(m_elevator));
+    m_operatorController.b().onTrue(new ElevatorL4(m_elevator));
+    m_operatorController.start().onTrue(new ElevatorDown(m_elevator));
 
-    // m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
-    // m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
-    // m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
+    m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
+    m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
+    m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
 
         //Operator Controls:
     m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
@@ -164,7 +164,7 @@ public class RobotContainer {
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 
-    // m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
+    m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
 
     // m_operatorController.rightTrigger().whileTrue(new EndgameUp(m_endgame, 1));
     // m_operatorController.leftTrigger().whileTrue(new EndgameUp(m_endgame, -1));
