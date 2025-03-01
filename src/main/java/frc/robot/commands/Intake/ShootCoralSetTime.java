@@ -11,14 +11,16 @@ import frc.robot.subsystems.Intake.Intake;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ShootCoralSetTime extends Command {
   Intake m_intake;
-
+  
   double setTime;
   double time;  
+  double appliedPercentageOutput; 
 
   /** Creates a new ShootAlgeaSetTime. */
-  public ShootCoralSetTime(Intake intakeSubsytem, double commandTime) {
+  public ShootCoralSetTime(Intake intakeSubsytem, double commandTime, double percentageOutput) {
     m_intake = intakeSubsytem;
     time = commandTime;
+    appliedPercentageOutput = percentageOutput;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_intake);
   }
@@ -32,7 +34,7 @@ public class ShootCoralSetTime extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setIntakeVoltage(-0.45);
+    m_intake.setIntakeVoltage(-appliedPercentageOutput);
   }
 
   // Called once the command ends or is interrupted.

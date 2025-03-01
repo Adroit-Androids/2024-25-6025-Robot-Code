@@ -6,18 +6,18 @@ package frc.robot.commands.Elevator;
 
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Elevator.Elevator;
 
 public class ElevatorSetSpeed extends Command {
 
 Elevator m_elevator;
-CommandXboxController m_operatorController;
+PS4Controller m_operatorController;
 
 
 
-  public ElevatorSetSpeed(Elevator m_elevator, CommandXboxController operatorController) {
+  public ElevatorSetSpeed(Elevator m_elevator, PS4Controller operatorController) {
     addRequirements(m_elevator);
     this.m_elevator = m_elevator;
     this.m_operatorController = operatorController;
