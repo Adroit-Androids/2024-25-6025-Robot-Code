@@ -1,0 +1,80 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TopStation_PlaceK"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorDown"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TopStation_RetreiveK"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TopStation_PlaceL"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RetrieveCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorDown"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

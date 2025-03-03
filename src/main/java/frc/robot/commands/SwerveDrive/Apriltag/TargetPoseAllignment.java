@@ -42,9 +42,9 @@ public class TargetPoseAllignment extends Command {
   boolean lastTimerStartedState = false;
   boolean timerStarted = false;
 
-  PIDController angleVelocityController = new PIDController(3, 0.0, 0.0);
-  PIDController leftVelocityController = new PIDController(2.0, 0.0, 0.0);
-  PIDController forwardVelocityController = new PIDController(2.2, 0.0, 0.0);
+  PIDController angleVelocityController = new PIDController(1.75, 0.0, 0.0);
+  PIDController leftVelocityController = new PIDController(1.25, 0.0, 0.0);
+  PIDController forwardVelocityController = new PIDController(0.75, 0.0, 0.0);
 
 
   private double xTranslation = 0;
@@ -59,8 +59,8 @@ public class TargetPoseAllignment extends Command {
     this.m_limelight = limelight;
     this.targetLeft = leftDistance;
     this.targetForward = forwardDistance;
-    leftVelocityController.setTolerance(0.02);
-    forwardVelocityController.setTolerance(0.1);
+    leftVelocityController.setTolerance(0.005);
+    forwardVelocityController.setTolerance(0.05);
 
   }
 
@@ -147,12 +147,12 @@ public class TargetPoseAllignment extends Command {
     }
     thetaTranslation = angleVelocityController.calculate(fidicualPose[4]);
   }
-  if (Math.abs(xTranslation) > 1){
-    xTranslation = 1 * Math.signum(xTranslation);
-  }
-  if (Math.abs(yTranslation) > 1){
-    yTranslation = 1 * Math.signum(yTranslation);
-  }
+  // if (Math.abs(xTranslation) > 0.5){
+  //   xTranslation = 0.5 * Math.signum(xTranslation);
+  // }
+  // if (Math.abs(yTranslation) > 0.5){
+  //   yTranslation = 0.5 * Math.signum(yTranslation);
+  // }
   
   // if (Math.abs(xTranslation) < 0.1){
   //   xTranslation = 0.1 * Math.signum(xTranslation);
@@ -161,9 +161,19 @@ public class TargetPoseAllignment extends Command {
   //   yTranslation = 0.1 * Math.signum(yTranslation);
   // }
 
-  if (Math.abs(thetaTranslation) > 75){
-    thetaTranslation = 75 * Math.signum(thetaTranslation);
-  }
+  // if (Math.abs(yTranslation) < 0.05) {
+  //   yTranslation = 0.05 * Math.signum(yTranslation);
+  // }
+
+  
+  // if (Math.abs(xTranslation) < 0.05) {
+  //   xTranslation = 0.05 * Math.signum(xTranslation);
+  // }
+
+
+  // if (Math.abs(thetaTranslation) > 50){
+  //   thetaTranslation = 50 * Math.signum(thetaTranslation);
+  // }
   
 
   // if (forwardVelocityController.atSetpoint()) {
@@ -189,6 +199,7 @@ public class TargetPoseAllignment extends Command {
 
     lastTimerStartedState = timerStarted;
 
+    SmartDashboard.putNumber("Allignment speed", yTranslation);
     SmartDashboard.putBoolean("Command is finished", isFinished());
     SmartDashboard.putNumber("Angle Pid", pAdjustment);
     SmartDashboard.putNumber("Target angle", targetAngle);
@@ -210,7 +221,7 @@ public class TargetPoseAllignment extends Command {
   public boolean isFinished() {
     
     SmartDashboard.putNumber("timer", timer);
-    if ( (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint() && Math.abs(fidicualPose[4]) < 1.5) || timer > timerLimit){
+    if ( (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint() && Math.abs(fidicualPose[4]) < 0.75) || timer > timerLimit){
       return true;
     }
     else {

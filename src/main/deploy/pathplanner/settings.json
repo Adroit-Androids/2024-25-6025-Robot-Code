@@ -20,7 +20,7 @@
     "Waypoint Definitons"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 2.3,
+  "defaultMaxVel": 1.75,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,

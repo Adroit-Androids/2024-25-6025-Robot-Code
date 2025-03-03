@@ -37,6 +37,7 @@ import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -102,6 +103,7 @@ public class RobotContainer {
   }
 
   public void registerNamedCOmmands(){
+    new EventTrigger("ElevatorL4").onTrue(new ElevatorL4(m_elevator));
     NamedCommands.registerCommand("ShootCoral", new ShootCoralSetTime(m_intake, 0.5, 0.45));
     NamedCommands.registerCommand("RetrieveCoral", new ShootCoralSetTime(m_intake, 0.3, 0.35));
     NamedCommands.registerCommand("ElevatorDown", new ElevatorDown(m_elevator));
@@ -140,8 +142,8 @@ public class RobotContainer {
     //    FORWARD DISTANCE GIVEN INTO THE COMMAND MUST BE NEGATIVE 
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAX
     //
-    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.15, -1.1, 1.68, 0.5));
-    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.20, -0.8, 0.8, 0.5));
+    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.19, -1.0, 0.5, 1.25));
+    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.20, -0.8, 0.5, 0.5));
     m_driverController.triangle().onTrue(new TargetPoseAllignment(m_swerveDrive, m_limelight, 0.0, -1.0));
 
 
