@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.236272321428571,
-        "y": 2.797544642857142
+        "x": 7.132684426229508,
+        "y": 4.048975409836066
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.110198515905551,
-        "y": 2.1963228818270024
+        "x": 6.437397540983607,
+        "y": 3.881147540983607
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartingPointMiddle"
     },
     {
       "anchor": {
-        "x": 6.333147321428571,
-        "y": 0.6690848214285711
+        "x": 5.8619877049180324,
+        "y": 3.869159836065574
       },
       "prevControl": {
-        "x": 6.27684304740161,
-        "y": 0.9126619729151111
+        "x": 6.137704918032787,
+        "y": 3.8451844262295083
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ReefPointG"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Scenario 6",
+  "folder": "Waypoint Definitons",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

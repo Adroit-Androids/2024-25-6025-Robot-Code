@@ -12,7 +12,7 @@
         "y": 6.384116618950178
       },
       "isLocked": false,
-      "linkedName": "Scenario4End1_PlaceCoral"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Scenario4End2_RetreiveCoral"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.139,
-        "y": 6.248
+        "x": 7.144672131147541,
+        "y": 6.314651639344263
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.3889973132379785,
-        "y": 6.249159040030443
+        "x": 6.777953474312801,
+        "y": 5.505057109758147
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartingPointUp"
     },
     {
       "anchor": {
-        "x": 6.139,
-        "y": 6.248
+        "x": 5.346516393442624,
+        "y": 5.139856557377049
       },
       "prevControl": {
-        "x": 5.8586466056027575,
-        "y": 6.246719688267423
+        "x": 5.183436305705709,
+        "y": 4.950370713621585
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ReefPointI"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Waypoint Definitons",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

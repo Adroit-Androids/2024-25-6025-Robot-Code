@@ -3,7 +3,7 @@
   "robotLength": 0.865,
   "holonomicMode": true,
   "pathFolders": [
-    "Test 4",
+    "Autonomous 1",
     "Scenario 1",
     "Scenario 2",
     "Scenario 3",
@@ -14,7 +14,9 @@
     "Scenario 8",
     "Test 1",
     "Test 2",
-    "Test 3"
+    "Test 3",
+    "Test 4",
+    "Waypoint Definitons"
   ],
   "autoFolders": [],
   "defaultMaxVel": 2.3,
