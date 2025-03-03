@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.560698558701192,
-        "y": 4.0239079047308675
+        "x": 6.51031147378411,
+        "y": 4.047994088988601
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.557274590163935,
-        "y": 4.07007705479452
+        "x": 6.090542763157895,
+        "y": 3.7748355263157896
       },
       "prevControl": {
-        "x": 6.310958969486066,
-        "y": 4.112839363082031
+        "x": 6.6518358477132695,
+        "y": 3.795782862151439
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,14 +33,14 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Placement_CoralL2",
+      "name": "",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 2.3,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

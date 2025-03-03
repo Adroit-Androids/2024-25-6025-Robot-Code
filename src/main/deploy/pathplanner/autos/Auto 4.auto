@@ -11,15 +11,47 @@
           }
         },
         {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "4Coral_Retreive1"
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "4Coral_Placement2"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RetrieveCoral"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "4Coral_Placement2"
+                }
+              }
+            ]
           }
         },
         {
@@ -31,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4Coral_Placement2"
+            "pathName": "4Coral_Placement3"
           }
         }
       ]

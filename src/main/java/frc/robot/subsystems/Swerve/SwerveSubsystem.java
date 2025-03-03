@@ -13,7 +13,6 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS.NavXComType;
 
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -54,7 +53,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  public final boolean             visionDriveTest     =  false;
+  public final boolean             visionDriveTest     =  true;
   
   /**
    * Innitialive {@link SwerveDrive} with the directory provided
@@ -81,8 +80,8 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveDrive.setCosineCompensator(false);
     }
     else {
-      swerveDrive.setHeadingCorrection(true);
-      swerveDrive.setCosineCompensator(true);
+      swerveDrive.setHeadingCorrection(false);
+      swerveDrive.setCosineCompensator(false);
     }
 
     if (visionDriveTest){
@@ -90,7 +89,7 @@ public class SwerveSubsystem extends SubsystemBase {
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
-    resetOdometry(new Pose2d(7.215, 4.001, new Rotation2d(Math.toRadians(180))));
+    //resetOdometry(new Pose2d(7.215, 4.001, new Rotation2d(Math.toRadians(180))));
 
     setUpPathplanner();
 
@@ -115,8 +114,8 @@ public class SwerveSubsystem extends SubsystemBase {
             this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-                    new PIDConstants(1.0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(1.0, 0.0, 0.0) // Rotation PID constants
+                    new PIDConstants(2.5, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(5.2, 0.0, 0.0) // Rotation PID constants
             ),
             robotConfig, // The robot configuration
             () -> {

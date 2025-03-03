@@ -39,6 +39,8 @@ public class Elevator extends SubsystemBase {
   private double targetPosition = 0.0; // Current target position
 
   public boolean isManualControl = false;
+  public boolean isAtSetpoint = false;
+  public boolean hasCommandRunning;
 
   // Constructor
   public Elevator(ElevatorIO io) {
@@ -84,6 +86,10 @@ public class Elevator extends SubsystemBase {
 
     double feedforwardOutput = feedforward.calculate(pidController.getSetpoint().velocity);
 
+    if (pidController.atSetpoint() && RobotContainer.currentElevatorState == ElevatorState.DOWN) {
+      setPosition(0.0);
+    }
+
     double voltage = pidOutput + feedforwardOutput;
     io.set(voltage);
 
@@ -107,11 +113,20 @@ public class Elevator extends SubsystemBase {
     io.resetPosition();
   }
   
+  public boolean getIstAtSetpoint(){
+    return isAtSetpoint;
+  }
   
   @Override
   public void periodic() {
+    if (Math.abs(getPosition() - targetPosition) < errorTolerance){
+      isAtSetpoint = true;
+    }
+    else {
+      isAtSetpoint = false;
+    }
     if (!isManualControl){
-      if (!pidController.atSetpoint()){
+      if (!isAtSetpoint){
         moveToPosition();
       }
       else {
@@ -129,16 +144,26 @@ public class Elevator extends SubsystemBase {
     setVoltage(controlOutput + feedforwardOutput);
     }
 
+
     inputs.elevatorVelocity = RobotContainer.m_endgame.getElevatorSpeed();
     inputs.voltageCurent = io.getVelocity();
 
+    if (getCurrentCommand() != null){
+      SmartDashboard.putString("Current Elevator Command", getCurrentCommand().getName());
+      hasCommandRunning = true;
+    }
+    else {
+      hasCommandRunning = false;
+    }
+
+    SmartDashboard.putBoolean("Elevator Has Command Running", hasCommandRunning);
     SmartDashboard.putNumber("Elevator position meter", getPosition());
     SmartDashboard.putNumber("Elevator velocity meter", getVelocity());
     SmartDashboard.putNumber("Elevator encoder value", RobotContainer.m_endgame.getElevatorPosition());
     SmartDashboard.putNumber("Elevator setpoint", pidController.getGoal().position);
     SmartDashboard.putNumber("Elevator voltage", io.getVoltage());
     SmartDashboard.putNumber("Elevator pid output", pidController.calculate(getPosition(), targetPosition));
-    SmartDashboard.putBoolean("Elevator at setpoint", pidController.atSetpoint());
+    SmartDashboard.putBoolean("Elevator at setpoint", isAtSetpoint);
     SmartDashboard.putNumber("Elevator feedforward output", feedforward.calculate(pidController.getSetpoint().velocity));
     io.updateInputs(inputs);
   }

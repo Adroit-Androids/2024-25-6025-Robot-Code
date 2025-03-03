@@ -11,25 +11,6 @@
           }
         },
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Reef_Position_Left "
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Placement_CoralL1"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "1Coral_Retreive1"
@@ -42,25 +23,6 @@
           }
         },
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Reef_Position_Left "
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Placement_CoralL3"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "1Coral_Retreive2"
@@ -70,25 +32,6 @@
           "type": "path",
           "data": {
             "pathName": "1Coral_Place2"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Reef_Position_Right"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Placement_CoralL3"
-                }
-              }
-            ]
           }
         }
       ]

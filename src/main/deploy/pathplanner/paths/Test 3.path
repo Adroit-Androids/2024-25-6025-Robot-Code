@@ -3,37 +3,44 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.22858606557377,
-        "y": 6.254713114754098
+        "x": 7.591529605263157,
+        "y": 4.025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.88352092306003,
-        "y": 6.290674387914268
+        "x": 6.569799472187285,
+        "y": 3.902138574903422
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.3534836065573765,
-        "y": 6.254713114754098
+        "x": 5.801891447368421,
+        "y": 3.8518092105263158
       },
       "prevControl": {
-        "x": 10.30996411270324,
-        "y": 6.438079622826412
+        "x": 6.044198761486619,
+        "y": 3.91334916116673
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Test 3 end"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ElevatorL4",
+      "waypointRelativePos": 0.5452380952380962,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 2.3,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -45,7 +52,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Test 3",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

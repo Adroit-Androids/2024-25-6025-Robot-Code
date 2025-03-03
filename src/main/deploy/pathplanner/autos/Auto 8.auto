@@ -11,33 +11,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Placement_CoralL3"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "S8R1C"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Retreive_Coral"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "S8P2C"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Placement_CoralL3"
           }
         },
         {
@@ -47,27 +29,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Retreive_Coral"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "S8P2C"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Placement_CoralL3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Retreive_Algae"
           }
         },
         {

@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Infinity 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Infinity 2"
+            "pathName": "Rotation test"
           }
         }
       ]

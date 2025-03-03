@@ -15,10 +15,10 @@ import frc.robot.subsystems.Swerve.SwerveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ReefAllignment extends SequentialCommandGroup {
   /** Creates a new reefAllignmentRight. */
-  public ReefAllignment(SwerveSubsystem swerveSubsystem, Limelight limelight, double leftDistance, double forwardDistance, double driveTime) {
+  public ReefAllignment(SwerveSubsystem swerveSubsystem, Limelight limelight, double leftDistance, double forwardDistance, double driveVelocity, double driveTime) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new TargetPoseAllignment(swerveSubsystem, limelight, leftDistance, forwardDistance), new DriveTillSetTime(swerveSubsystem, 0.25, 0.0, 0.0, driveTime));
+    addCommands(new TargetPoseAllignment(swerveSubsystem, limelight, leftDistance, forwardDistance), new DriveTillSetTime(swerveSubsystem, driveVelocity, 0.0, 0.0, driveTime));
 
   }
 }

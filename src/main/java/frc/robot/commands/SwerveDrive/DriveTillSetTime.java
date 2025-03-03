@@ -7,6 +7,7 @@ package frc.robot.commands.SwerveDrive;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
 
@@ -16,6 +17,7 @@ public class DriveTillSetTime extends Command {
   double horizontalSpeed;
   double rotationalSpeed;
   double time;
+  boolean endCommand;
 
   double setTime;
 
@@ -36,6 +38,12 @@ public class DriveTillSetTime extends Command {
   @Override
   public void initialize() {
     setTime = Timer.getFPGATimestamp() + time;
+    if (RobotContainer.m_limelight.currentApriltagID == -1) {
+      endCommand = true;
+    }
+    else {
+      endCommand = false;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,7 +59,7 @@ public class DriveTillSetTime extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Timer.getFPGATimestamp() >= setTime){
+    if(Timer.getFPGATimestamp() >= setTime || endCommand){
       return true;
     }
     return false;

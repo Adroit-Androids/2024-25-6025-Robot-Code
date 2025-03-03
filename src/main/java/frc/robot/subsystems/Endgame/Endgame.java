@@ -30,6 +30,7 @@ public class Endgame extends SubsystemBase {
     EndgameLeft.configVoltageCompSaturation(12.5);
     //EndgameRight.configVoltageCompSaturation(12.5);
     EndgameLeft.setNeutralMode(NeutralMode.Brake);
+    EndgameLeft.configFactoryDefault();
     //EndgameRight.setNeutralMode(NeutralMode.Brake);
   }
 
@@ -45,6 +46,10 @@ public class Endgame extends SubsystemBase {
 
   public double getElevatorSpeed(){
     return EndgameLeft.getSelectedSensorVelocity();
+  }
+
+  public void resetElevatorEncoder(){
+    EndgameLeft.setSelectedSensorPosition(0.0);
   }
 
   public void setSpeed(double speed){

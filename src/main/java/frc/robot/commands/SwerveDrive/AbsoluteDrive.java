@@ -10,8 +10,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
@@ -21,10 +20,10 @@ import swervelib.math.SwerveMath;
 public class AbsoluteDrive extends Command {
   SwerveSubsystem m_swerveSubsystem;
   SwerveDrive swerveDrive;
-  CommandPS4Controller robotController;
+  CommandPS5Controller robotController;
 
   /** Creates a new absoluteDrive. */
-  public AbsoluteDrive(SwerveSubsystem m_swerveSubsystem, CommandPS4Controller m_robotController) {
+  public AbsoluteDrive(SwerveSubsystem m_swerveSubsystem, CommandPS5Controller m_robotController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_swerveSubsystem);
     this.m_swerveSubsystem = m_swerveSubsystem;

@@ -29,6 +29,7 @@ public class Limelight extends SubsystemBase {
 
   /** Creates a new limelight. */
   public Limelight(SwerveSubsystem m_swerveDrive) {
+    LimelightHelpers.setCameraPose_RobotSpace(ll_table, 0.325, 0.09, 0.18, 0.0, 15.0, 0.0);
     limelightPosePublisher = NetworkTableInstance.getDefault().getStructTopic("/Limelight Pose", Pose2d.struct).publish();
     apriltagPoseToRobotPublisher = NetworkTableInstance.getDefault().getStructTopic("/Apriltag Pose", Pose3d.struct).publish();
     this.swerveDrive = m_swerveDrive;

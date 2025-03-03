@@ -33,7 +33,7 @@ public final class Constants {
   }
 
   public static class ElevatorHeights {
-    public static final double kL1Height = 2.5;
+    public static final double kL1Height = 3.2;
     public static final double kL2Height = 4;
     public static final double kL3Height = 6;
     public static final double kL4Height = 9.23;
@@ -52,7 +52,7 @@ public final class Constants {
 
   public static class ElevatorTrapezoid {
     public static final double maxVelocity = 4.0;
-    public static final double maxAcceleration = 5.0;
+    public static final double maxAcceleration = 3.0;
   }
 
 }

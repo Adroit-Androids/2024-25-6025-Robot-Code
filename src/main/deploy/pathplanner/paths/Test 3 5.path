@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.471,
-        "y": 5.979
+        "x": 8.31,
+        "y": 1.21
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.15225,
-        "y": 7.9445
+        "x": 8.961986066168077,
+        "y": 0.8467163309735459
       },
       "isLocked": false,
-      "linkedName": "Infinity 1 end"
+      "linkedName": "Test 3 3 end"
     },
     {
       "anchor": {
-        "x": 4.471,
-        "y": 5.979
+        "x": 5.272697368421052,
+        "y": 2.9762335526315784
       },
       "prevControl": {
-        "x": 6.56175,
-        "y": 4.229749999999999
+        "x": 5.051378469539549,
+        "y": 3.0925002503479897
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 2.3,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 180.0
+    "velocity": 0,
+    "rotation": 119.99999999999999
   },
   "reversed": false,
-  "folder": "Infinity",
+  "folder": "Test 3",
   "idealStartingState": {
-    "velocity": 1.0,
-    "rotation": -90.0
+    "velocity": 0,
+    "rotation": 140.0
   },
   "useDefaultConstraints": true
 }
