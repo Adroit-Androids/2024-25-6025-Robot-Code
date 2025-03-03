@@ -194,6 +194,11 @@ public class SwerveSubsystem extends SubsystemBase {
           scaleMaximumRotationSpeed = maximumRotationSpeed * 0.3;
           swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
           break;
+        case Net:
+        swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.15, maximumRotationSpeed * 0.15);
+        scaleMaximumSpeed = maximumSpeed * 0.15;
+        scaleMaximumRotationSpeed = maximumRotationSpeed * 0.15;
+        swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
      }
     }
 

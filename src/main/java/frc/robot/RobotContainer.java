@@ -18,12 +18,14 @@ import frc.robot.commands.Intake.ShootAlgea;
 import frc.robot.commands.Intake.ShootCoral;
 import frc.robot.commands.Intake.ShootCoralSetTime;
 import frc.robot.commands.Elevator.ElevatorL4;
-import frc.robot.commands.EndGame.EndgameUp;
+import frc.robot.commands.Elevator.ElevatorNet;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.DriveTillSetTime;
 import frc.robot.commands.SwerveDrive.TurnDrive;
 import frc.robot.commands.SwerveDrive.Apriltag.TargetPoseAllignment;
 import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
+import frc.robot.commands.Wrist.SetWristAngle;
+import frc.robot.commands.Wrist.SetWristRest;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.Wrist.Wrist;
 import frc.robot.subsystems.Elevator.Elevator;
@@ -63,6 +65,7 @@ public class RobotContainer {
 
   public static ElevatorState currentElevatorState = ElevatorState.DOWN;
   public static ElevatorState lastElevatorState = ElevatorState.DOWN;
+  public static boolean allignmentCommandTimerEnded = false;
 
   // Replace with CommandXboxController or CommandJoystick if needed
   public static final CommandPS5Controller m_driverController =
@@ -142,25 +145,27 @@ public class RobotContainer {
     //    FORWARD DISTANCE GIVEN INTO THE COMMAND MUST BE NEGATIVE 
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAX
     //
-    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.19, -1.0, 0.5, 1.25));
-    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.20, -0.8, 0.5, 0.5));
-    m_driverController.triangle().onTrue(new TargetPoseAllignment(m_swerveDrive, m_limelight, 0.0, -1.0));
+    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.0, 0.6, 0.9));
+    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.20, -0.8, 0.6, 0.6));
+    m_driverController.triangle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 0.6));
 
 
     m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
-    //m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
     m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
     m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
-    m_operatorController.y().onTrue(new ElevatorL3(m_elevator));
-    m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
-    m_operatorController.b().onTrue(new ElevatorL4(m_elevator));
+    m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
+    m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
     m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+
+    m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
+    m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
+    m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
+    m_operatorController.povRight().onTrue(new ElevatorNet(m_elevator));
+    m_operatorController.povRight().onTrue(new SetWristAngle(m_wrist, 100));
     
     m_operatorController.back().onTrue(new ElevatorDown(m_elevator));
-
-    m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
-    m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
-    m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
 
         //Operator Controls:
     m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
@@ -171,14 +176,14 @@ public class RobotContainer {
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 
-    //m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
+    m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
 
     // m_operatorController.rightTrigger(0.1).whileTrue(new RepeatCommand(new EndgameUp(m_endgame, m_operatorController.getRightTriggerAxis())));
     // m_operatorController.leftTrigger(0.1).whileTrue(new RepeatCommand(new EndgameDown(m_endgame, m_operatorController.getRightTriggerAxis())));
-    m_operatorController.rightTrigger().whileTrue(new EndgameUp(m_endgame, 0.7));
-    m_operatorController.leftTrigger().whileTrue(new EndgameUp(m_endgame, -1));
-    m_operatorController.rightBumper().whileTrue(new EndgameUp(m_endgame, 0.5));
-    m_operatorController.leftBumper().whileTrue(new EndgameUp(m_endgame, -0.5));
+    // m_operatorController.rightTrigger().whileTrue(new EndgameUp(m_endgame, 0.7));
+    // m_operatorController.leftTrigger().whileTrue(new EndgameUp(m_endgame, -1));
+    // m_operatorController.rightBumper().whileTrue(new EndgameUp(m_endgame, 0.5));
+    // m_operatorController.leftBumper().whileTrue(new EndgameUp(m_endgame, -0.5));
 
     //     // L1 state
     // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));

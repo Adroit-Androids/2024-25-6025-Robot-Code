@@ -22,6 +22,6 @@ public class SetWristRest extends InstantCommand {
   @Override
   public void initialize() {
     m_wrist.isAtRest = true;
-    m_wrist.targetAngle = 0;
+    m_wrist.targetAngle = m_wrist.encoderOffset;
   }
 }

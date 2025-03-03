@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1Coral_Place1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_RetreiveF"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_PlaceA"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_RetreiveA"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_PlaceB"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

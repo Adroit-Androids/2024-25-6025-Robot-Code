@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Limelight.Limelight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import swervelib.SwerveDrive;
@@ -43,7 +44,7 @@ public class TargetPoseAllignment extends Command {
   boolean timerStarted = false;
 
   PIDController angleVelocityController = new PIDController(1.75, 0.0, 0.0);
-  PIDController leftVelocityController = new PIDController(1.25, 0.0, 0.0);
+  PIDController leftVelocityController = new PIDController(1.3, 0.0, 0.0);
   PIDController forwardVelocityController = new PIDController(0.75, 0.0, 0.0);
 
 
@@ -59,8 +60,8 @@ public class TargetPoseAllignment extends Command {
     this.m_limelight = limelight;
     this.targetLeft = leftDistance;
     this.targetForward = forwardDistance;
-    leftVelocityController.setTolerance(0.005);
-    forwardVelocityController.setTolerance(0.05);
+    leftVelocityController.setTolerance(0.025);
+    forwardVelocityController.setTolerance(0.2);
 
   }
 
@@ -214,6 +215,9 @@ public class TargetPoseAllignment extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if (timer > timerLimit) {
+      RobotContainer.allignmentCommandTimerEnded = true;
+    }
   }
   
   // Returns true when the command should end.

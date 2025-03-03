@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ElevatorState;
 import frc.robot.Constants.ElevatorTrapezoid;
-import frc.robot.commands.Elevator.ElevatorDown;
 
 public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
@@ -25,7 +24,7 @@ public class Elevator extends SubsystemBase {
   private final double maxAcceleration = ElevatorTrapezoid.maxAcceleration;
 
   // PID and Feedforward constants
-  private static final double kP = 4.25;
+  private static final double kP = 3.5;
   private static final double kI = 0.5;
   private static final double kD = 0.0;
   private static final double kS = ((1.2 - 0.1) / 2);   // Static

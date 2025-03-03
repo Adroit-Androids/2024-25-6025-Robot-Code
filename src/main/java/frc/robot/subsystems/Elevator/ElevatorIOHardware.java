@@ -58,7 +58,7 @@ public class ElevatorIOHardware implements ElevatorIO {
 
   public double getVoltage() {
     // Get the voltage from the motor
-    return leadMotor.getAppliedOutput();
+    return leadMotor.getBusVoltage();
   }
 
 

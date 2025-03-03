@@ -38,8 +38,9 @@ public class DriveTillSetTime extends Command {
   @Override
   public void initialize() {
     setTime = Timer.getFPGATimestamp() + time;
-    if (RobotContainer.m_limelight.currentApriltagID == -1) {
+    if (RobotContainer.allignmentCommandTimerEnded == true) {
       endCommand = true;
+      RobotContainer.allignmentCommandTimerEnded = false;
     }
     else {
       endCommand = false;

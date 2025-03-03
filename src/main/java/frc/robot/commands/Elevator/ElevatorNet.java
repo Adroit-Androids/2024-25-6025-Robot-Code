@@ -5,56 +5,43 @@
 package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.ElevatorHeights;
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorState;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Elevator.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorDown extends Command {
-  Elevator elevatorSubsystem;
+public class ElevatorNet extends Command {
+  private Elevator m_elevator;
   boolean isAtSetpoint = false;
-  /** Creates a new ElevatorDown. */
-  public ElevatorDown(Elevator elevatorSubsystem) {
-    this.elevatorSubsystem = elevatorSubsystem;
+  /** Creates a new ElevatorNet. */
+  public ElevatorNet(Elevator elevatorSubsystem) {
+    this.m_elevator = elevatorSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevatorSubsystem);
-  }
+    addRequirements(m_elevator);
 
+  }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (RobotContainer.currentElevatorState == ElevatorState.L4 || RobotContainer.currentElevatorState == ElevatorState.Net) {
-      elevatorSubsystem.setPosition(ElevatorHeights.kL3Height);
-    }
-    else {
-      elevatorSubsystem.setPosition(0.1);
-    }
-    RobotContainer.currentElevatorState = ElevatorState.DOWN;
-    elevatorSubsystem.pidController.setTolerance(0.175);
+    RobotContainer.currentElevatorState = ElevatorState.Net;
+    m_elevator.setPosition(Constants.ElevatorHeights.netAlgea);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    isAtSetpoint = (Math.abs(elevatorSubsystem.getPosition() - 0.0) < elevatorSubsystem.errorTolerance);
+    isAtSetpoint = (Math.abs(m_elevator.getPosition() - Constants.ElevatorHeights.kL4Height) < m_elevator.errorTolerance);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    elevatorSubsystem.pidController.setTolerance(elevatorSubsystem.errorTolerance);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (isAtSetpoint){
-      return true;
-    }
-    else {
-      return false;  
-    }
+    return false;
   }
 }
