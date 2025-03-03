@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.132684426229508,
-        "y": 4.048975409836066
+        "x": 1.2227459016393443,
+        "y": 7.08186475409836
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.536529394371448,
-        "y": 4.002594704912473
+        "x": 2.2227459016393443,
+        "y": 7.08186475409836
       },
       "isLocked": false,
-      "linkedName": "StartingPointMiddle"
+      "linkedName": "StationPointTop"
     },
     {
       "anchor": {
-        "x": 5.826024590163935,
-        "y": 4.216803278688525
+        "x": 3.9919057377049176,
+        "y": 5.211782786885246
       },
       "prevControl": {
-        "x": 5.536168100353019,
-        "y": 4.249578038748942
+        "x": 2.9919057377049176,
+        "y": 5.211782786885246
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ReefPointH"
+      "linkedName": "ReefPointK"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -59.99999999999999
   },
   "reversed": false,
-  "folder": "Autonomous 1",
+  "folder": "Station Adjacent Top",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -55.0
   },
   "useDefaultConstraints": true
 }

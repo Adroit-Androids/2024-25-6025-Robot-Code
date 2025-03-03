@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.467055547423888,
-        "y": 2.035449136416862
+        "x": 4.483401639344262,
+        "y": 1.531557377049179
       },
       "isLocked": false,
       "linkedName": "ReefPointF"
@@ -20,8 +20,8 @@
         "y": 1.0160860655737713
       },
       "prevControl": {
-        "x": 1.76193515258334,
-        "y": 1.3441484897807428
+        "x": 1.8700819672131148,
+        "y": 1.2678278688524585
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,14 +31,7 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.3,
     "maxAcceleration": 3.0,
@@ -52,7 +45,7 @@
     "rotation": 55.0
   },
   "reversed": false,
-  "folder": "Scenario 2",
+  "folder": "Station Adjacent Bottom",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 119.99999999999999

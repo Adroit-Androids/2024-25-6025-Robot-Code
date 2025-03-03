@@ -48,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4Coral_Placement2"
+                  "pathName": "TopStation_PlaceL"
                 }
               }
             ]
@@ -57,13 +57,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4Coral_Retreive2"
+            "pathName": "TopStation_RetreiveL"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "4Coral_Placement3"
+            "pathName": "TopStation_PlaceL"
           }
         }
       ]

@@ -19,19 +19,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1Coral_Place2"
+            "pathName": "BotStation_PlaceD"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1Coral_Retreive2"
+            "pathName": "BotStation_RetreiveD"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1Coral_Place2"
+            "pathName": "BotStation_PlaceD"
           }
         }
       ]

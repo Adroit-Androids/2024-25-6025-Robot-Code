@@ -3,7 +3,6 @@
   "robotLength": 0.865,
   "holonomicMode": true,
   "pathFolders": [
-    "Autonomous 1",
     "Scenario 1",
     "Scenario 2",
     "Scenario 3",
@@ -12,6 +11,8 @@
     "Scenario 6",
     "Scenario 7",
     "Scenario 8",
+    "Station Adjacent Bottom",
+    "Station Adjacent Top",
     "Test 1",
     "Test 2",
     "Test 3",

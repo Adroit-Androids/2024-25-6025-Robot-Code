@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.572945205479453,
-        "y": 1.9364297945205475
+        "x": 7.1686475409836055,
+        "y": 1.4476434426229514
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.600665535757824,
-        "y": 2.1314044034920014
+        "x": 6.196367871261977,
+        "y": 1.6426180515944053
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartingPointDown"
     },
     {
       "anchor": {
-        "x": 5.202663934426229,
-        "y": 2.850204918032787
+        "x": 5.286577868852459,
+        "y": 2.982069672131148
       },
       "prevControl": {
-        "x": 5.469580887151629,
-        "y": 2.7704254146483933
+        "x": 5.553494821577859,
+        "y": 2.9022901687467546
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ReefPointF"
     }
   ],
   "rotationTargets": [],
