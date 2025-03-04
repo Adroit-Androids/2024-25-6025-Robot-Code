@@ -33,13 +33,13 @@ public final class Constants {
   }
 
   public static class ElevatorHeights {
-    public static final double kL1Height = 3.2;
-    public static final double kL2Height = 4;
-    public static final double kL3Height = 6;
-    public static final double kL4Height = 9.23;
-    public static final double kProcessorHeight = 8;
-    public static final double firstAlgea = 2.3;
-    public static final double secondAlgea = 4.1;
+    public static final double kL1Height = 3.35;
+    public static final double kL2Height = 4.15;
+    public static final double kL3Height = 6.15;
+    public static final double kL4Height = 9.4;
+    public static final double kProcessorHeight = 0;
+    public static final double firstAlgea = 2.45;
+    public static final double secondAlgea = 4.25;
     public static final double netAlgea = 10.2;
   }
 
