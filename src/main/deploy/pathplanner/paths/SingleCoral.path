@@ -3,37 +3,44 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.012911184210526,
-        "y": 2.822286184210526
+        "x": 7.132684426229508,
+        "y": 4.048975409836066
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.012911184210526,
-        "y": 2.822286184210526
+        "x": 6.883925128677011,
+        "y": 4.0240994800808165
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartingPointMiddle"
     },
     {
       "anchor": {
-        "x": 8.31,
-        "y": 1.21
+        "x": 5.793293376929719,
+        "y": 3.8531099756367313
       },
       "prevControl": {
-        "x": 7.3100000000000005,
-        "y": 1.2100000000000002
+        "x": 6.354586461485093,
+        "y": 3.874057311472381
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ReefPointG"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 1.75,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 140.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Test 3",
+  "folder": "Single Coral Scenario",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

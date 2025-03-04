@@ -7,43 +7,36 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BeginningBottomF"
+            "pathName": "BeginningMiddleG"
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ElevatorL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShootCoral"
-                }
-              }
-            ]
+            "name": "ElevatorL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootCoral"
           }
         },
         {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BotStation_RetrieveG"
+                }
+              },
               {
                 "type": "named",
                 "data": {
                   "name": "ElevatorDown"
                 }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "BotStation_RetreiveF"
-                }
               }
             ]
           }
@@ -53,15 +46,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "BotStation_PlaceC"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "RetrieveCoral"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BotStation_PlaceC"
                 }
               }
             ]

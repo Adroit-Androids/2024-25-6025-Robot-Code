@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BeginningBottomF"
+            "pathName": "BeginningTopJ"
           }
         },
         {
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BotStation_RetreiveF"
+                  "pathName": "TopStation_RetreiveJ"
                 }
               }
             ]
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BotStation_PlaceC"
+                  "pathName": "TopStation_PlaceK"
                 }
               },
               {

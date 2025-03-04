@@ -31,7 +31,6 @@ public class ElevatorDown extends Command {
     else {
       elevatorSubsystem.setPosition(0.1);
     }
-    RobotContainer.currentElevatorState = ElevatorState.DOWN;
     elevatorSubsystem.pidController.setTolerance(0.175);
   }
 
@@ -44,6 +43,7 @@ public class ElevatorDown extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.currentElevatorState = ElevatorState.DOWN;
     elevatorSubsystem.pidController.setTolerance(elevatorSubsystem.errorTolerance);
   }
 

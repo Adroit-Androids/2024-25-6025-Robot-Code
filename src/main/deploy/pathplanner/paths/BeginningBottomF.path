@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.391412400138622,
-        "y": 2.0627197072630272
+        "x": 6.3452715445143895,
+        "y": 2.06523520033283
       },
       "isLocked": false,
       "linkedName": "StartingPointDown"
@@ -20,8 +20,8 @@
         "y": 2.982069672131148
       },
       "prevControl": {
-        "x": 5.401506922484848,
-        "y": 2.760053202852035
+        "x": 5.521334930880344,
+        "y": 2.7850990258739188
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,11 +29,32 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.6109625668449197,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 0.75,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ElevatorL4",
+      "waypointRelativePos": 0.7299465240641715,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 1.75,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -45,7 +66,7 @@
     "rotation": 119.99999999999999
   },
   "reversed": false,
-  "folder": "New Folder",
+  "folder": "Beginning Coral Scoring",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

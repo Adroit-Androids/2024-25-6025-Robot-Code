@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.792269736842105,
-        "y": 3.8518092105263158
+        "x": 7.144672131147541,
+        "y": 6.314651639344263
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.792269736842105,
-        "y": 3.8518092105263158
+        "x": 6.638980263157894,
+        "y": 6.064802631578947
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartingPointUp"
     },
     {
       "anchor": {
-        "x": 8.31,
-        "y": 1.21
+        "x": 5.003289473684211,
+        "y": 5.246957236842105
       },
       "prevControl": {
-        "x": 7.3100000000000005,
-        "y": 1.2100000000000002
+        "x": 5.450462413718722,
+        "y": 5.306422562553925
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ReefPointJ"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.75,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 140.0
+    "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": "Test 3",
+  "folder": "Beginning Coral Scoring",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

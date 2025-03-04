@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.31,
-        "y": 1.21
+        "x": 5.793293376929719,
+        "y": 3.8531099756367313
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.961986066168077,
-        "y": 0.8467163309735459
+        "x": 6.610115131578947,
+        "y": 1.456003289473684
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ReefPointG"
     },
     {
       "anchor": {
-        "x": 5.272697368421052,
-        "y": 2.9762335526315784
+        "x": 1.135361842105263,
+        "y": 1.023026315789474
       },
       "prevControl": {
-        "x": 5.051378469539549,
-        "y": 3.0925002503479897
+        "x": 2.0782894736842104,
+        "y": 0.8690789473684208
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StationPointBot"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.75,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 55.0
   },
   "reversed": false,
-  "folder": "Test 3",
+  "folder": "Station Adjacent Bottom",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 140.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
