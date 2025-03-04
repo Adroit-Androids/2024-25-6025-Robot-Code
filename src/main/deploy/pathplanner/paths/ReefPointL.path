@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 1.4625,
+        "y": 7.2035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 2.4754022012406347,
+        "y": 6.229062537312777
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StationPointTop"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 5.084886113358805
       },
       "prevControl": {
-        "x": 4.6974651318550205,
-        "y": 5.084886113358805
+        "x": 2.3471332984188207,
+        "y": 6.363296648934537
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
+    "maxVelocity": 1.85,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -48,7 +48,7 @@
   "folder": "Waypoint Definitons",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -55.0
   },
   "useDefaultConstraints": true
 }

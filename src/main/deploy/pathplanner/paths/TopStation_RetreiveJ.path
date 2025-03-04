@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.403904227782571,
-        "y": 5.78640395815358
+        "x": 4.337412465584408,
+        "y": 5.637150808656184
       },
       "isLocked": false,
       "linkedName": "ReefPointJ"
     },
     {
       "anchor": {
-        "x": 1.3002690397350996,
-        "y": 6.97421357615894
+        "x": 1.4625,
+        "y": 7.2035
       },
       "prevControl": {
-        "x": 1.8876665807187059,
-        "y": 6.67452095320812
+        "x": 2.1926016330679237,
+        "y": 6.78438109904273
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
+    "maxVelocity": 1.85,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

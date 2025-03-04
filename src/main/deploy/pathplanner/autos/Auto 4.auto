@@ -11,19 +11,26 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "RetrieveCoral"
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "parallel",
                 "data": {
-                  "name": "ElevatorL4"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorL4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "RetrieveCoral"
+                      }
+                    }
+                  ]
                 }
               },
               {

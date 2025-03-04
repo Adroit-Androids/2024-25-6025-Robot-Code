@@ -11,15 +11,35 @@
           }
         },
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "ElevatorL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootCoral"
+            "commands": [
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorL4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "RetrieveCoral"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootCoral"
+                }
+              }
+            ]
           }
         },
         {
@@ -42,34 +62,97 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_PlaceC"
+          }
+        },
+        {
+          "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "parallel",
                 "data": {
-                  "name": "RetrieveCoral"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorL4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "RetrieveCoral"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "BotStation_PlaceC"
+                  "name": "ShootCoral"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "ElevatorL4"
+            "pathName": "BotStation_RetreiveC"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "ShootCoral"
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_PlaceD"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorL4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "RetrieveCoral"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootCoral"
+                }
+              }
+            ]
           }
         }
       ]

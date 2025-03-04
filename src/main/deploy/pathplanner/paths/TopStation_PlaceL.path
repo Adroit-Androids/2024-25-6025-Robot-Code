@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3002690397350996,
-        "y": 6.97421357615894
+        "x": 1.4625,
+        "y": 7.2035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.271273138095755,
-        "y": 6.67452095320812
+        "x": 2.4335040983606557,
+        "y": 6.90380737704918
       },
       "isLocked": false,
       "linkedName": "StationPointTop"
@@ -40,7 +40,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.5,
+    "maxVelocity": 1.85,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

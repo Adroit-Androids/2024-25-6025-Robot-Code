@@ -93,15 +93,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ElevatorDown"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BotStation_RetreiveC"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorDown"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BotStation_RetreiveC"
+                }
+              }
+            ]
           }
         },
         {
