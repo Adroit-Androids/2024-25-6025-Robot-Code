@@ -60,7 +60,7 @@ public class TargetPoseAllignment extends Command {
     this.m_limelight = limelight;
     this.targetLeft = leftDistance;
     this.targetForward = forwardDistance;
-    leftVelocityController.setTolerance(0.025);
+    leftVelocityController.setTolerance(0.04);
     forwardVelocityController.setTolerance(0.2);
 
   }

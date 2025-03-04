@@ -25,25 +25,25 @@ public class ElevatorDown extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (RobotContainer.currentElevatorState == ElevatorState.L4 || RobotContainer.currentElevatorState == ElevatorState.Net) {
-      elevatorSubsystem.setPosition(ElevatorHeights.kL3Height);
-    }
-    else {
+    RobotContainer.currentElevatorState = ElevatorState.DOWN;
+    // if (RobotContainer.currentElevatorState == ElevatorState.L4 || RobotContainer.currentElevatorState == ElevatorState.Net) {
+    //   elevatorSubsystem.setPosition(ElevatorHeights.kL3Height);
+    // }
+    //else {
       elevatorSubsystem.setPosition(0.1);
-    }
+    //}
     elevatorSubsystem.pidController.setTolerance(0.175);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    isAtSetpoint = (Math.abs(elevatorSubsystem.getPosition() - 0.0) < elevatorSubsystem.errorTolerance);
+    isAtSetpoint = (Math.abs(elevatorSubsystem.getPosition() - 0.1) < elevatorSubsystem.errorTolerance);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.currentElevatorState = ElevatorState.DOWN;
     elevatorSubsystem.pidController.setTolerance(elevatorSubsystem.errorTolerance);
   }
 

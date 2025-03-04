@@ -15,9 +15,22 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "parallel",
                 "data": {
-                  "name": "ElevatorL4"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorL4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "RetrieveCoral"
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -49,13 +62,19 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_PlaceC"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "BotStation_PlaceC"
+                  "name": "ElevatorL4"
                 }
               },
               {
@@ -70,7 +89,50 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorL4"
+            "name": "ShootCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorDown"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_RetreiveC"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BotStation_PlaceD"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RetrieveCoral"
+                }
+              }
+            ]
           }
         },
         {

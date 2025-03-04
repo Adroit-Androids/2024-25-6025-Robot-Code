@@ -15,9 +15,22 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "parallel",
                 "data": {
-                  "name": "ElevatorL4"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorL4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "RetrieveCoral"
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -49,34 +62,66 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TopStation_PlaceK"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "TopStation_PlaceK"
+                  "pathName": "TopStation_RetreiveK"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "RetrieveCoral"
+                  "name": "ElevatorDown"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "ElevatorL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootCoral"
+            "commands": [
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorL4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "RetrieveCoral"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootCoral"
+                }
+              }
+            ]
           }
         }
       ]
