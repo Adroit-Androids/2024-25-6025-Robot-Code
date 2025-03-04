@@ -7,11 +7,17 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SingleCoral"
+            "pathName": "BeginningMiddleG"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
+          "data": {
+            "name": "RetrieveCoral"
+          }
+        },
+        {
+          "type": "sequential",
           "data": {
             "commands": [
               {
