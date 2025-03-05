@@ -143,8 +143,8 @@ public class RobotContainer {
     //    FORWARD DISTANCE GIVEN INTO THE COMMAND MUST BE NEGATIVE 
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAXş
     //
-    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.0, 0.6, 1.1));
-    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.20, -0.8, 0.6, 0.8));
+    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.0, 0.6, 1.25));
+    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.20, -0.8, 0.6, 0.95));
     m_driverController.triangle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
 
 

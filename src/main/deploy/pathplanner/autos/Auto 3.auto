@@ -62,6 +62,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.6
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "TopStation_PlaceK"
@@ -121,7 +127,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 1.6
           }
         },
         {
