@@ -6,7 +6,6 @@ package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.ElevatorHeights;
 import frc.robot.Constants.ElevatorState;
 import frc.robot.subsystems.Elevator.Elevator;
 
