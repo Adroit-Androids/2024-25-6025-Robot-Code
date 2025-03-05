@@ -14,6 +14,7 @@ import frc.robot.subsystems.Elevator.Elevator;
 public class ElevatorDown extends Command {
   Elevator elevatorSubsystem;
   boolean isAtSetpoint = false;
+  double startingPos;
   /** Creates a new ElevatorDown. */
   public ElevatorDown(Elevator elevatorSubsystem) {
     this.elevatorSubsystem = elevatorSubsystem;
@@ -25,7 +26,8 @@ public class ElevatorDown extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.currentElevatorState = ElevatorState.DOWN;
+    startingPos = elevatorSubsystem.getPosition();
+    //RobotContainer.currentElevatorState = ElevatorState.DOWN;
     // if (RobotContainer.currentElevatorState == ElevatorState.L4 || RobotContainer.currentElevatorState == ElevatorState.Net) {
     //   elevatorSubsystem.setPosition(ElevatorHeights.kL3Height);
     // }
@@ -38,12 +40,20 @@ public class ElevatorDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (RobotContainer.currentElevatorState != ElevatorState.DOWN) {
+      if (elevatorSubsystem.getPosition() < startingPos/2) {
+        RobotContainer.currentElevatorState = ElevatorState.DOWN;
+      }
+    }
     isAtSetpoint = (Math.abs(elevatorSubsystem.getPosition() - 0.1) < elevatorSubsystem.errorTolerance);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if (RobotContainer.currentElevatorState != ElevatorState.DOWN) {
+      RobotContainer.currentElevatorState = ElevatorState.DOWN;
+    }
     elevatorSubsystem.pidController.setTolerance(elevatorSubsystem.errorTolerance);
   }
 
