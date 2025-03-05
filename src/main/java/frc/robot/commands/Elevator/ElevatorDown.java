@@ -40,7 +40,7 @@ public class ElevatorDown extends Command {
   @Override
   public void execute() {
     if (RobotContainer.currentElevatorState != ElevatorState.DOWN) {
-      if (elevatorSubsystem.getPosition() < startingPos/2) {
+      if (elevatorSubsystem.getPosition() < startingPos * 0.60) {
         RobotContainer.currentElevatorState = ElevatorState.DOWN;
       }
     }
