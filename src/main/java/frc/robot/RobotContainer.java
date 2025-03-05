@@ -169,8 +169,9 @@ public class RobotContainer {
     m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
     m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 55));
     m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 22.5));
-    m_driverController.cross().whileTrue(new ShootCoral(m_intake));
+    m_driverController.cross().whileTrue(new ShootCoral(m_intake, 0.5));
     m_driverController.cross().onFalse(new ElevatorDown(m_elevator));
+    m_driverController.R1().whileTrue(new ShootCoral(m_intake, 0.35));
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 

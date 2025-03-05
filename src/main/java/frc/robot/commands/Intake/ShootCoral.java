@@ -10,10 +10,12 @@ import frc.robot.subsystems.Intake.Intake;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ShootCoral extends Command {
   Intake m_intake;
+  double outputPercantage = 0;
   /** Creates a new ShootPiece. */
-  public ShootCoral(Intake intakeSubsystem) {
+  public ShootCoral(Intake intakeSubsystem, double percentageOutput) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_intake = intakeSubsystem;
+    outputPercantage = percentageOutput;
     addRequirements(m_intake);
   }
 
@@ -24,7 +26,7 @@ public class ShootCoral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setIntakeVoltage(-0.45);
+    m_intake.setIntakeVoltage(-outputPercantage);
   }
 
   // Called once the command ends or is interrupted.
