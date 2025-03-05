@@ -23,6 +23,7 @@ import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ElevatorState;
+import frc.robot.commands.SwerveDrive.TurnDrive;
 import swervelib.SwerveDrive;
 import swervelib.imu.NavXSwerve;
 import swervelib.parser.SwerveParser;
@@ -93,6 +94,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
     setUpPathplanner();
 
+    setDefaultCommand(new TurnDrive(this, RobotContainer.m_driverController));
   }
 
 
