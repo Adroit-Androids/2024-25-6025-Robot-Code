@@ -9,6 +9,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Elevator.ELevatorEnableManualControl;
 import frc.robot.commands.Elevator.ElevatorAlgea1;
 import frc.robot.commands.Elevator.ElevatorAlgea2;
+import frc.robot.commands.Elevator.ElevatorCoralStuck;
 import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
@@ -104,9 +105,9 @@ public class RobotContainer {
 
   public void registerNamedCOmmands(){
     new EventTrigger("ElevatorL4").onTrue(new ElevatorL4(m_elevator));
-    new EventTrigger("RetrieveCoral").onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    new EventTrigger("RetrieveCoral").onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     NamedCommands.registerCommand("ShootCoral", new ShootCoralSetTime(m_intake, 0.5, 0.45));
-    NamedCommands.registerCommand("RetrieveCoral", new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    NamedCommands.registerCommand("RetrieveCoral", new ShootCoralSetTime(m_intake, 0.2, 0.22));
     NamedCommands.registerCommand("ElevatorDown", new ElevatorDown(m_elevator));
     NamedCommands.registerCommand("ElevatorL1", new ElevatorL1(m_elevator));
     NamedCommands.registerCommand("ElevatorL2", new ElevatorL2(m_elevator));
@@ -143,35 +144,35 @@ public class RobotContainer {
     //    FORWARD DISTANCE GIVEN INTO THE COMMAND MUST BE NEGATIVE 
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAXş
     //
-    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.0, 0.6, 1.25));
-    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.20, -0.8, 0.6, 0.95));
+    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
+    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
     m_driverController.triangle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
 
 
     m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
-    m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
-    m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
-    m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
-    m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.3, 0.35));
+    m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
 
     m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
     m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
     m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
     m_operatorController.povRight().onTrue(new ElevatorNet(m_elevator));
     m_operatorController.povRight().onTrue(new SetWristAngle(m_wrist, 100));
-    
-    m_operatorController.back().onTrue(new ElevatorDown(m_elevator));
 
+    m_operatorController.back().onTrue(new ElevatorCoralStuck(m_elevator));
+    
         //Operator Controls:
     m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
-    m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 55));
-    m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 22.5));
+    m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 45));
+    m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 17));
     m_driverController.cross().whileTrue(new ShootCoral(m_intake, 0.5));
     m_driverController.cross().onFalse(new ElevatorDown(m_elevator));
-    m_driverController.R1().whileTrue(new ShootCoral(m_intake, 0.35));
+    m_driverController.R1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 7));
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 

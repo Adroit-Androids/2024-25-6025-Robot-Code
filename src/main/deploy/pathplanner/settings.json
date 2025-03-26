@@ -9,7 +9,7 @@
     "Waypoint Definitons"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 1.3,
+  "defaultMaxVel": 1.25,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
@@ -21,7 +21,7 @@
   "driveGearing": 6.75,
   "maxDriveSpeed": 4.267,
   "driveMotorType": "falcon500",
-  "driveCurrentLimit": 103.0,
+  "driveCurrentLimit": 104.0,
   "wheelCOF": 1.19,
   "flModuleX": 0.274,
   "flModuleY": 0.274,

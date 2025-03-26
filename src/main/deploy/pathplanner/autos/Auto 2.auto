@@ -34,6 +34,12 @@
                 }
               },
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.3
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "ShootCoral"
@@ -64,7 +70,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.6
+            "waitTime": 1.3
           }
         },
         {
@@ -114,7 +120,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.6
+            "waitTime": 1.3
           }
         },
         {
@@ -144,6 +150,12 @@
                       }
                     }
                   ]
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.3
                 }
               },
               {

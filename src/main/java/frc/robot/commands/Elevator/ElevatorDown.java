@@ -31,9 +31,9 @@ public class ElevatorDown extends Command {
     //   elevatorSubsystem.setPosition(ElevatorHeights.kL3Height);
     // }
     //else {
-      elevatorSubsystem.setPosition(0.1);
+      elevatorSubsystem.setPosition(0.3);
     //}
-    elevatorSubsystem.pidController.setTolerance(0.175);
+    //elevatorSubsystem.pidController.setTolerance(0.175);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,7 +44,7 @@ public class ElevatorDown extends Command {
         RobotContainer.currentElevatorState = ElevatorState.DOWN;
       }
     }
-    isAtSetpoint = (Math.abs(elevatorSubsystem.getPosition() - 0.1) < elevatorSubsystem.errorTolerance);
+    isAtSetpoint = (Math.abs(elevatorSubsystem.getPosition() - 0.3) < elevatorSubsystem.errorTolerance);
   }
 
   // Called once the command ends or is interrupted.
@@ -53,7 +53,6 @@ public class ElevatorDown extends Command {
     if (RobotContainer.currentElevatorState != ElevatorState.DOWN) {
       RobotContainer.currentElevatorState = ElevatorState.DOWN;
     }
-    elevatorSubsystem.pidController.setTolerance(elevatorSubsystem.errorTolerance);
   }
 
   // Returns true when the command should end.

@@ -4,11 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.Elevator.ElevatorDown;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -28,6 +31,15 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent()) {
+      if (alliance.get() == Alliance.Blue) {
+        RobotContainer.m_swerveDrive.resetOdometry(new Pose2d(0, 0, new Rotation2d(Math.toRadians(180))));
+      }
+      else {
+        RobotContainer.m_swerveDrive.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
+      }
+    }
   }
 
   /**
@@ -48,7 +60,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -70,8 +83,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    ElevatorDown elevatorDown = new ElevatorDown(RobotContainer.m_elevator);
-    elevatorDown.schedule();
+    // ElevatorDown elevatorDown = new ElevatorDown(RobotContainer.m_elevator);
+    // elevatorDown.schedule();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

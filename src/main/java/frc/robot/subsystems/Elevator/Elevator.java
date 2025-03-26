@@ -11,6 +11,7 @@ import frc.robot.subsystems.Elevator.ElevatorIO.ElevatorIOInputs;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ElevatorState;
@@ -24,13 +25,13 @@ public class Elevator extends SubsystemBase {
   private final double maxAcceleration = ElevatorTrapezoid.maxAcceleration;
 
   // PID and Feedforward constants
-  private static final double kP = 3.5;
+  private static final double kP = 4.2;
   private static final double kI = 0.5;
   private static final double kD = 0.0;
   private static final double kS = ((1.2 - 0.1) / 2);   // Static
   private static final double kV = 0.0;   // Velocity
   private static final double kG = (1.2 + 0.1) / 2;  // Gravity
-  public double errorTolerance = 0.1;
+  public double errorTolerance = 0.15;
 
   public ProfiledPIDController pidController;
   public ElevatorFeedforward feedforward;
@@ -88,8 +89,11 @@ public class Elevator extends SubsystemBase {
     if (pidController.atSetpoint() && RobotContainer.currentElevatorState == ElevatorState.DOWN) {
       setPosition(0.0);
     }
-
+    
     double voltage = pidOutput + feedforwardOutput;
+    if (pidController.getGoal().position == 0.0 && pidController.atSetpoint()){
+      voltage = 0.0;
+    }
     io.set(voltage);
 
   }
@@ -125,17 +129,18 @@ public class Elevator extends SubsystemBase {
       isAtSetpoint = false;
     }
     if (!isManualControl){
-      if (!isAtSetpoint){
-        moveToPosition();
+      moveToPosition();
+      if (pidController.getGoal().position == 0.0 && pidController.atSetpoint()){
+        io.stop();
       }
-      else {
-        if (RobotContainer.currentElevatorState == ElevatorState.DOWN){
-          io.stop();
-        }
-        else {
-          io.set(kG);
-        }
-      }
+      // else {
+      //   // if (RobotContainer.currentElevatorState == ElevatorState.DOWN){
+      //   //   io.stop();
+      //   // }
+      //   // else {
+      //   //   io.set(kG);
+      //   // }
+      // }
     }
     else {
     double controlOutput = MathUtil.applyDeadband(RobotContainer.m_operatorController.getLeftY() * -1, 0.05) * 2;

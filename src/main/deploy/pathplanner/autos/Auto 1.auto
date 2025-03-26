@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BeginningBottomF"
+            "pathName": "BeginningBottomE"
           }
         },
         {
@@ -34,6 +34,12 @@
                 }
               },
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "ShootCoral"
@@ -55,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BotStation_RetreiveF"
+                  "pathName": "BotStation_RetreiveE"
                 }
               }
             ]
@@ -64,7 +70,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.6
+            "waitTime": 1.0
           }
         },
         {
@@ -93,59 +99,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "ShootCoral"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ElevatorDown"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "BotStation_RetreiveC"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "wait",
           "data": {
-            "waitTime": 1.6
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BotStation_PlaceD"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ElevatorL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "RetrieveCoral"
-                }
-              }
-            ]
+            "waitTime": 0.5
           }
         },
         {

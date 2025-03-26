@@ -40,12 +40,12 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = 4;
+  public        double      maximumSpeed = 3;
   public double scaleMaximumSpeed = maximumSpeed;
   /**
    * Maximum rotational speed of the robot in radians per second, used to limit acceleration.
    */
-  public        double      maximumRotationSpeed = Math.toRadians(400);
+  public        double      maximumRotationSpeed = Math.toRadians(300);
   public double scaleMaximumRotationSpeed = maximumRotationSpeed;
   /**
    * Robot configuration gathered from pathplanner
@@ -162,7 +162,7 @@ public class SwerveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     // When vision is enabled we must manually update odometry in SwerveDrive
     LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getOdometryHeading().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
-                                           swerveDrive.getPitch().getDegrees(), 0.0, 0.0, 0.0);
+                                           0.0, 0.0, 0.0, 0.0);
 
     if (lastElevatorState != RobotContainer.currentElevatorState){
       switch (RobotContainer.currentElevatorState){
@@ -173,7 +173,7 @@ public class SwerveSubsystem extends SubsystemBase {
          swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
          break;
        case L1:
-         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 0.9, maximumRotationSpeed * 0.9);
+         swerveDrive.setMaximumAllowableSpeeds(maximumSpeed * 1.0, maximumRotationSpeed * 1.0);
          scaleMaximumSpeed = maximumSpeed * 1.0;
          scaleMaximumRotationSpeed = maximumRotationSpeed * 1.0;
          swerveDrive.swerveController.setMaximumChassisAngularVelocity(scaleMaximumRotationSpeed);
@@ -204,7 +204,7 @@ public class SwerveSubsystem extends SubsystemBase {
      }
     }
 
-    SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getOdometryHeading().getDegrees() + 180);
+    SmartDashboard.putNumber("Robot absolute degree", swerveDrive.getPitch().getDegrees());
     if (getCurrentCommand() != null) {
       SmartDashboard.putString("Current swerve command", getCurrentCommand().getName());
     }
@@ -212,7 +212,7 @@ public class SwerveSubsystem extends SubsystemBase {
     if (getDefaultCommand() != null){
       SmartDashboard.putString("Default swerve command", getDefaultCommand().getName());
     }
-    if (visionDriveTest)
+    if (visionDriveTest && DriverStation.isDisabled() == false)
      {
        swerveDrive.updateOdometry();
        if (!RobotContainer.m_limelight.doRejectUpdate){

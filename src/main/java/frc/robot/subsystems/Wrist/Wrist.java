@@ -35,7 +35,7 @@ public class Wrist extends SubsystemBase {
 
 
   private final PIDController pidController = new PIDController(kP, kI, kD);
-  private final ArmFeedforward feedforward = new ArmFeedforward(kS, kG * 1.1, kV);
+  public final ArmFeedforward feedforward = new ArmFeedforward(kS, kG * 1.1, kV);
 
   public boolean isAtRest = true;
   /** Creates a new Wrist. */
