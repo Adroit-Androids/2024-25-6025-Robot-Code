@@ -6,7 +6,7 @@ package frc.robot.commands.SwerveDrive.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.SwerveDrive.DriveTillSetTime;
-import frc.robot.commands.SwerveDrive.Apriltag.TargetPoseAllignment;
+import frc.robot.commands.SwerveDrive.TargetPoseAllignment;
 import frc.robot.subsystems.Limelight.Limelight;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 
