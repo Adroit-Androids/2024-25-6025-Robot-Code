@@ -32,7 +32,7 @@ public class AbsoluteDrive extends Command {
   }
 
     /**
-   * Command to drive the robot using translative values and heading as a setpoint
+   * Function to get robot chassis speeds using translative values and heading as a setpoint
    * 
    * @param translationX translation in x direction
    * @param translationY translation in y direction

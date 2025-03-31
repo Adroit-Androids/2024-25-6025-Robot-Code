@@ -32,6 +32,13 @@ public class TurnDrive extends Command {
     this.robotController = m_driverController;
   }
 
+    /**
+   * Function to get the chassis speeds according to joystick values
+   * 
+   * @param translationX translation in x direction
+   * @param translationY translation in y direction
+   * @param angularVelocity turn velocity 
+   */
     public ChassisSpeeds getChassisSpeeds(double translationX, double translationY, double angularVelocity){ 
       if (DriverStation.getAlliance().get() == Alliance.Red){
         translationX *= -1;

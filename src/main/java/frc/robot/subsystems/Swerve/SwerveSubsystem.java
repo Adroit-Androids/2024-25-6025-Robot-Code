@@ -165,6 +165,7 @@ public class SwerveSubsystem extends SubsystemBase {
     LimelightHelpers.SetRobotOrientation("limelight", swerveDrive.getOdometryHeading().getDegrees(), Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond),
                                            0.0, 0.0, 0.0, 0.0);
 
+    // Change max speed according to elevator state
     if (lastElevatorState != RobotContainer.currentElevatorState){
       switch (RobotContainer.currentElevatorState){
         case DOWN:
