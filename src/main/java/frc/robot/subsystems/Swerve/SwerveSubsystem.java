@@ -54,7 +54,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * Enable vision odometry updates while driving.
    */
-  public final boolean             visionDriveTest     =  true;
+  public boolean             visionDriveTest     =  true;
   
   /**
    * Innitialive {@link SwerveDrive} with the directory provided
@@ -76,6 +76,7 @@ public class SwerveSubsystem extends SubsystemBase {
       throw new RuntimeException(e);
     }
     if (Robot.isSimulation()){
+      visionDriveTest = false;
       resetOdometry(new Pose2d(5, 7.5, new Rotation2d()));
       swerveDrive.setHeadingCorrection(false);
       swerveDrive.setCosineCompensator(false);

@@ -77,7 +77,7 @@ public class RobotContainer {
   public static final Endgame m_endgame = new Endgame();
   public static final Elevator m_elevator = new Elevator(new ElevatorIOHardware());
   public static final Wrist m_wrist = new Wrist();
-  public static final Limelight m_limelight = new Limelight(m_swerveDrive);
+  public static  Limelight m_limelight;
   public static final Intake m_intake = new Intake(new IntakeIOHardware());
   // public static final MusicPlayer m_musicPlayer = new MusicPlayer();
   // public static final intake m_intake = new intake(new IntakeIO());
@@ -91,6 +91,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    if (Robot.isReal()){
+      m_limelight = new Limelight(m_swerveDrive);
+}    
     // // Configure named commands
     registerNamedCOmmands();
 
@@ -144,10 +147,11 @@ public class RobotContainer {
     //    FORWARD DISTANCE GIVEN INTO THE COMMAND MUST BE NEGATIVE 
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAXş
     //
-    m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
-    m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
-    m_driverController.triangle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
-
+    if (Robot.isReal()){
+      m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
+      m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
+      m_driverController.triangle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
+}
 
     m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
     m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
