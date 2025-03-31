@@ -69,52 +69,15 @@ public class TargetPoseAllignment extends Command {
   @Override
   public void initialize() {
     targetedTagId = m_limelight.currentApriltagID;
-    // for (double i :validIDs){
-    //   if (m_limelight.currentApriltagID == i){
-    //     isValidID = true;
-    //     RobotContainer.currentTargetID = m_limelight.currentApriltagID;
-    //   }
-    // }
     leftVelocityController.setSetpoint(targetLeft);
     forwardVelocityController.setSetpoint(targetForward);
     angleVelocityController.setSetpoint(0.0);
-
-    // if (isValidID){
-
-    //   if (m_limelight.currentApriltagID == 21 || m_limelight.currentApriltagID == 7){
-    //     targetAngle = 0;
-    //   }
-    //   if (m_limelight.currentApriltagID == 22 || m_limelight.currentApriltagID == 6){
-    //     targetAngle = 60;
-    //   }
-    //   if (m_limelight.currentApriltagID == 17 || m_limelight.currentApriltagID == 11){
-    //     targetAngle = 120;
-    //   }
-    //   if (m_limelight.currentApriltagID == 18 || m_limelight.currentApriltagID == 10){
-    //     targetAngle = 180;
-    //   }
-    //   if (m_limelight.currentApriltagID == 19 || m_limelight.currentApriltagID == 9){
-    //     targetAngle = 240;
-    //   }
-    //   if (m_limelight.currentApriltagID == 20 || m_limelight.currentApriltagID == 8){
-    //     targetAngle = 300;
-    //   }
-    // }
-
   }
   
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     fidicualPose = m_limelight.getTargetPose2d();
-
-
-
-    // angleError = targetAngle - currentAngle;
-    // pAdjustment = angleError * kP;
-    // if (angleError < -180){
-    //   angleError += 360;
-    // }
 
     if (m_limelight.currentApriltagID == -1 && lastTimerStartedState == false) {
       timerStarted = true;
@@ -128,16 +91,6 @@ public class TargetPoseAllignment extends Command {
       timer = 0;
     }
 
-    // if (m_limelight.currentApriltagID == RobotContainer.currentTargetID){
-    //   RobotContainer.lastReadTxTarget = m_limelight.tx;
-    // }
-    // if (!xVelocityController.atSetpoint()){
-    //   xTranslation = xVelocityController.calculate(fidicualPose[2], targetY);
-    // }
-
-    // if (!yVelocityController.atSetpoint()) {
-    //   yTranslation = yVelocityController.calculate(fidicualPose[0], targetX);
-    // }
   if (targetedTagId == m_limelight.currentApriltagID){
     if (fidicualPose[2] != 0){
         xTranslation = forwardVelocityController.calculate(fidicualPose[2]);
@@ -148,54 +101,8 @@ public class TargetPoseAllignment extends Command {
     }
     thetaTranslation = angleVelocityController.calculate(fidicualPose[4]);
   }
-  // if (Math.abs(xTranslation) > 0.5){
-  //   xTranslation = 0.5 * Math.signum(xTranslation);
-  // }
-  // if (Math.abs(yTranslation) > 0.5){
-  //   yTranslation = 0.5 * Math.signum(yTranslation);
-  // }
-  
-  // if (Math.abs(xTranslation) < 0.1){
-  //   xTranslation = 0.1 * Math.signum(xTranslation);
-  // }
-  // if (Math.abs(yTranslation) < 0.1){
-  //   yTranslation = 0.1 * Math.signum(yTranslation);
-  // }
+    swerveDrive.drive(new ChassisSpeeds(xTranslation, -yTranslation,-Math.toRadians(thetaTranslation)));
 
-  // if (Math.abs(yTranslation) < 0.05) {
-  //   yTranslation = 0.05 * Math.signum(yTranslation);
-  // }
-
-  
-  // if (Math.abs(xTranslation) < 0.05) {
-  //   xTranslation = 0.05 * Math.signum(xTranslation);
-  // }
-
-
-  // if (Math.abs(thetaTranslation) > 50){
-  //   thetaTranslation = 50 * Math.signum(thetaTranslation);
-  // }
-  
-
-  // if (forwardVelocityController.atSetpoint()) {
-  //   xTranslation = 0;
-  // }
-  // if (leftVelocityController.atSetpoint()){
-  //   yTranslation = 0;
-  // }
-    // swerveDrive.drive(new Translation2d(0 * -xTranslation, -yTranslation),
-    //                   0 * Math.toRadians(pAdjustment),
-    //                   false, false);
-    // if (forwardVelocityController.atSetpoint() && leftVelocityController.atSetpoint()) {
-    //   kP = 5.0;
-    //   swerveDrive.drive(new ChassisSpeeds(0.0, 0.0, -Math.toRadians(pAdjustment)));
-    // }
-    // else {
-      // if (Math.abs(angleError) < 2.0) {
-      //   pAdjustment = 0;
-      // }
-      swerveDrive.drive(new ChassisSpeeds(xTranslation, -yTranslation,-Math.toRadians(thetaTranslation)));
-    // }
 
 
     lastTimerStartedState = timerStarted;

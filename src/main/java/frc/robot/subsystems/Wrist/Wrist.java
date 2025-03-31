@@ -25,7 +25,7 @@ public class Wrist extends SubsystemBase {
 
   public double targetAngle = 90;
 
-    // PID and Feedforward constants
+  // PID and Feedforward constants
   private static final double kP = 0.04;
   private static final double kI = 0.0;
   private static final double kD = 0.003;
@@ -50,8 +50,6 @@ public class Wrist extends SubsystemBase {
 
     wristMotor.setPosition(0);
     pidController.setTolerance(3);
-    //targetAngle = getDegree();
-    //setDefaultCommand(new WristControl(this, RobotContainer.m_operatorController));
   }
 
   public double moveToDegree(){
@@ -79,12 +77,6 @@ public class Wrist extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // if (!pidController.atSetpoint()){
-    //   setWristVoltage(moveToDegree());
-    // }
-    // else {
-    //   setWristVoltage(feedforward.calculate(Math.toRadians(getDegree()), 1));
-    // }
     setWristVoltage(moveToDegree());
 
     // This method will be called once per scheduler run

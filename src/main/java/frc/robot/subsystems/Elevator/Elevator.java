@@ -97,7 +97,6 @@ public class Elevator extends SubsystemBase {
 
   }
 
-//SysIdRoutine routine = new SysIdRoutine(null, null);
 
   public void movetoVelocity(double velocity) {
   double feedforwardOutput = feedforward.calculate(velocity);
@@ -132,14 +131,6 @@ public class Elevator extends SubsystemBase {
       if (pidController.getGoal().position == 0.0 && pidController.atSetpoint()){
         io.stop();
       }
-      // else {
-      //   // if (RobotContainer.currentElevatorState == ElevatorState.DOWN){
-      //   //   io.stop();
-      //   // }
-      //   // else {
-      //   //   io.set(kG);
-      //   // }
-      // }
     }
     else {
     double controlOutput = MathUtil.applyDeadband(RobotContainer.m_operatorController.getLeftY() * -1, 0.05) * 2;
