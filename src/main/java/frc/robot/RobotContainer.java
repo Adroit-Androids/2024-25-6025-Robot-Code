@@ -137,8 +137,8 @@ public class RobotContainer {
     //Driver Controls:
 
       //FieldRelative
-    m_driverController.L3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
-    m_driverController.R3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
+    // m_driverController.L3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
+    // m_driverController.R3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
     //   //Coral Allignment 
@@ -157,8 +157,8 @@ public class RobotContainer {
     m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
     m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
-    m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
-    m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    // m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
+    // m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
     m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
 
@@ -171,12 +171,12 @@ public class RobotContainer {
     m_operatorController.back().onTrue(new ElevatorCoralStuck(m_elevator));
     
         //Operator Controls:
-    m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
-    m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 45));
-    m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 17));
+    // m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
+    // m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 45));
+    // m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 17));
     m_driverController.cross().whileTrue(new ShootCoral(m_intake, 0.5));
     m_driverController.cross().onFalse(new ElevatorDown(m_elevator));
-    m_driverController.R1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 7));
+    // m_driverController.R1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 7));
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 

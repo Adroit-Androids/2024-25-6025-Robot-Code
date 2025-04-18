@@ -54,7 +54,7 @@ public final class Constants {
   }
 
   public static class ElevatorTrapezoid {
-    public static final double maxVelocity = 6.0;
+    public static final double maxVelocity = 3.0;
     public static final double maxAcceleration = 7.0;
   }
 
