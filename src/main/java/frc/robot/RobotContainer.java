@@ -14,9 +14,8 @@ import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
-import frc.robot.commands.Intake.IntakeAlgea;
-import frc.robot.commands.Intake.ShootAlgea;
-import frc.robot.commands.Intake.ShootCoral;
+//import frc.robot.commands.Intake.IntakeAlgea;
+//import frc.robot.commands.Intake.ShootCoral;
 import frc.robot.commands.Intake.ShootCoralSetTime;
 import frc.robot.commands.Elevator.ElevatorL4;
 import frc.robot.commands.Elevator.ElevatorNet;
@@ -47,7 +46,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
+//import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -66,8 +65,8 @@ public class RobotContainer {
   public static boolean allignmentCommandTimerEnded = false;
 
   // Replace with CommandXboxController or CommandJoystick if needed
-  public static final CommandPS5Controller m_driverController =
-      new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
+  public static final CommandXboxController m_driverController =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort);
   
   public static final CommandXboxController m_operatorController=
       new CommandXboxController(OperatorConstants.kOperatorControllerPort);
@@ -148,39 +147,39 @@ public class RobotContainer {
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAXş
     //
     if (Robot.isReal()){
-      m_driverController.circle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
-      m_driverController.square().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
-      m_driverController.triangle().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
+      m_driverController.b().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
+      m_driverController.x().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
+      m_driverController.a().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
 }
 
-    m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
-    m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
-    m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
-    m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    //m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
+    //m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    //m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
+    //m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     // m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
     // m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
-    m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
-    m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    //m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
+    //m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
 
-    m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
-    m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
-    m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
-    m_operatorController.povRight().onTrue(new ElevatorNet(m_elevator));
-    m_operatorController.povRight().onTrue(new SetWristAngle(m_wrist, 100));
+    //m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
+    //m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
+    //m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
+    //m_operatorController.povRight().onTrue(new ElevatorNet(m_elevator));
+    //m_operatorController.povRight().onTrue(new SetWristAngle(m_wrist, 100));
 
-    m_operatorController.back().onTrue(new ElevatorCoralStuck(m_elevator));
+    //m_operatorController.back().onTrue(new ElevatorCoralStuck(m_elevator));
     
         //Operator Controls:
     // m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
     // m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 45));
     // m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 17));
-    m_driverController.cross().whileTrue(new ShootCoral(m_intake, 0.5));
-    m_driverController.cross().onFalse(new ElevatorDown(m_elevator));
+      //m_driverController.povUp().whileTrue(new ShootCoral(m_intake, 0.5));
+      //m_driverController.povDown().onFalse(new ElevatorDown(m_elevator));
     // m_driverController.R1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 7));
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 
-    m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
+    //m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
 
     // m_operatorController.rightTrigger(0.1).whileTrue(new RepeatCommand(new EndgameUp(m_endgame, m_operatorController.getRightTriggerAxis())));
     // m_operatorController.leftTrigger(0.1).whileTrue(new RepeatCommand(new EndgameDown(m_endgame, m_operatorController.getRightTriggerAxis())));
@@ -231,7 +230,7 @@ public class RobotContainer {
         //Coral Drop
 
         //Debug
-      m_driverController.touchpad().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(m_swerveDrive.getPose().getX(), m_swerveDrive.getPose().getY(), new Rotation2d(Math.toRadians(180))))));
+      m_driverController.rightBumper().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(m_swerveDrive.getPose().getX(), m_swerveDrive.getPose().getY(), new Rotation2d(Math.toRadians(180))))));
   }
 
   /**
