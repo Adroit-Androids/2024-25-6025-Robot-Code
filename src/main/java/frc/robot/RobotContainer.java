@@ -6,12 +6,12 @@ package frc.robot;
 
 import frc.robot.Constants.ElevatorState;
 import frc.robot.Constants.OperatorConstants;
-//import frc.robot.commands.Elevator.ELevatorEnableManualControl;
+import frc.robot.commands.Elevator.ELevatorEnableManualControl;
 import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorL1;
 import frc.robot.commands.Elevator.ElevatorL2;
 import frc.robot.commands.Elevator.ElevatorL3;
-//import frc.robot.commands.Intake.IntakeAlgea;
+import frc.robot.commands.Intake.IntakeAlgea;
 //import frc.robot.commands.Intake.ShootCoral;
 import frc.robot.commands.Intake.ShootCoralSetTime;
 import frc.robot.commands.Elevator.ElevatorL4;
@@ -19,7 +19,7 @@ import frc.robot.commands.Elevator.ElevatorL4;
 import frc.robot.commands.SwerveDrive.AbsoluteDrive;
 import frc.robot.commands.SwerveDrive.TurnDrive;
 import frc.robot.commands.SwerveDrive.CommandGroups.ReefAllignment;
-//import frc.robot.commands.Wrist.SetWristAngle;
+import frc.robot.commands.Wrist.SetWristAngle;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 import frc.robot.subsystems.Wrist.Wrist;
 import frc.robot.subsystems.Elevator.Elevator;
@@ -28,6 +28,8 @@ import frc.robot.subsystems.Endgame.Endgame;
 import frc.robot.subsystems.Intake.IntakeIOHardware;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Limelight.Limelight;
+import frc.robot.commands.Elevator.ElevatorAlgea1;
+import frc.robot.commands.Elevator.ElevatorAlgea2;
 
 import java.io.File;
 
@@ -76,7 +78,6 @@ public class RobotContainer {
   public static  Limelight m_limelight;
   public static final Intake m_intake = new Intake(new IntakeIOHardware());
   // public static final MusicPlayer m_musicPlayer = new MusicPlayer();
-  // public static final intake m_intake = new intake(new IntakeIO());
   
   public static final AbsoluteDrive absoluteDriveCommand = new AbsoluteDrive(m_swerveDrive, m_driverController);
   public static final TurnDrive turnDriveCommand = new TurnDrive(m_swerveDrive, m_driverController);
@@ -133,8 +134,8 @@ public class RobotContainer {
     //Driver Controls:
 
       //FieldRelative
-    // m_driverController.L3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
-    // m_driverController.R3().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
+    m_driverController.leftBumper().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(absoluteDriveCommand)));
+    m_driverController.rightBumper().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.setDefaultCommand(turnDriveCommand)));
       //PoseLock
 
     //   //Coral Allignment 
@@ -149,34 +150,36 @@ public class RobotContainer {
       m_driverController.a().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
 }
 
-    //m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
+    m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
     //m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
-    //m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
+    m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
     //m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
-    // m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
+    m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
     // m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
-    //m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
+    m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
     //m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
 
-    //m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
-    //m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
-    //m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
+    m_operatorController.povUp().onTrue(new ElevatorAlgea2(m_elevator));
+    m_operatorController.povDown().onTrue(new ElevatorAlgea1(m_elevator));
+    m_operatorController.povLeft().onTrue(new ElevatorDown(m_elevator));
     //m_operatorController.povRight().onTrue(new ElevatorNet(m_elevator));
-    //m_operatorController.povRight().onTrue(new SetWristAngle(m_wrist, 100));
+    m_operatorController.povRight().onTrue(new SetWristAngle(m_wrist, 100));
 
     //m_operatorController.back().onTrue(new ElevatorCoralStuck(m_elevator));
     
         //Operator Controls:
     // m_driverController.R2().whileTrue(new ShootAlgea(m_intake));
-    // m_driverController.L2().whileTrue(new IntakeAlgea(m_intake, m_wrist, 45));
-    // m_driverController.L1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 17));
+     m_driverController.rightTrigger().whileTrue(new IntakeAlgea(m_intake, m_wrist, 45));
+     m_driverController.leftTrigger().whileTrue(new IntakeAlgea(m_intake, m_wrist, 17));
       //m_driverController.povUp().whileTrue(new ShootCoral(m_intake, 0.5));
       //m_driverController.povDown().onFalse(new ElevatorDown(m_elevator));
     // m_driverController.R1().whileTrue(new IntakeAlgea(m_intake, m_wrist, 7));
     // m_driverController.rightBumper().onFalse(new ElevatorDown(m_elevator));
 
 
-    //m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
+    m_operatorController.leftStick().onTrue(new ELevatorEnableManualControl(m_elevator));
+
+    // ALL ENDGAME COMMANDS ARE DEPRECATED
 
     // m_operatorController.rightTrigger(0.1).whileTrue(new RepeatCommand(new EndgameUp(m_endgame, m_operatorController.getRightTriggerAxis())));
     // m_operatorController.leftTrigger(0.1).whileTrue(new RepeatCommand(new EndgameDown(m_endgame, m_operatorController.getRightTriggerAxis())));
@@ -185,8 +188,10 @@ public class RobotContainer {
     // m_operatorController.rightBumper().whileTrue(new EndgameUp(m_endgame, 0.5));
     // m_operatorController.leftBumper().whileTrue(new EndgameUp(m_endgame, -0.5));
 
+    //
+
     //     // L1 state
-    // m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
+    //m_operatorController.a().onTrue(new ElevatorL1(elevatorSubsystem));
 
     //     // L2 state
     // m_operatorController.x().onTrue(new ElevatorL2(elevatorSubsystem));
@@ -195,10 +200,10 @@ public class RobotContainer {
     // m_operatorController.y().onTrue(new ElevatorL3(elevatorSubsystem));
 
     //     // L4 state
-    // m_operatorController.b().onTrue(new ElevatorL0(elevatorSubsystem));
+     //m_operatorController.b().onTrue(new ElevatorL0(elevatorSubsystem));
 
     //     // Elevator Down State
-    // m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));
+     //m_operatorController.start().onTrue(new ElevatorDown(elevatorSubsystem));
 
     
 
@@ -227,7 +232,7 @@ public class RobotContainer {
         //Coral Drop
 
         //Debug
-      m_driverController.rightBumper().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(m_swerveDrive.getPose().getX(), m_swerveDrive.getPose().getY(), new Rotation2d(Math.toRadians(180))))));
+      m_driverController.leftTrigger().onTrue(m_swerveDrive.runOnce(() -> m_swerveDrive.resetOdometry(new Pose2d(m_swerveDrive.getPose().getX(), m_swerveDrive.getPose().getY(), new Rotation2d(Math.toRadians(180))))));
   }
 
   /**

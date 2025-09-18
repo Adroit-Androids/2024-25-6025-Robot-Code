@@ -23,7 +23,7 @@ public final class Constants {
 
   public static class MotorIds {
     public static final int kIntakeMotor = 9;
-    public static final int kAlgeaWristMotor = 10;
+    public static final int kAlgeaWristMotor = 13;
 
     public static final int kElevatorLeadMotor = 15;
     public static final int kElevatorFollowMotor = 16;
