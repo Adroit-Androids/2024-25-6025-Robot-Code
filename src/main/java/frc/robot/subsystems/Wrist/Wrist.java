@@ -26,12 +26,12 @@ public class Wrist extends SubsystemBase {
   public double targetAngle = 90;
 
   // PID and Feedforward constants
-  private static final double kP = 0.04;
+  private static final double kP = 0.037;
   private static final double kI = 0.0;
-  private static final double kD = 0.003;
-  private static final double kS = (0.43 - 0.41) / 2;   // Static
+  private static final double kD = 0.0011;
+  private static final double kS = (0.58 - 0.64) / 2;   // Static
   private static final double kV = 0.0;   // Velocity
-  private static final double kG = (0.43 + 0.41) / 2;  // Gravity
+  private static final double kG = (0.58 + 0.64) / 2;  // Gravity
 
 
   private final PIDController pidController = new PIDController(kP, kI, kD);

@@ -42,8 +42,8 @@ public class TurnDrive extends Command {
    */
     public ChassisSpeeds getChassisSpeeds(double translationX, double translationY, double angularVelocity){ 
       if (DriverStation.getAlliance().get() == Alliance.Red){
-        translationX *= -1;
-        translationY *= -1;
+        translationX *= 1;
+        translationY *= 1;
       }
     
     Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(MathUtil.applyDeadband(-translationY, OperatorConstants.kLeftJoystickDeadband),

@@ -49,7 +49,7 @@ public final class Constants {
     L2,
     L3,
     L4,
-    Net,
+    NET,
     DOWN
   }
 
@@ -57,5 +57,4 @@ public final class Constants {
     public static final double maxVelocity = 3.0;
     public static final double maxAcceleration = 7.0;
   }
-
 }

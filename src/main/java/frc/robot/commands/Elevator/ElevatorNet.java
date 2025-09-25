@@ -25,7 +25,7 @@ public class ElevatorNet extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.currentElevatorState = ElevatorState.Net;
+    RobotContainer.currentElevatorState = ElevatorState.NET;
     m_elevator.setPosition(Constants.ElevatorHeights.netAlgea);
   }
 
