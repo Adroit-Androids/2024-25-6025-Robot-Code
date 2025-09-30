@@ -24,11 +24,12 @@ public class Wrist extends SubsystemBase {
   public final double encoderOffset = 104;
 
   public double targetAngle = 90;
+  public boolean hasCommandRunning;
 
   // PID and Feedforward constants
-  private static final double kP = 0.037;
+  private static final double kP = 0.03957129;
   private static final double kI = 0.0;
-  private static final double kD = 0.0011;
+  private static final double kD = 0.0020762;
   private static final double kS = (0.58 - 0.64) / 2;   // Static
   private static final double kV = 0.0;   // Velocity
   private static final double kG = (0.58 + 0.64) / 2;  // Gravity
@@ -80,6 +81,7 @@ public class Wrist extends SubsystemBase {
     setWristVoltage(moveToDegree());
 
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Wrist has command running", hasCommandRunning);
     SmartDashboard.putNumber("Wrist raw encoder", wristMotor.getPosition().getValue().in(Degrees));
     SmartDashboard.putNumber("Wrist target", targetAngle);
     SmartDashboard.putNumber("Wrist Degree", getDegree());
