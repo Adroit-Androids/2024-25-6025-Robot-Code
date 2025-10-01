@@ -56,11 +56,15 @@ public class ElevatorIOHardware implements ElevatorIO {
     return leadMotor.getEncoder().getVelocity();
   }
 
-  public double getVoltage() {
-    // Get the voltage from the motor
+  public double getLeadVoltage() {
+    // Get the voltage from the lead motor
     return leadMotor.getBusVoltage();
   }
 
+  public double getFollowerVoltage(){
+    // Get the voltage from the follower motor
+    return followerMotor.getBusVoltage();
+  }
 
   public void resetPosition() {
     // Reset the encoder to the specified position

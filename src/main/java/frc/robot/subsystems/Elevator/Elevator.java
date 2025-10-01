@@ -155,7 +155,8 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Elevator velocity meter", getVelocity());
     SmartDashboard.putNumber("Elevator encoder value", RobotContainer.m_endgame.getElevatorPosition());
     SmartDashboard.putNumber("Elevator setpoint", pidController.getGoal().position);
-    SmartDashboard.putNumber("Elevator voltage", io.getVoltage());
+    SmartDashboard.putNumber("Elevator lead voltage", io.getLeadVoltage());
+    SmartDashboard.putNumber("Elevator follower voltage", io.getFollowerVoltage());
     SmartDashboard.putNumber("Elevator pid output", pidController.calculate(getPosition(), targetPosition));
     SmartDashboard.putBoolean("Elevator at setpoint", isAtSetpoint);
     SmartDashboard.putNumber("Elevator feedforward output", feedforward.calculate(pidController.getSetpoint().velocity));

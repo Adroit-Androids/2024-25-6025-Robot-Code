@@ -149,9 +149,9 @@ public class RobotContainer {
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAXş
     //
     if (Robot.isReal()){
-      m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
-      //m_driverController.x().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
-      m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
+      m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
+      m_driverController.rightBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
+      //m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
     }
     
     //m_driverController.x().whileTrue(new IntakeAlgea(m_intake, m_wrist, 45));

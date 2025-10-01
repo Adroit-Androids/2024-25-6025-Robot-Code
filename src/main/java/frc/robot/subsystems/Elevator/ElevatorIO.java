@@ -34,7 +34,13 @@ public interface ElevatorIO {
        return 0;
      }
 
-     public default double getVoltage() {
+    // Get the current voltage of the lead elevator motor
+     public default double getLeadVoltage() {
+      return 0;
+     }
+
+     // Get the  current voltage or the follower elevator motor
+     public default double getFollowerVoltage(){
       return 0;
      }
      
