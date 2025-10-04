@@ -42,10 +42,12 @@ public class Limelight extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void periodic() {  
     // This method will be called once per scheduler run
     limelightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(ll_table);
 
+    if(limelightPoseEstimate == null) {return;}
+    
     doRejectUpdate = false;
     if(Math.abs(Math.toDegrees(swerveDrive.getRobotVelocity().omegaRadiansPerSecond)) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {

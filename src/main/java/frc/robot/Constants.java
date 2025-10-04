@@ -36,7 +36,7 @@ public final class Constants {
     public static final double kL1Height = 3.65;
     public static final double kL2Height = 4.5;
     public static final double kL3Height = 6.55;
-    public static final double kL4Height = 9.7;
+    public static final double kL4Height = 9.69;
     public static final double kProcessorHeight = 0;
     public static final double firstAlgea = 2.75;
     public static final double secondAlgea = 4.55;
