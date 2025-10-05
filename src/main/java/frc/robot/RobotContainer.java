@@ -152,8 +152,8 @@ public class RobotContainer {
     //    AND THE LEFT DISTANCE SHOULD BE AROUND THE -0.25 +0.25 MAXş
     //
     if (Robot.isReal()){
-      m_driverController.L1().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
-      m_driverController.R1().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
+      m_driverController.R1().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.16, -1.25, 0.6, 1.6));
+      m_driverController.L1().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, -0.18, -0.8, 0.6, 1.0));
       //m_driverController.leftBumper().onTrue(new ReefAllignment(m_swerveDrive, m_limelight, 0.0, -0.9, 0.6, 1.0));
     }
     
@@ -170,13 +170,13 @@ public class RobotContainer {
     // Operator Controls:
     
     m_operatorController.a().onTrue(new ElevatorL1(m_elevator));
-    //m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    m_operatorController.a().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.x().onTrue(new ElevatorL2(m_elevator));
-    //m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    m_operatorController.x().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.y().onTrue(new ElevatorL4(m_elevator));
-    //m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    m_operatorController.y().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     m_operatorController.b().onTrue(new ElevatorL3(m_elevator));
-    //m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
+    m_operatorController.b().onTrue(new ShootCoralSetTime(m_intake, 0.2, 0.22));
     
     m_operatorController.povLeft().onTrue(new ELevatorEnableManualControl(m_elevator));
 

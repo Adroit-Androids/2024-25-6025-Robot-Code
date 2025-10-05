@@ -9,8 +9,8 @@
     "Waypoint Definitons"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 1.325,
-  "defaultMaxAccel": 3.05,
+  "defaultMaxVel": 1.317,
+  "defaultMaxAccel": 3.04,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
